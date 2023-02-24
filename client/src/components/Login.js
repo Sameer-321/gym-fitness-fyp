@@ -1,12 +1,16 @@
 import React from "react";
 
-export default function Login() {
+export default function Login(props) {
+
+  function handleClick(){
+    props.status(false)
+}
   return (
     <section className="bg-white dark:bg-gray-900">
       <div className="container flex items-center justify-center min-h-screen px-6 mx-auto">
         <div class="w-full max-w-sm p-6 m-auto mx-auto bg-white rounded-lg shadow-md dark:bg-gray-800">
           <form className="w-full max-w-md">
-            <div>
+            <div>   
               <label
                 for="username"
                 class="block text-sm text-gray-800 dark:text-gray-200"
@@ -78,7 +82,9 @@ export default function Login() {
             {" "}
             Don't have an account?{" "}
             <a
-              href="/register"
+            href="#"
+            onClick={handleClick}
+              
               class="font-medium text-gray-700 dark:text-gray-200 hover:underline"
             >
               Create One
