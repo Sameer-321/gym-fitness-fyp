@@ -1,6 +1,9 @@
 import React from "react";
 
-export default function Register() {
+export default function Register(props) {
+  function handleClick(){
+    props.status(true)
+}
   return (
     <section className="bg-white dark:bg-gray-900">
       <div className="container flex items-center justify-center min-h-screen px-6 mx-auto">
@@ -114,6 +117,7 @@ export default function Register() {
 
             <div className="mt-6 text-center ">
               <a
+              onClick={handleClick}
                 href="#"
                 className="text-sm text-blue-500 hover:underline dark:text-blue-400"
               >
