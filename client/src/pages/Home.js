@@ -6,7 +6,9 @@ export default function Home() {
   return (
     <>
     
-       <Video />
+       <Video   src="../video/video.mp4"
+        type="video/mp4"
+        />
       <Payment />
     </>
    
