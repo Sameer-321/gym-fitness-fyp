@@ -1,28 +1,22 @@
-import React from 'react';
-import Layout from './pages/Layout';
-import Payment from './components/Payment'
-import Test from './components/Test';
-import Home from './pages/Home';
-import Notfound from './pages/Notfound';
-import { Routes, Route } from 'react-router-dom';
-import Rough from './pages/Rough';
-import LoginRegister from './pages/LoginRegister';
+import React from "react";
+import Layout from "./pages/Layout";
+
+import Home from "./pages/Home";
+import Notfound from "./pages/Notfound";
+import { Routes, Route } from "react-router-dom";
+import LoginRegister from "./pages/LoginRegister";
 function App() {
   return (
     <div>
-        <Routes>
+      <Routes>
         <Route path="/" element={<Layout />}>
           <Route index element={<Home />} />
-          <Route path="/payment" element={<Payment />} /> 
-          <Route path="" />
-          <Route path="/login" element={<LoginRegister />} /> 
-          <Route path="/rough" element={<Rough />} /> 
-          <Route path="*" element={<Notfound />} /> 
+
+          <Route path="/login" element={<LoginRegister />} />
+
+          <Route path="*" element={<Notfound />} />
         </Route>
       </Routes>
-        
-      https://www.youtube.com/watch?v=gWIbT1fbLlA&t=4803s
-
     </div>
   );
 }

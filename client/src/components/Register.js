@@ -1,15 +1,41 @@
 import React from "react";
-
+import { useState } from "react";
+//import { useDispatch } from 'react-redux'
+import { register } from "../store/feature/auth/authActions";
 export default function Register(props) {
-  function handleClick(){
-    props.status(true)
-}
+  //const dispatch = useDispatch();
+  //const [disabled, setDisabled] = useState(true); //formaking the submit button clickable!...Happy coding..-keep going
+
+  const [info, setInfo] = useState({
+    name: "",
+    email: "",
+    password: "",
+  });
+  function handleSubmit(e) {
+    e.preventDefault();
+    register(info);
+  }
+  function handleChange(event) {
+    const { name, value } = event.target;
+    // info.password != info.confirmPassword
+    //   ? console.log("password not matched")
+    //   : console.log("submitted successfully");
+
+    setInfo((info) => ({
+      ...info,
+      [name]: value,
+    }));
+
+    // console.log(info);
+  }
+
+  function handleClick() {
+    props.status(true);
+  }
   return (
     <section className="bg-white dark:bg-gray-900">
       <div className="container flex items-center justify-center min-h-screen px-6 mx-auto">
         <form className="w-full max-w-md">
-
-
           <div className="relative flex items-center mt-8">
             <span className="absolute">
               <svg
@@ -23,15 +49,19 @@ export default function Register(props) {
                 <path
                   stroke-linecap="round"
                   stroke-linejoin="round"
+                  sadf
                   d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"
                 />
               </svg>
             </span>
 
             <input
-              type="text"
               className="block w-full py-3 text-gray-700 bg-white border rounded-lg px-11 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 dark:focus:border-blue-300 focus:ring-blue-300 focus:outline-none focus:ring focus:ring-opacity-40"
-              placeholder="Username"
+              placeholder="name"
+              name="name"
+              type="text"
+              value={info.name}
+              onChange={handleChange}
             />
           </div>
 
@@ -54,9 +84,12 @@ export default function Register(props) {
             </span>
 
             <input
-              type="email"
               className="block w-full py-3 text-gray-700 bg-white border rounded-lg px-11 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 dark:focus:border-blue-300 focus:ring-blue-300 focus:outline-none focus:ring focus:ring-opacity-40"
               placeholder="Email address"
+              name="email"
+              value={info.email}
+              type="email"
+              onChange={handleChange}
             />
           </div>
 
@@ -79,9 +112,12 @@ export default function Register(props) {
             </span>
 
             <input
-              type="password"
               className="block w-full px-10 py-3 text-gray-700 bg-white border rounded-lg dark:bg-gray-900 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 dark:focus:border-blue-300 focus:ring-blue-300 focus:outline-none focus:ring focus:ring-opacity-40"
               placeholder="Password"
+              name="password"
+              type="password"
+              value={info.password}
+              onChange={handleChange}
             />
           </div>
 
@@ -104,20 +140,27 @@ export default function Register(props) {
             </span>
 
             <input
-              type="password"
+              name="confirmPassword"
               className="block w-full px-10 py-3 text-gray-700 bg-white border rounded-lg dark:bg-gray-900 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 dark:focus:border-blue-300 focus:ring-blue-300 focus:outline-none focus:ring focus:ring-opacity-40"
               placeholder="Confirm Password"
+              type="password"
+              value={info.confirmPassword}
+              onChange={handleChange}
             />
           </div>
 
           <div className="mt-6">
-            <button className="w-full px-6 py-3 text-sm font-medium tracking-wide text-white capitalize transition-colors duration-300 transform bg-blue-500 rounded-lg hover:bg-blue-400 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-50">
+            <button
+              type="button"
+              onClick={handleSubmit}
+              className="w-full px-6 py-3 text-sm font-medium tracking-wide text-white capitalize transition-colors duration-300 transform bg-blue-500 rounded-lg hover:bg-blue-400 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-50"
+            >
               Sign Up
             </button>
 
             <div className="mt-6 text-center ">
               <a
-              onClick={handleClick}
+                onClick={handleClick}
                 href="#"
                 className="text-sm text-blue-500 hover:underline dark:text-blue-400"
               >

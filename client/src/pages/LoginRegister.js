@@ -6,6 +6,7 @@ function LoginRegister() {
   const [login, setLogin] = useState(true);
   const handleState= (change)=>{
     setLogin(change)
+   
   }
   const highLight =
     "w-1/3 pb-4 font-medium text-center text-gray-800 capitalize border-b-2 border-blue-500 dark:border-blue-400 dark:text-white";
@@ -14,10 +15,10 @@ function LoginRegister() {
   return (
     <section className="bg-white dark:bg-gray-900">
       <div className="container flex items-center justify-center min-h-screen px-6 mx-auto">
-        <div class="w-full max-w-sm p-6 m-auto mx-auto bg-white rounded-lg shadow-md dark:bg-gray-800">
-          <div class="flex justify-center mx-auto">
+        <div className="w-full max-w-sm p-6 m-auto mx-auto bg-white rounded-lg shadow-md dark:bg-gray-800">
+          <div className="flex justify-center mx-auto">
             <img
-              class="w-auto h-7 sm:h-8"
+              className="w-auto h-7 sm:h-8"
               src="https://merakiui.com/images/logo.svg"
               alt=""
             />
@@ -54,8 +55,8 @@ function LoginRegister() {
               </a>
             </div>
 
-            <div class="mt-4">
-              <div class="flex items-center justify-between">
+            <div className="mt-4">
+              <div className="flex items-center justify-between">
                 {login && <Login status={handleState}/>}
                 {!login && <Register status={handleState} />}
               </div>
