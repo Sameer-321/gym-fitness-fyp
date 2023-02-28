@@ -1,10 +1,11 @@
 import React from "react";
+import "./App.css";
 import Layout from "./pages/Layout";
-
 import Home from "./pages/Home";
 import Notfound from "./pages/Notfound";
 import { Routes, Route } from "react-router-dom";
 import LoginRegister from "./pages/LoginRegister";
+
 function App() {
   return (
     <div>
@@ -17,6 +18,7 @@ function App() {
           <Route path="*" element={<Notfound />} />
         </Route>
       </Routes>
+ 
     </div>
   );
 }

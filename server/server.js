@@ -1,33 +1,38 @@
-const express = require('express');
-const dotenv = require('dotenv');
-const morgan = require('morgan');
-const connectDB = require('./config/db');
-const colors = require('colors');
-const errorHandler = require('./middleware/error');
+const express = require("express");
+const dotenv = require("dotenv");
+const morgan = require("morgan");
+const connectDB = require("./config/db");
+const colors = require("colors");
+const errorHandler = require("./middleware/error");
+const cors = require("cors");
+const bodyParser = require("body-parser");
 
 //Load env vars
-dotenv.config({ path: './config/config.env' });
+dotenv.config({ path: "./config/config.env" });
 
 //connect to DB
 connectDB();
 
 //Routes files
-const bootcamps = require('./routes/bootcamps');
-const auth = require('./routes/auth');
+const bootcamps = require("./routes/bootcamps");
+const auth = require("./routes/auth");
 
 const app = express();
 
-//Body parser
-app.use(express.json());
+// parse application/json body parser
+app.use(bodyParser.json());
+
+// Enable cors
+app.use(cors());
 
 //Dev logging middleware
-if (process.env.NODE_ENV === 'development') {
-  app.use(morgan('dev'));
+if (process.env.NODE_ENV === "development") {
+  app.use(morgan("dev"));
 }
 
 //Mount routers
-app.use('/api/v1/bootcamps', bootcamps);
-app.use('/api/v1/auth', auth);
+app.use("/api/v1/bootcamps", bootcamps);
+app.use("/api/v1/auth", auth);
 
 app.use(errorHandler);
 
@@ -41,7 +46,7 @@ const server = app.listen(
 );
 
 //Handle unhandled rejections
-process.on('unhandledRejection', (err, promise) => {
+process.on("unhandledRejection", (err, promise) => {
   console.log(`error: ${err.message}`.red);
   //close server & exit process
   server.close(() => process.exit(1));

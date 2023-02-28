@@ -1,13 +1,20 @@
 import React from "react";
-import Video from "../components/Video";
-import Payment from "../components/Payment";
-import Footer from "../components/Footer";
+import Hero from "../components/UI/Hero";
+import Exercises from "../components/UI/Exercises";
+import Start from "../components/UI/Start";
+import Pricing from "../components/UI/Pricing";
+import Testimonials from "../components/UI/Testimonials";
+import Footer from "../components/UI/Footer";
+
 export default function Home() {
   return (
     <>
-      <Video />
-      <Payment />
-      <Footer/>
+      <Hero />
+      <Exercises />
+      <Start />
+      <Pricing />
+      <Testimonials />
+      <Footer />
     </>
   );
 }
