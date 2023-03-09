@@ -1,8 +1,7 @@
 import React, { useState,useRef,useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from 'react-redux'
-import { setCredentials } from "../features/auth/authSlice";
-import { useLoginUserMutation } from "../features/auth/authApiSlice";
+import { loginfetch,registerfetch } from "../features/auth/authFetch";
 
 
 export default function Login(props) {
@@ -12,29 +11,11 @@ export default function Login(props) {
 
   const [errMsg,setErrMsg]=useState('')
   const nav = useNavigate()
-  const [loginUser,{data,isError,error}] = useLoginUserMutation()
+
   const [info, setInfo] = useState({
     email: "",
     password: "",
   });
-
-  useEffect(()=>{
-    userRef.current.focus()
-  },[])
-  useEffect(()=>{
-    if(data.access_token)
-    {
-      localStorage.setItem(
-        "login",
-        JSON.stringify({
-          userLogin:true,
-          token:response.data.access_token
-        })
-       
-      ); setErrMsg("")
-    }
-   
-  },[data,isError])
 
   function handleClick() {
     props.status(false);
@@ -42,25 +23,8 @@ export default function Login(props) {
   const handleSubmit = async (e)=>{
     e.preventDefault();
     const {email,password}=info 
-    try{
-      const userData = await loginUser({email,password}).unwrap()
-      dispatch(setCredentials({...userData,email}))
-      setInfo({
-        email: "",
-        password: "",
-      })
-    
-      nav('/')
-    }catch(err){
-      if(!err?.response){
-        setErrMsg("NO Server Response")
-      }  else if(err?.response?.status===400){
-        setErrMsg("Missing Password or UserName")
-      } else if(err?.response?.status===401){
-        setErrMsg("UnAuthorized")
-      } 
-      console.log(setErrMsg)
-    }
+    dispatch(loginfetch(info))
+   
   }
   
   function handleChange(event) {
@@ -70,8 +34,6 @@ export default function Login(props) {
       [name]: value,
     }));
   }
-
-  // const content = isLoading ? <h1>Loading....</h1>:
 
   return (<>
 <section className="bg-white dark:bg-gray-900">

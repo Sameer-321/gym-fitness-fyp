@@ -5,8 +5,11 @@ import Home from "./pages/Home";
 import Notfound from "./pages/Notfound";
 import { Routes, Route } from "react-router-dom";
 import LoginRegister from "./pages/LoginRegister";
-import RequireAuth from "./features/auth/RequireAuth";
+// import { useSelector } from "react-redux";
+// import { isLoggedIn } from "./features/auth/authSlice";
 function App() {
+  // const select =useSelector(isLoggedIn)
+  // console.log(select)
   return (
     <div>
       <Routes>
@@ -17,10 +20,10 @@ function App() {
 
           <Route path="*" element={<Notfound />} />
           
-          //protected route
+          {/* //protected route
           <Route element={<RequireAuth/>} >
             <Route path="asdf" element/>
-          </Route>
+          </Route> */}
         </Route>
       </Routes>
  
