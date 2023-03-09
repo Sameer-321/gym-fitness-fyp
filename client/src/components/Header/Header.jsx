@@ -81,8 +81,11 @@ const Header = () => {
           </div>
 
           {/* =========== nav right ============ */}
-          <div className="nav__right">
-            <button className="register__btn">Register</button>
+          <div  className="nav__right">
+            <a href ="/login">
+              <button  className="register__btn">Register</button>
+            </a>
+            
             <span className="mobile__menu">
               <i className="ri-menu-line"></i>
             </span>
