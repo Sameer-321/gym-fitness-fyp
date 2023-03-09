@@ -107,7 +107,7 @@ exports.updatedetails = async (req, res, next) => {
   } catch (error) {
     next(error);
   }
-};
+}
 
 //@desc     Update password
 //@route    POST /api/v1/auth/updatepassword

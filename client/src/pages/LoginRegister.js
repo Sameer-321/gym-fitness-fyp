@@ -4,9 +4,8 @@ import Register from "../components/Register";
 import { useState } from "react";
 function LoginRegister() {
   const [login, setLogin] = useState(true);
-  const handleState= (change)=>{
+  const handleState = (change) => {
     setLogin(change)
-   
   }
   const highLight =
     "w-1/3 pb-4 font-medium text-center text-gray-800 capitalize border-b-2 border-blue-500 dark:border-blue-400 dark:text-white";
@@ -38,8 +37,7 @@ function LoginRegister() {
                 onClick={() => {
                   setLogin(true);
                 }}
-                href="#"
-                className={login?highLight:lowLight}
+                className={login ? highLight : lowLight}
               >
                 sign in
               </a>
@@ -48,8 +46,7 @@ function LoginRegister() {
                 onClick={() => {
                   setLogin(false);
                 }}
-                href="#"
-                className={!login?highLight:lowLight}
+                className={!login ? highLight : lowLight}
               >
                 sign up
               </a>
@@ -57,7 +54,7 @@ function LoginRegister() {
 
             <div className="mt-4">
               <div className="flex items-center justify-between">
-                {login && <Login status={handleState}/>}
+                {login && <Login status={handleState} />}
                 {!login && <Register status={handleState} />}
               </div>
             </div>
