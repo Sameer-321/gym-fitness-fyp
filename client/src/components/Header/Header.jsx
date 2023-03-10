@@ -2,6 +2,9 @@ import React, { useRef } from "react";
 import "../../styles/header.css";
 import logo from "../../assets/img/dumble.png";
 import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { isLoggedIn } from "../../features/auth/authSlice";
+import { getMe } from "../../features/auth/authFetch";
 
 const nav__links = [
   {
@@ -22,9 +25,13 @@ const nav__links = [
   },
 ];
 
-const Header = () => {
-  const headerRef = useRef(null);
 
+
+const Header = () => {
+  const isLogged = useSelector(isLoggedIn);
+  const dispatch = useDispatch()
+  const headerRef = useRef(null);
+  
   const headerFunc = () => {
     if (
       document.body.scrollTop > 80 ||
@@ -42,7 +49,7 @@ const Header = () => {
     return () => window.removeEventListener("scroll", headerFunc);
   }, []);
 
-  const handleClick = e => {
+  const handleClick = (e) => {
     e.preventDefault();
 
     const targetAttr = e.target.getAttribute("href");
@@ -53,6 +60,11 @@ const Header = () => {
       top: location - 80,
     });
   };
+
+  const getinfo = ()=>{
+ dispatch(getMe())
+ 
+  }
 
   return (
     <header className="header" ref={headerRef}>
@@ -70,7 +82,7 @@ const Header = () => {
 
           <div className="navigation">
             <ul className="menu">
-              {nav__links.map(item => (
+              {nav__links.map((item) => (
                 <li className="nav__item">
                   <a onClick={handleClick} href={item.path}>
                     {item.display}
@@ -81,11 +93,12 @@ const Header = () => {
           </div>
 
           {/* =========== nav right ============ */}
-          <div  className="nav__right">
-            <a href ="/login">
-              <button  className="register__btn">Register</button>
+          <div className="nav__right">
+            <a href="/login">
+              {!isLogged && <button className="register__btn">Register</button>}
+              <div onClick={getinfo}> {isLogged && <button className="register__btn">Profile</button>}</div>
             </a>
-            
+
             <span className="mobile__menu">
               <i className="ri-menu-line"></i>
             </span>

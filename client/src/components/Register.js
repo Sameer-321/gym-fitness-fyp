@@ -2,7 +2,7 @@ import React, { useState, useRef, useEffect } from "react";
 import axios from "axios";
 export default function Register(props) {
   const userRef = useRef();
-  const URL ="http://localhost:5000/api/v1/auth/register"
+  const URL = "http://localhost:5000/api/v1/auth/register";
   const [info, setInfo] = useState({
     name: "",
     email: "",
@@ -14,17 +14,17 @@ export default function Register(props) {
   }, []);
 
   const handleSubmit = async (e) => {
-    e.preventDefault()
+    e.preventDefault();
 
     axios
-      .post(URL,{...info,role:"user"})
+      .post(URL, { ...info, role: "user" })
       .then((response) => {
-        console.log(response.data)
+        console.log(response.data);
       })
       .catch((error) => {
-        console.error(error)
-      })
-  }
+        console.error(error);
+      });
+  };
   function handleChange(event) {
     const { name, value } = event.target;
     setInfo((info) => ({

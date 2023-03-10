@@ -1,15 +1,22 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "./App.css";
 import Layout from "./pages/Layout";
 import Home from "./pages/Home";
 import Notfound from "./pages/Notfound";
 import { Routes, Route } from "react-router-dom";
 import LoginRegister from "./pages/LoginRegister";
-// import { useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 // import { isLoggedIn } from "./features/auth/authSlice";
+import { err } from "./features/auth/authSlice";
+
+
 function App() {
-  // const select =useSelector(isLoggedIn)
+   const select =useSelector(err)
   // console.log(select)
+  useEffect(()=>{
+    console.log(select)
+  })
+    
   return (
     <div>
       <Routes>
