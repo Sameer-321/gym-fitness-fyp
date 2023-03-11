@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 import { createSlice, nanoid, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
+import { token } from "./authSlice";
+import { useSelector } from "react-redux";
 const URL = "http://localhost:5000/api/v1/auth/";
-
 
 export const loginfetch = createAsyncThunk("login", async (credentials) => {
   try {
@@ -47,9 +48,20 @@ export const registerfetch = createAsyncThunk(
   }
 );
 
-export const getMe=createAsyncThunk("getMe", async () => {
+
+
+export const getMe = createAsyncThunk("getMe", async (jwt_token) => {
+
+  const headers = {
+    "Content-Type": "application/json",
+    authorization: `Bearer ${jwt_token}`,
+  };
+  
   try {
-    const response = await axios.get(URL.concat("me"));
+    const response = await axios.get(URL.concat("me"), { headers }, {
+        withCredentials: true,
+        credentials: 'include',
+      });
     console.log(response.data);
     return response.data;
   } catch (err) {

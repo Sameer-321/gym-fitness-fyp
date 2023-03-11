@@ -5,6 +5,7 @@ const User = require("../models/User");
 // Protect Routes from UnAuthenticated Users
 
 exports.protect = async (req, res, next) => {
+  console.log("asd:", req.headers)
   try {
     let token;
 
@@ -24,6 +25,7 @@ exports.protect = async (req, res, next) => {
         new ErrorResponse(`Not authorized to access this route `, 401)
       );
     }
+    console.log("Btoken",token)
 
     try {
       // Verify Token
@@ -31,7 +33,8 @@ exports.protect = async (req, res, next) => {
 
       console.log(decoded);
       req.user = await User.findById(decoded.id);
-
+      console.log(req.user)
+      // setTimeout(myGreeting, 500000);
       next();
     } catch (error) {
       return next(

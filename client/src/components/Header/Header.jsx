@@ -1,9 +1,9 @@
-import React, { useRef } from "react";
+import React, { useRef,useState } from "react";
 import "../../styles/header.css";
 import logo from "../../assets/img/dumble.png";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { isLoggedIn } from "../../features/auth/authSlice";
+import { isLoggedIn,token } from "../../features/auth/authSlice";
 import { getMe } from "../../features/auth/authFetch";
 
 const nav__links = [
@@ -29,9 +29,17 @@ const nav__links = [
 
 const Header = () => {
   const isLogged = useSelector(isLoggedIn);
+  //console.log(isLogged)
+  const tokn = useSelector(token);
   const dispatch = useDispatch()
   const headerRef = useRef(null);
-  
+
+// useEffect(()=>{
+//   const jwt = token(authState);
+//   setJwtToken(jwt)
+
+// },[tokn])
+
   const headerFunc = () => {
     if (
       document.body.scrollTop > 80 ||
@@ -62,8 +70,8 @@ const Header = () => {
   };
 
   const getinfo = ()=>{
- dispatch(getMe())
- 
+    //console.log("token",tokn)
+ dispatch(getMe(`${tokn}`))
   }
 
   return (
@@ -96,8 +104,7 @@ const Header = () => {
           <div className="nav__right">
             <a href="/login">
               {!isLogged && <button className="register__btn">Register</button>}
-              <div onClick={getinfo}> {isLogged && <button className="register__btn">Profile</button>}</div>
-            </a>
+            </a><div onClick={getinfo}> {isLogged && <button className="register__btn">Profile</button>}</div>
 
             <span className="mobile__menu">
               <i className="ri-menu-line"></i>

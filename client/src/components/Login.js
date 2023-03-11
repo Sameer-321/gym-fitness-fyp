@@ -22,7 +22,6 @@ export default function Login(props) {
   }
   const handleSubmit = async (e)=>{
     e.preventDefault();
-    const {email,password}=info 
     dispatch(loginfetch(info))
    
   }
