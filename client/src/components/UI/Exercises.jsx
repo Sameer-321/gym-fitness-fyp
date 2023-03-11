@@ -3,7 +3,7 @@ import "../../styles/exercises.css";
 import lunges from "../../assets/img/lunges.png";
 import yoga from "../../assets/img/yoga-pose.png";
 import extended from "../../assets/img/extended.png";
-
+import leader from "../../assets/img/leader.png"
 const Exercises = () => {
   return (
     <section id="schedule">
@@ -13,8 +13,8 @@ const Exercises = () => {
             Benefits of <span className="highlights">Exercise</span>
           </h2>
           <p>
-            Lorem ipsum dolor sit amet consectetur adipisicing <br />
-            elit. Error quidem, nam nihil expedita atque modi
+          Exercise not only changes your body.<br/>
+           It changes your mind, your attitude, and your mood.
           </p>
         </div>
 
@@ -26,12 +26,27 @@ const Exercises = () => {
             data-aos-duration="1500"
           >
             <span className="exercise__icon">
+              <img src={ yoga} alt="" />
+            </span>
+
+            <div className="exercise__content">
+              <h4>Mind</h4>
+              <p>Exercise transforms not just your body, but also your mind.</p>
+            </div>
+          </div>
+
+          <div
+            className="exercise__item"
+            data-aos="zoom-in"
+            data-aos-duration="1500"
+          >
+            <span className="exercise__icon">
               <img src={lunges} alt="" />
             </span>
 
             <div className="exercise__content">
-              <h4>Healthy Life</h4>
-              <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit.</p>
+              <h4>Body</h4>
+              <p>Exercise is the key to unlocking a positive and energized mind.</p>
             </div>
           </div>
 
@@ -41,27 +56,12 @@ const Exercises = () => {
             data-aos-duration="1500"
           >
             <span className="exercise__icon">
-              <img src={yoga} alt="" />
+              <img src={leader} alt="" />
             </span>
 
             <div className="exercise__content">
-              <h4>Increased Flexibility</h4>
-              <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit.</p>
-            </div>
-          </div>
-
-          <div
-            className="exercise__item"
-            data-aos="zoom-in"
-            data-aos-duration="1500"
-          >
-            <span className="exercise__icon">
-              <img src={extended} alt="" />
-            </span>
-
-            <div className="exercise__content">
-              <h4>Reducing Blood Pressure</h4>
-              <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit.</p>
+              <h4>Personality</h4>
+              <p>Embrace the rush, push forward, and feel the change!</p>
             </div>
           </div>
         </div>

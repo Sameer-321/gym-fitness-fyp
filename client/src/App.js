@@ -8,6 +8,7 @@ import LoginRegister from "./pages/LoginRegister";
 import { useSelector, useDispatch } from "react-redux";
 // import { isLoggedIn } from "./features/auth/authSlice";
 import { err, token, getToken } from "./features/auth/authSlice";
+import Pricing from "./components/UI/Pricing";
 
 function App() {
   return (
@@ -17,8 +18,10 @@ function App() {
           //public route
           <Route index element={<Home />} />
           <Route path="/login" element={<LoginRegister />} />
+          <Route path="/subs" element={<Pricing />} />
+
           <Route path="*" element={<Notfound />} />
-          
+
           {/* //protected route
           <Route element={<RequireAuth/>} >
             <Route path="asdf" element/>

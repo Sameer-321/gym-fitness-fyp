@@ -29,7 +29,7 @@ export default function Testimonial() {
                   <img src={avatar02} alt="" />
                 </div>
 
-                <h4>Jesica Fernandes</h4>
+                <h4>Siddhant Chaudary</h4>
                 <p>
                   Lorem, ipsum dolor sit amet consectetur adipisicing elit.
                   Expedita corrupti delectus repudiandae incidunt et nihil quo
@@ -44,7 +44,7 @@ export default function Testimonial() {
                   <img src={avatar01} alt="" />
                 </div>
 
-                <h4>Jesica Fernandes</h4>
+                <h4>Umanga Kumar Shrestha</h4>
                 <p>
                   Lorem, ipsum dolor sit amet consectetur adipisicing elit.
                   Expedita corrupti delectus repudiandae incidunt et nihil quo
@@ -59,7 +59,7 @@ export default function Testimonial() {
                   <img src={avatar02} alt="" />
                 </div>
 
-                <h4>Jesica Fernandes</h4>
+                <h4>Rashman Shrestha</h4>
                 <p>
                   Lorem, ipsum dolor sit amet consectetur adipisicing elit.
                   Expedita corrupti delectus repudiandae incidunt et nihil quo

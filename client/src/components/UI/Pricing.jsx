@@ -1,9 +1,9 @@
 import React from "react";
 import "../../styles/pricing.css";
 
-const Pricing = () => {
+const Sub = () => {
   return (
-    <section id="pricing-plan">
+    <section >
       <div className="container">
         <div className="pricing__top">
           <h2 className="section__title">
@@ -172,4 +172,4 @@ const Pricing = () => {
   );
 };
 
-export default Pricing;
+export default Sub;
