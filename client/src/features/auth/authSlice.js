@@ -5,7 +5,7 @@ import { loginfetch, registerfetch,getMe } from "./authFetch";
 
 const initialState = {
   isLoggedIn: false,
-  jwt: "",
+  jwt: null,
   status: "idle", //idle,loading,succeeded,failed
   error: null,
 };
@@ -27,15 +27,15 @@ const authSlice = createSlice({
     },
     logout(state) {
       const cookies = new Cookies()
-
       state = {
+        ...state,
         isLoggedIn: false,
-        jwt: "",
+        jwt: null,
         status: "idle", //idle,loading,succeeded,failed
         error: null,
       };
       cookies.remove ("token")
-    },
+    }
   },
   extraReducers(builder) {
     builder
@@ -44,14 +44,15 @@ const authSlice = createSlice({
       })
       .addCase(loginfetch.fulfilled, (state, action) => {
         state.status = "succeeded";
+        const {token}=action.payload
         // Adding date and reactions
-        //console.log(action.payload)
+        // console.log(action.payload)
         state.isLoggedIn = true;
-        state.jwt = action.payload.token;
+        state.jwt = token;
         const cookies = new Cookies()
       //Set cookies
       cookies.set("token", token, {
-        expires: new Date(token.exp * 1000 * 60 * 60 * 30),
+        expires: new Date(token.exp * 1000 * 60 * 60 * 24*30),
       });
       })
       .addCase(loginfetch.rejected, (state, action) => {
@@ -62,7 +63,7 @@ const authSlice = createSlice({
         console.log(action.payload);
       })
       .addCase(getMe.fulfilled, (state, action) => {
-        console.log("vayooooooooooooo")
+        //console.log("vayooooooooooooo")
         console.log(action.payload);
       })
       .addCase(getMe.rejected, (state, action) => {
@@ -77,8 +78,9 @@ const authSlice = createSlice({
 // export const getPostsStatus = (state) => state.posts.status;
 // export const getPostsError = (state) => state.posts.error;
 export const isLoggedIn = (state) => state.auth.isLoggedIn;
-export const token = (state) => state.auth.jwt;
-export const err = (state)=>state.auth.error
+export const token = (state) =>state.auth.jwt;
 
-export const { login, register } = authSlice.actions;
+export const err = (state)=>state.auth.error;
+
+export const { login, register,getToken } = authSlice.actions;
 export default authSlice.reducer;
