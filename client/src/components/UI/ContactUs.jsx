@@ -47,7 +47,7 @@ function ContactUs() {
       <label>Phone Number</label>
       <input
         value={contact.phoneNumber}
-        type="string"
+        type="integer"
         name="phoneNumber"
         onChange={handleChange}
       />
