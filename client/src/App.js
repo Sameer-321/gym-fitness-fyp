@@ -9,6 +9,7 @@ import { useSelector, useDispatch } from "react-redux";
 // import { isLoggedIn } from "./features/auth/authSlice";
 import { err, token, getToken } from "./features/auth/authSlice";
 import Pricing from "./components/UI/Pricing";
+import ContactUs from "./components/UI/ContactUs";
 
 function App() {
   return (
@@ -19,7 +20,7 @@ function App() {
           <Route index element={<Home />} />
           <Route path="/login" element={<LoginRegister />} />
           <Route path="/subs" element={<Pricing />} />
-
+          <Route path="/contact" element={<ContactUs />} />
           <Route path="*" element={<Notfound />} />
 
           {/* //protected route
