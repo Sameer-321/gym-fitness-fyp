@@ -1,100 +1,68 @@
-import React, { useRef,useState } from "react";
+import React, { useRef, useState } from "react";
 import "../../styles/header.css";
 import logo from "../../assets/img/dumble.png";
-import { useEffect } from "react";
+
 import { useDispatch, useSelector } from "react-redux";
-import { isLoggedIn,token } from "../../features/auth/authSlice";
+import { isLoggedIn, token } from "../../features/auth/authSlice";
 import { getMe } from "../../features/auth/authFetch";
 
 const nav__links = [
   {
-    path: "#home",
+    id: 1,
+    path: "/",
     display: "Home",
   },
   {
-    path: "#schedule",
-    display: "Schedule",
+    id: 2,
+    path: "/trainers",
+    display: "Trainers",
   },
   {
-    path: "#classes",
-    display: "Classes",
+    id: 3,
+    path: "/subs",
+    display: "Subscription",
   },
+
   {
-    path: "#pricing-plan",
-    display: "Pricing",
+    id: 4,
+    path: "/about",
+    display: "About Us",
   },
 ];
-
-
 
 const Header = () => {
   const isLogged = useSelector(isLoggedIn);
   //console.log(isLogged)
   const tokn = useSelector(token);
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
   const headerRef = useRef(null);
 
-// useEffect(()=>{
-//   const jwt = token(authState);
-//   setJwtToken(jwt)
-
-// },[tokn])
-
-  const headerFunc = () => {
-    if (
-      document.body.scrollTop > 80 ||
-      document.documentElement.scrollTop > 80
-    ) {
-      headerRef.current.classList.add("sticky__header");
-    } else {
-      headerRef.current.classList.remove("sticky__header");
-    }
-  };
-
-  useEffect(() => {
-    window.addEventListener("scroll", headerFunc);
-
-    return () => window.removeEventListener("scroll", headerFunc);
-  }, []);
-
-  const handleClick = (e) => {
-    e.preventDefault();
-
-    const targetAttr = e.target.getAttribute("href");
-    const location = document.querySelector(targetAttr).offsetTop;
-
-    window.scrollTo({
-      left: 0,
-      top: location - 80,
-    });
-  };
-
-  const getinfo = ()=>{
+  const getinfo = () => {
     //console.log("token",tokn)
- dispatch(getMe(`${tokn}`))
-  }
+    dispatch(getMe(`${tokn}`));
+  };
 
   return (
-    <header className="header" ref={headerRef}>
+    <header className="header">
       <div className="container">
         <div className="nav__wrapper">
           {/* ======= LOGO ========= */}
-          <div className="logo">
-            <div className="logo__img">
-              <img src={logo} alt="" />
+          <a href="/">
+            <div className="logo">
+              <div className="logo__img">
+                <img src={logo} alt="dumbell logo" />
+              </div>
+              <h2>Gym Fitness</h2>
             </div>
-            <h2>Gym Fitness</h2>
-          </div>
+          </a>
 
           {/* ========== navigation menu ========== */}
 
           <div className="navigation">
             <ul className="menu">
               {nav__links.map((item) => (
-                <li className="nav__item">
-                  <a onClick={handleClick} href={item.path}>
-                    {item.display}
-                  </a>
+                <li className="nav__item" key={item.id}>
+                  <a href={`${item.path}`}>{item.display}</a>
                 </li>
               ))}
             </ul>
@@ -104,7 +72,11 @@ const Header = () => {
           <div className="nav__right">
             <a href="/login">
               {!isLogged && <button className="register__btn">Register</button>}
-            </a><div onClick={getinfo}> {isLogged && <button className="register__btn">Profile</button>}</div>
+            </a>
+            <div onClick={getinfo}>
+              {" "}
+              {isLogged && <button className="register__btn">Profile</button>}
+            </div>
 
             <span className="mobile__menu">
               <i className="ri-menu-line"></i>

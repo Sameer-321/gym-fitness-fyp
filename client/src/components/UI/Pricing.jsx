@@ -1,17 +1,19 @@
 import React from "react";
 import "../../styles/pricing.css";
 
-const Pricing = () => {
+const Sub = () => {
   return (
-    <section id="pricing-plan">
+    <section>
       <div className="container">
         <div className="pricing__top">
           <h2 className="section__title">
             Gym <span className="highlights">Pricing</span> Plan
           </h2>
           <p>
-            Lorem ipsum dolor, sit amet consectetur adipisicing <br /> elit.
-            Omnis asperiores, rem voluptatum sit in ratione.
+            Our gym provides flexible pricing options beginning
+            <br />
+            at an affordable rate without any undisclosed fees or extended
+            commitments.
           </p>
         </div>
 
@@ -23,10 +25,8 @@ const Pricing = () => {
             data-aos-duration="1500"
           >
             <div className="pricing__card-top">
-              <h2 className="section__title">Regular Member</h2>
-              <h2 className="pricing section__title">
-                $50 <span>/month</span>
-              </h2>
+              <h2 className="section__title"> Monthly</h2>
+              <h2 className="pricing section__title">Rs.2,000</h2>
             </div>
 
             <div className="services">
@@ -41,14 +41,14 @@ const Pricing = () => {
                   <span>
                     <i className="ri-checkbox-blank-circle-fill"></i>
                   </span>
-                  Customer support
+                  Free Cardio and Crossfit
                 </li>
-                <li>
+                {/* <li>
                   <span>
                     <i className="ri-checkbox-blank-circle-fill"></i>
                   </span>
                   Personal trainer
-                </li>
+                </li> */}
                 <li>
                   <span>
                     <i className="ri-checkbox-blank-circle-fill"></i>
@@ -59,7 +59,7 @@ const Pricing = () => {
                   <span>
                     <i className="ri-checkbox-blank-circle-fill"></i>
                   </span>
-                  5 classes per week
+                 Drinking Water Supply
                 </li>
               </ul>
 
@@ -73,10 +73,8 @@ const Pricing = () => {
             data-aos-duration="1800"
           >
             <div className="pricing__card-top">
-              <h2 className="section__title">Premium Member</h2>
-              <h2 className="pricing section__title">
-                $70 <span>/month</span>
-              </h2>
+              <h2 className="section__title">6 Month</h2>
+              <h2 className="pricing section__title">Rs.11,000</h2>
             </div>
 
             <div className="services">
@@ -91,25 +89,25 @@ const Pricing = () => {
                   <span>
                     <i className="ri-checkbox-blank-circle-fill"></i>
                   </span>
-                  Customer support
+                  Free Online Personal Trainer
                 </li>
                 <li>
                   <span>
                     <i className="ri-checkbox-blank-circle-fill"></i>
                   </span>
-                  Personal trainer
+                  Sauna for 12 times
                 </li>
-                <li>
+                {/* <li>
                   <span>
                     <i className="ri-checkbox-blank-circle-fill"></i>
                   </span>
                   Standard options
-                </li>
+                </li> */}
                 <li>
                   <span>
                     <i className="ri-checkbox-blank-circle-fill"></i>
                   </span>
-                  5 classes per week
+                  .....
                 </li>
               </ul>
 
@@ -123,10 +121,8 @@ const Pricing = () => {
             data-aos-duration="2000"
           >
             <div className="pricing__card-top">
-              <h2 className="section__title">Standard Member</h2>
-              <h2 className="pricing section__title">
-                $100 <span>/month</span>
-              </h2>
+              <h2 className="section__title">Yearly</h2>
+              <h2 className="pricing section__title">Rs.20,000</h2>
             </div>
 
             <div className="services">
@@ -135,13 +131,13 @@ const Pricing = () => {
                   <span>
                     <i className="ri-checkbox-blank-circle-fill"></i>
                   </span>{" "}
-                  Unlimited access to the gym
+                  Sauna for every week
                 </li>
                 <li>
                   <span>
                     <i className="ri-checkbox-blank-circle-fill"></i>
                   </span>
-                  Customer support
+                  Online Trainer for a year
                 </li>
                 <li>
                   <span>
@@ -159,7 +155,7 @@ const Pricing = () => {
                   <span>
                     <i className="ri-checkbox-blank-circle-fill"></i>
                   </span>
-                  5 classes per week
+                 .....
                 </li>
               </ul>
 
@@ -172,4 +168,4 @@ const Pricing = () => {
   );
 };
 
-export default Pricing;
+export default Sub;

@@ -1,6 +1,6 @@
 import React from "react";
 import "../../styles/start.css";
-import trainerImg from "../../assets/img/trainer.png";
+import trainerImg from "../../assets/img/trainer.jpeg";
 
 const Start = () => {
   return (
@@ -10,7 +10,7 @@ const Start = () => {
           <div className="start__img">
             <img
               src={trainerImg}
-              alt=""
+              alt="image of saroj guru"
               data-aos="fade-left"
               data-aos-duration="1500"
             />
@@ -25,13 +25,14 @@ const Start = () => {
               Ready to make a <span className="highlights">change?</span>
             </h2>
             <p>
-              Lorem ipsum dolor sit, amet consectetur adipisicing elit. Cumque
-              amet facere nam nesciunt autem quasi consequuntur provident
-              obcaecati eos! Ducimus modi praesentium mollitia veniam cumque
-              laboriosam eos aspernatur dicta illo!
+            Ready to transform your body and mind? Let's do this! Our gym is here to help you make the change you want to see. 
+            Take the first step, and let's achieve your goals together!
             </p>
 
-            <button className="register__btn">Get Started</button>
+          <a href="/login" >
+          <button className="register__btn">Get Started</button>
+          </a>
+           
           </div>
         </div>
       </div>

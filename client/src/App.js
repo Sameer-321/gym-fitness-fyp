@@ -5,23 +5,13 @@ import Home from "./pages/Home";
 import Notfound from "./pages/Notfound";
 import { Routes, Route } from "react-router-dom";
 import LoginRegister from "./pages/LoginRegister";
-import { useSelector,useDispatch } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 // import { isLoggedIn } from "./features/auth/authSlice";
-import { err, token,getToken } from "./features/auth/authSlice";
+import { err, token, getToken } from "./features/auth/authSlice";
+import Pricing from "./components/UI/Pricing";
+import ContactUs from "./components/UI/ContactUs";
 
 function App() {
-  //const jwt = useSelector(token);
-//   const dispatch = useDispatch()
-// const jwt = dispatch(getToken())
-//   const [token,setToken]=useState(null);
-//   // console.log(select)
-
-//   useEffect(() => {
-//     setToken(jwt)
-//     console.log(token)
-//   },[jwt]);
-
-
   return (
     <div>
       <Routes>
@@ -29,7 +19,10 @@ function App() {
           //public route
           <Route index element={<Home />} />
           <Route path="/login" element={<LoginRegister />} />
+          <Route path="/subs" element={<Pricing />} />
+          <Route path="/contact" element={<ContactUs />} />
           <Route path="*" element={<Notfound />} />
+
           {/* //protected route
           <Route element={<RequireAuth/>} >
             <Route path="asdf" element/>
