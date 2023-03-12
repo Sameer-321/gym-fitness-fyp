@@ -1,5 +1,5 @@
 import React from "react";
-import Hero from "../components/UI/Hero";
+//import Hero from "../components/UI/Hero";
 import Exercises from "../components/UI/Exercises";
 import Start from "../components/UI/Start";
 import Pricing from "../components/UI/Pricing";
@@ -10,7 +10,7 @@ export default function Home() {
   return (
     <>
     <VideoRender/>
-      <Hero />
+      {/* //<Hero /> */}
       <Exercises />
       <Start />
       <Pricing />

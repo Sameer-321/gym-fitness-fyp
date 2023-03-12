@@ -2,7 +2,7 @@ import React, { useState,useRef,useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from 'react-redux'
 import { loginfetch,registerfetch } from "../features/auth/authFetch";
-
+import { login } from "../features/auth/authSlice";
 
 export default function Login(props) {
   const userRef = useRef()

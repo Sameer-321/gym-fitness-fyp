@@ -73,10 +73,13 @@ const Header = () => {
             <a href="/login">
               {!isLogged && <button className="register__btn">Register</button>}
             </a>
-            <div onClick={getinfo}>
+            <a href="/profile">
+             <div onClick={getinfo}>
               {" "}
               {isLogged && <button className="register__btn">Profile</button>}
-            </div>
+            </div> 
+            </a>
+            
 
             <span className="mobile__menu">
               <i className="ri-menu-line"></i>
