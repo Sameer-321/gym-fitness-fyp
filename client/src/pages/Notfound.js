@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-// import gymEquipment from '../image/404.svg ';
+
 
 function Notfound ()  {
   return (

@@ -1,8 +1,8 @@
-import React, { useState,useRef,useEffect } from "react";
+import React, { useState,useRef } from "react";
 import { useNavigate } from "react-router-dom";
-import { useDispatch, useSelector } from 'react-redux'
-import { loginfetch,registerfetch } from "../features/auth/authFetch";
-import { login } from "../features/auth/authSlice";
+import { useDispatch } from 'react-redux'
+import { loginfetch } from "../features/auth/authFetch";
+
 
 export default function Login(props) {
   const userRef = useRef()
@@ -23,6 +23,12 @@ export default function Login(props) {
   const handleSubmit = async (e)=>{
     e.preventDefault();
     dispatch(loginfetch(info))
+    setInfo({
+      email: "",
+      password: "",
+    })
+    nav("/")
+    
    
   }
   
