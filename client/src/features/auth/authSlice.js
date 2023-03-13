@@ -1,17 +1,16 @@
 import { createSlice, nanoid, createAsyncThunk } from "@reduxjs/toolkit";
-import axios from "axios";
 import Cookies from "universal-cookie";
 import { loginfetch, registerfetch, getMe } from "./authFetch";
-import { useDispatch } from "react-redux";
+
 
 const cookies = new Cookies();
 
 const initialState = {
   isLoggedIn: false,
   jwt: null,
-  id:"",
-  email:"",
-  name:"",
+  id: "",
+  email: "",
+  name: "",
   status: "idle", //idle,loading,succeeded,failed
   error: null,
 };
@@ -21,8 +20,7 @@ const authSlice = createSlice({
   initialState,
   reducers: {
     login(state, action) {
-      console.log("login called")
-
+      console.log("login called");
     },
     register(state, action) {
       const { token } = action.payload;
@@ -34,13 +32,25 @@ const authSlice = createSlice({
         ...state,
         isLoggedIn: false,
         jwt: null,
-        id:"",
-        email:"",
-        name:"",
-        status: "idle", 
+        id: "",
+        email: "",
+        name: "",
+        status: "idle",
         error: null,
       };
       cookies.remove("token");
+    },
+    resetState(state){
+      state = {
+        ...state,
+        isLoggedIn: false,
+        jwt: null,
+        id: "",
+        email: "",
+        name: "",
+        status: "idle",
+        error: null,
+      };
     },
   },
   extraReducers(builder) {
@@ -56,7 +66,7 @@ const authSlice = createSlice({
         //state management
         state.isLoggedIn = true;
         state.jwt = token;
-        state.status="success"
+        state.status = "success";
 
         const cookies = new Cookies();
 
@@ -75,15 +85,15 @@ const authSlice = createSlice({
       .addCase(getMe.fulfilled, (state, action) => {
         //console.log("vayooooooooooooo")
         console.log(action.payload);
-        const {email,name,id}=action.payload.data
-        state.isLoggedIn=true
-        state.id=id
-        state.name=name
-        state.email=email
-        state.status="success"
+        const { email, name, id } = action.payload.data;
+        state.isLoggedIn = true;
+        state.id = id;
+        state.name = name;
+        state.email = email;
+        state.status = "success";
         //token set at last
-        const token = cookies.get('token')
-        state.jwt=token
+        const token = cookies.get("token");
+        state.jwt = token;
       })
       .addCase(getMe.rejected, (state, action) => {
         state.error = action.error.message;
@@ -102,5 +112,5 @@ export const email = (state) => state.auth.email;
 // export const name = (state) => state.auth.name;
 export const err = (state) => state.auth.error;
 
-export const { login, register, getToken } = authSlice.actions;
+export const { login, register, getToken,resetState } = authSlice.actions;
 export default authSlice.reducer;

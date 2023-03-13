@@ -3,7 +3,7 @@ import { DefaultPlayer as Video } from "react-html5video/dist";
 import "react-html5video/dist/styles.css";
 import introVideo from "./Untitled.mp4";
 //import thum from "../../assets/img/trainer.jpeg";
-import thum from "../../assets/img/dumble.png"
+//import thum from "../../assets/img/dumble.png"
 function VideoRender() {
   return (
     // <section id="home">
@@ -13,9 +13,9 @@ function VideoRender() {
           loop
           muted 
           //poster={thum}
-          onCanPlayThrough={() => {
-            console.log("video play");
-          }}
+          // onCanPlayThrough={() => {
+          //   console.log("video play");
+          // }}
         >
           <source src={introVideo} type="video/webm" />
         </Video>

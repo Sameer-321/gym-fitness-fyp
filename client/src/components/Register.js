@@ -1,6 +1,8 @@
 import React, { useState, useRef, useEffect } from "react";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 export default function Register(props) {
+  const nav = useNavigate()
   const userRef = useRef();
   const URL = "http://localhost:5000/api/v1/auth/register";
   const [info, setInfo] = useState({
@@ -24,6 +26,13 @@ export default function Register(props) {
       .catch((error) => {
         console.error(error);
       });
+
+    setInfo({
+      name: "",
+      email: "",
+      password: "",
+    }) 
+    nav("/") 
   };
   function handleChange(event) {
     const { name, value } = event.target;

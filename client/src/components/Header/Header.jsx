@@ -32,13 +32,12 @@ const nav__links = [
 
 const Header = () => {
   const isLogged = useSelector(isLoggedIn);
-  //console.log(isLogged)
   const tokn = useSelector(token);
   const dispatch = useDispatch();
   const headerRef = useRef(null);
 
   const getinfo = () => {
-    //console.log("token",tokn)
+ 
     dispatch(getMe(`${tokn}`));
   };
 
