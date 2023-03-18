@@ -11,6 +11,7 @@ import Pricing from "./components/UI/Pricing";
 import ContactUs from "./components/UI/ContactUs";
 import { getMe } from "./features/auth/authFetch";
 import Profile from "./components/UI/Profile";
+import Payment from "./pages/Payment";
 
 
 function App() {
@@ -41,6 +42,7 @@ useEffect(()=>{
           <Route path="/subs" element={<Pricing />} />
           <Route path="/contact" element={<ContactUs />} />
           <Route path="/profile" element={<Profile/>} />
+          <Route path="/pay" element={<Payment/>} />
           <Route path="*" element={<Notfound />} />
 
           {/* //protected route

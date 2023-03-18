@@ -1,7 +1,8 @@
 import React from "react";
 import "../../styles/pricing.css";
-
+import { useNavigate } from "react-router-dom";
 const Sub = () => {
+  const nav = useNavigate()
   return (
     <section>
       <div className="container">
@@ -62,8 +63,8 @@ const Sub = () => {
                  Drinking Water Supply
                 </li>
               </ul>
-
-              <button className="register__btn">Join Now</button>
+                <a href="/pay"><button className="register__btn">Join Now</button></a>
+              
             </div>
           </div>
 
@@ -111,7 +112,7 @@ const Sub = () => {
                 </li>
               </ul>
 
-              <button className="register__btn">Join Now</button>
+              <a href="/pay"><button className="register__btn">Join Now</button></a>
             </div>
           </div>
 
@@ -159,7 +160,7 @@ const Sub = () => {
                 </li>
               </ul>
 
-              <button className="register__btn">Join Now</button>
+              <a href="/pay"><button className="register__btn">Join Now</button></a>
             </div>
           </div>
         </div>
