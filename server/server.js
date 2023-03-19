@@ -61,11 +61,11 @@ app.post("/api/v1/checkout", async (req, res) => {
 
     const charge = await stripe.charges.create(
       {
-        amount: (product.totalPrice) * 100,
+        amount: product.totalPrice * 100,
         currency: "usd",
         customer: customer.id,
         receipt_email: token.email,
-        description: `Purcased the pant`,
+        description: `Subscription of GYM`,
         shipping: {
           name: token.card.name,
           address: {
