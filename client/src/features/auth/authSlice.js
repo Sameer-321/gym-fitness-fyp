@@ -1,4 +1,4 @@
-import { createSlice, nanoid, createAsyncThunk } from "@reduxjs/toolkit";
+import { createSlice} from "@reduxjs/toolkit";
 import Cookies from "universal-cookie";
 import { loginfetch, registerfetch, getMe } from "./authFetch";
 
@@ -29,7 +29,7 @@ const authSlice = createSlice({
     logout(state) {
       const cookies = new Cookies();
       state = {
-        ...state,
+        // ...state,
         isLoggedIn: false,
         jwt: null,
         id: "",
@@ -42,7 +42,7 @@ const authSlice = createSlice({
     },
     resetState(state){
       state = {
-        ...state,
+        // ...state,
         isLoggedIn: false,
         jwt: null,
         id: "",

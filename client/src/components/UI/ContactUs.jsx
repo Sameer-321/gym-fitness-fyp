@@ -17,7 +17,7 @@ function ContactUs() {
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log(contact);
-    setTimeout(500);
+    // setTimeout(500);
     setContact({
       name: "",
       email: "",
