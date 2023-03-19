@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import Cookies from "universal-cookie";
 import "./App.css";
 import Layout from "./pages/Layout";
@@ -13,23 +13,28 @@ import { getMe } from "./features/auth/authFetch";
 import Profile from "./components/UI/Profile";
 import Payment from "./pages/Payment";
 import RequireAuthUser from "./components/RequireAuthUser";
+import { isLoggedIn } from "./features/auth/authSlice";
 
 function App() {
   const dispatch = useDispatch();
+  const logCheck =useSelector(isLoggedIn)
   const cookies = new Cookies();
+
+  const [isLogged,setIsLogged]=useState(logCheck)
 
   useEffect(() => {}, []);
   const token = cookies.get("token");
   if (token) {
     console.log(token);
     dispatch(getMe(token));
-
     // User is authenticated, handle accordingly
   } else {
     // User is not authenticated, handle accordingly
     console.log("please login again!!!");
   }
-
+useEffect(()=>{
+setIsLogged(logCheck)
+},[logCheck])
   return (
     <div>
       <Routes>
@@ -40,13 +45,12 @@ function App() {
           <Route path="/subs" element={<Pricing />} />
           <Route path="/contact" element={<ContactUs />} />
           <Route path="/profile" element={<Profile />} />
-          //<Route path="/pay" element={<Payment />} />
           <Route path="*" element={<Notfound />} />
           //protected route
           <Route
             path="/pay"
             element={
-              <RequireAuthUser>
+              <RequireAuthUser isLogged={isLogged}>
                 <Payment />
               </RequireAuthUser>
             }

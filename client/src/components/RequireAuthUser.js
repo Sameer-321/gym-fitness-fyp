@@ -1,24 +1,17 @@
-import React, { useEffect } from "react";
-import { useSelector } from "react-redux";
-import { isLoggedIn } from "../features/auth/authSlice";
-import { useNavigate } from "react-router-dom";
+import React, { useEffect, useState } from "react";
 
-function RequireAuthUser({ children }) {
-  const isLogged = useSelector(isLoggedIn);
-  const nav = useNavigate();
+import LoginPopup from "./UI/LoginPopUp";
 
+export default function RequireAuthUser({ isLogged, children }) {
+  const [logStatus, setLogStatus] = useState(isLogged);
   useEffect(() => {
-    if (!isLogged) {
-      // nav("/login");
-      alert("Need to login for membership!!!");
-    }
-  }, [isLogged, nav]);
+    setLogStatus(isLogged);
+  }, [isLogged]);
 
-  if (isLogged) {
-    return children;
-  }
 
-  return null;
+  return <>
+  {logStatus?(children):(
+    <LoginPopup/>
+  )}
+  </>;
 }
-
-export default RequireAuthUser;
