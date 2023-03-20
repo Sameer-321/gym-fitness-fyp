@@ -1,5 +1,6 @@
 import myKey from "./khaltiKey";
-const axios = require("axios");
+import axios from "axios";
+
 let config = {
     // replace this key with yours
     "publicKey": myKey.publicTestKey,
@@ -9,8 +10,8 @@ let config = {
     "eventHandler": {
         async onSuccess (payload) {
             // hit merchant api for initiating verfication
-            console.log(payload);
-            await axios.post("http://localhost:8000/api/verify-payment",payload)
+            console.log(payload)
+            await axios.post("http://localhost:5000/api/v1/verify-payment",payload)
         },
         // onError handler is optional
         onError (error) {

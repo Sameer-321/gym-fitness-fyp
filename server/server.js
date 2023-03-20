@@ -89,6 +89,32 @@ app.post("/api/v1/checkout", async (req, res) => {
   }
 });
 
+
+app.post("/api/v1/verify-payment", async(req, res) => {
+  const data = req.body;
+  // const {data} = req.body;
+  console.log("check", data);
+  let dataSend = {
+    token: data.token,
+    amount: data.amount,
+  };
+
+  let config = {
+    headers: {
+      Authorization: "Key test_secret_key_82b5a273ca6a4171a2f5c8be82085a61",
+    },
+  };
+
+  await axios
+    .post("https://khalti.com/api/v2/payment/verify/", dataSend, config)
+    .then((response) => {
+      console.log(response.data, "succeess");
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+});
+
 const PORT = process.env.PORT || 5000;
 
 const server = app.listen(

@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import StripeCheckout from "react-stripe-checkout";
 import axios from "axios";
+
 export default function Stripe() {
   const [product] = useState({
     name: "Monthly Gym membershio",
