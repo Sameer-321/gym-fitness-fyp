@@ -17,10 +17,10 @@ import { isLoggedIn } from "./features/auth/authSlice";
 
 function App() {
   const dispatch = useDispatch();
-  const logCheck =useSelector(isLoggedIn)
+  const logCheck = useSelector(isLoggedIn);
   const cookies = new Cookies();
 
-  const [isLogged,setIsLogged]=useState(logCheck)
+  const [isLogged, setIsLogged] = useState(logCheck);
 
   useEffect(() => {}, []);
   const token = cookies.get("token");
@@ -32,9 +32,11 @@ function App() {
     // User is not authenticated, handle accordingly
     console.log("please login again!!!");
   }
-useEffect(()=>{
-setIsLogged(logCheck)
-},[logCheck])
+
+  useEffect(() => {
+    setIsLogged(logCheck);
+  }, [logCheck]);
+
   return (
     <div>
       <Routes>

@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import "../../styles/LoginPopUp.css";
-import { Dispatch } from "react";
 import { loginfetch } from "../../features/auth/authFetch";
 import { useDispatch } from "react-redux";
+
 const LoginPopUp = () => {
   const dispatch = useDispatch();
   const [info, setInfo] = useState({
@@ -45,6 +45,10 @@ const LoginPopUp = () => {
             onChange={handleChange}
             placeholder="Password"
           />
+          {/* <a href="/">
+            <button>Home</button>
+          </a> */}
+          <br/>
           <button type="submit">Login</button>
         </form>
       </div>
