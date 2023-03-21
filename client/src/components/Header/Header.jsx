@@ -5,7 +5,9 @@ import logo from "../../assets/img/dumble.png";
 import { useDispatch, useSelector } from "react-redux";
 import { isLoggedIn, token } from "../../features/auth/authSlice";
 import { getMe } from "../../features/auth/authFetch";
-
+import Avatar from "../Avatar/Avatar";
+import { useNavigate } from "react-router-dom";
+import Dropdown from "../DropDown/DropDown";
 const nav__links = [
   {
     id: 1,
@@ -35,9 +37,8 @@ const Header = () => {
   const tokn = useSelector(token);
   const dispatch = useDispatch();
   const headerRef = useRef(null);
-
+  const nav = useNavigate();
   const getinfo = () => {
- 
     dispatch(getMe(`${tokn}`));
   };
 
@@ -61,7 +62,13 @@ const Header = () => {
             <ul className="menu">
               {nav__links.map((item) => (
                 <li className="nav__item" key={item.id}>
-                  <a href={`${item.path}`}>{item.display}</a>
+                  <a
+                    onClick={() => {
+                      nav(`${item.path}`);
+                    }}
+                  >
+                    {item.display}
+                  </a>
                 </li>
               ))}
             </ul>
@@ -72,13 +79,14 @@ const Header = () => {
             <a href="/login">
               {!isLogged && <button className="register__btn">Register</button>}
             </a>
+
             <a href="/profile">
-             <div onClick={getinfo}>
-              {" "}
-              {isLogged && <button className="register__btn">Profile</button>}
-            </div> 
+              <div onClick={getinfo}>
+                {/* {isLogged && <Avatar className="Avatar" />} */}
+                {isLogged && <Dropdown />}
+                {/* {isLogged && <button className="register__btn">Profile</button>} */}
+              </div>
             </a>
-            
 
             <span className="mobile__menu">
               <i className="ri-menu-line"></i>
