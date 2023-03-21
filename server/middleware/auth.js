@@ -1,12 +1,12 @@
 const jwt = require("jsonwebtoken");
 const ErrorResponse = require("../utils/errorResponse");
 const User = require("../models/User");
-// const cookieParser = require('cookie-parser');
+ const cookieParser = require('cookie-parser');
 
 // Protect Routes from UnAuthenticated Users
 
 exports.protect = async (req, res, next) => {
-  console.log("asd:", req.headers)
+  //console.log("asd:", req.headers)
   try {
     let token;
 
@@ -72,7 +72,7 @@ exports.protect = async (req, res, next) => {
 //   }
 // };
 
-//Grant Access to specific roles
+//Role based access system
 
 exports.authorize = (...roles) => {
   return (req, res, next) => {

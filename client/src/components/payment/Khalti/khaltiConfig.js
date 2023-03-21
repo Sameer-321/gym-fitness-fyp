@@ -11,9 +11,9 @@ let config = {
         async onSuccess (payload) {
             // hit merchant api for initiating verfication
             console.log(payload)
-            await axios.post("http://localhost:5000/api/v1/verify-payment",payload)
+            await axios.post("http://localhost:5000/api/v1/payment/khalti",payload)
         },
-        // onError handler is optional
+        // onError handler is optionalc
         onError (error) {
             // handle errors
             console.log(error);

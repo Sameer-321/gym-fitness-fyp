@@ -13,29 +13,31 @@ import { getMe } from "./features/auth/authFetch";
 import Profile from "./components/UI/Profile";
 import Payment from "./pages/Payment";
 import RequireAuthUser from "./components/RequireAuthUser";
-import { isLoggedIn } from "./features/auth/authSlice";
-
+import { info } from "./features/auth/authSlice";
 function App() {
   const dispatch = useDispatch();
-  const logCheck = useSelector(isLoggedIn);
+  const informationUser = useSelector(info);
+  
   const cookies = new Cookies();
 
-  const [isLogged, setIsLogged] = useState(logCheck);
-
-  useEffect(() => {}, []);
-  const token = cookies.get("token");
-  if (token) {
-    console.log(token);
-    dispatch(getMe(token));
-    // User is authenticated, handle accordingly
-  } else {
-    // User is not authenticated, handle accordingly
-    console.log("please login again!!!");
-  }
+  const [userInfo, setuserInfo] = useState(informationUser);
+  console.log(userInfo)
+  useEffect(() => {
+    const token = cookies.get("token");
+    if (token) {
+      console.log(token);
+      dispatch(getMe(token));
+      // User is authenticated, handle accordingly
+    } else {
+      // User is not authenticated, handle accordingly
+      console.log("please login again!!!");
+    }
+  }, []);
 
   useEffect(() => {
-    setIsLogged(logCheck);
-  }, [logCheck]);
+    setuserInfo(informationUser);
+    console.log(informationUser)
+  }, [informationUser]);
 
   return (
     <div>
@@ -52,7 +54,7 @@ function App() {
           <Route
             path="/pay"
             element={
-              <RequireAuthUser isLogged={isLogged}>
+              <RequireAuthUser roleProps="user" info={userInfo}>
                 <Payment />
               </RequireAuthUser>
             }

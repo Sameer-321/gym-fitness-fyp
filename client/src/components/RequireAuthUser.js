@@ -2,16 +2,16 @@ import React, { useEffect, useState } from "react";
 
 import LoginPopup from "./UI/LoginPopUp";
 
-export default function RequireAuthUser({ isLogged, children }) {
-  const [logStatus, setLogStatus] = useState(isLogged);
+export default function RequireAuthUser(props) {
+  const { roleProps, children } = props;
+  const [userInfo, setUserInfo] = useState(props.info);
   useEffect(() => {
-    setLogStatus(isLogged);
-  }, [isLogged]);
+    setUserInfo(props.info);
+  }, [props.info]);
 
-
-  return <>
-  {logStatus?(children):(
-    <LoginPopup/>
-  )}
-  </>;
+  const { isLoggedIn, role } = userInfo;
+  const roleCheck = () => {
+    return roleProps === role;
+  }; //return in booleans
+  return <>{isLoggedIn && roleCheck() ? children : <LoginPopup />}</>;
 }
