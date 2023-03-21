@@ -1,9 +1,14 @@
 const ErrorResponse = require("../utils/errorResponse");
 //const User = require("../models/User");
-
+const axios = require("axios");
 //@desc     Register Users
 //@route    POST /api/v1/auth/register
 //@acess    Public
+
+
+
+
+
 
 exports.khalti = async (req, res, next) => {
   const data = req.body;
@@ -78,3 +83,23 @@ exports.stripe = async (req, res, next) => {
 };
 
 
+
+
+
+// //
+// const options = {
+//   url: 'https://khalti.com/api/v2/payment/verify/',
+//   headers: {
+//     'Content-Type': 'application/json',
+//     'Authorization': 'Bearer <your-auth-token>'
+//   },
+//   body: JSON.stringify(dataSend)
+// };
+
+// request.post(options, function(err, res, body) {
+//   if (err) {
+//     console.log('Error:', err);
+//   } else {
+//     console.log('Response:', body);
+//   }
+// });

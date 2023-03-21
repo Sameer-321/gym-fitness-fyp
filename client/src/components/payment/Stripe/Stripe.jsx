@@ -10,7 +10,7 @@ export default function Stripe() {
   });
   const handleToken = async (token, addresses) => {
     try {
-      const response = await axios.post("http://localhost:5000/api/v1/checkout", {
+      const response = await axios.post("http://localhost:5000/api/v1/payment/stripe", {
         token,
         product,
       });

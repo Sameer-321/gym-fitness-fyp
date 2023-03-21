@@ -12,7 +12,7 @@ const { protect } = require("../middleware/auth");
 
 router.post("/khalti", khalti);
 
-router.post("/stripe", stripe);
+router.post("/stripe",protect,  stripe);
 
 // router.get("/logout", logout);
 
