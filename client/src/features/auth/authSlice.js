@@ -11,6 +11,7 @@ const initialState = {
   id: "",
   email: "",
   name: "",
+  role:"",
   status: "idle", //idle,loading,succeeded,failed
   error: null,
 };
@@ -85,12 +86,13 @@ const authSlice = createSlice({
       .addCase(getMe.fulfilled, (state, action) => {
         //console.log("vayooooooooooooo")
         console.log(action.payload);
-        const { email, name, id } = action.payload.data;
+        const { email, name, id,role } = action.payload.data;
         state.isLoggedIn = true;
         state.id = id;
         state.name = name;
         state.email = email;
         state.status = "success";
+        state.role = role;
         //token set at last
         const token = cookies.get("token");
         state.jwt = token;
@@ -111,6 +113,15 @@ export const name = (state) => state.auth.name;
 export const email = (state) => state.auth.email;
 // export const name = (state) => state.auth.name;
 export const err = (state) => state.auth.error;
+
+export const info = state => ({
+  isLoggedIn: state.auth.isLoggedIn,
+  token: state.auth.jwt,
+  name: state.auth.name,
+  email: state.auth.email,
+  role: state.auth.role,
+  error: state.auth.error
+});
 
 export const { login, register, getToken,resetState } = authSlice.actions;
 export default authSlice.reducer;
