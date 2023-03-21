@@ -13,7 +13,7 @@ let config = {
             console.log(payload)
             await axios.post("http://localhost:5000/api/v1/verify-payment",payload)
         },
-        // onError handler is optional
+        // onError handler is optionalc
         onError (error) {
             // handle errors
             console.log(error);

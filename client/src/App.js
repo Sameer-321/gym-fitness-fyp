@@ -22,16 +22,17 @@ function App() {
 
   const [isLogged, setIsLogged] = useState(logCheck);
 
-  useEffect(() => {}, []);
-  const token = cookies.get("token");
-  if (token) {
-    console.log(token);
-    dispatch(getMe(token));
-    // User is authenticated, handle accordingly
-  } else {
-    // User is not authenticated, handle accordingly
-    console.log("please login again!!!");
-  }
+  useEffect(() => {
+    const token = cookies.get("token");
+    if (token) {
+      console.log(token);
+      dispatch(getMe(token));
+      // User is authenticated, handle accordingly
+    } else {
+      // User is not authenticated, handle accordingly
+      console.log("please login again!!!");
+    }
+  }, []);
 
   useEffect(() => {
     setIsLogged(logCheck);

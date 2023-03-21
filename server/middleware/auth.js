@@ -72,7 +72,7 @@ exports.protect = async (req, res, next) => {
 //   }
 // };
 
-//Grant Access to specific roles
+//Role based access system
 
 exports.authorize = (...roles) => {
   return (req, res, next) => {

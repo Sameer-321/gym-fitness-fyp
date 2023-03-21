@@ -22,7 +22,7 @@ connectDB();
 //Routes files
 const bootcamps = require("./routes/bootcamps");
 const auth = require("./routes/auth");
-
+const payment = require("./routes/payment")
 const app = express();
 
 // parse application/json body parser
@@ -39,81 +39,14 @@ if (process.env.NODE_ENV === "development") {
 //Mount routers
 app.use("/api/v1/bootcamps", bootcamps);
 app.use("/api/v1/auth", auth);
+app.use("/api/v1/payment",payment );
 
 app.use(errorHandler);
 
-app.post("/api/v1/checkout", async (req, res) => {
-  console.log(req.body);
-
-  let status;
-
-  try {
-    const { product, token } = req.body;
-
-    console.log(product, "productsproductsproducts");
-
-    const customer = await stripe.customers.create({
-      email: token.email,
-      source: token.id,
-    });
-
-    const key = uuid();
-
-    const charge = await stripe.charges.create(
-      {
-        amount: product.totalPrice * 100,
-        currency: "usd",
-        customer: customer.id,
-        receipt_email: token.email,
-        description: `Subscription of GYM`,
-        shipping: {
-          name: token.card.name,
-          address: {
-            line1: token.card.address_line1,
-            city: token.card.address_city,
-            country: token.card.address_country,
-            postal_code: token.card.address_zip,
-          },
-        },
-      },
-      {
-        idempotencyKey: key,
-      }
-    );
-
-    console.log("Success", { charge });
-    status = "success";
-  } catch (error) {
-    console.log("Error", error);
-    status = "failure";
-  }
-});
 
 
-app.post("/api/v1/verify-payment", async(req, res) => {
-  const data = req.body;
-  // const {data} = req.body;
-  console.log("check", data);
-  let dataSend = {
-    token: data.token,
-    amount: data.amount,
-  };
 
-  let config = {
-    headers: {
-      Authorization: "Key test_secret_key_82b5a273ca6a4171a2f5c8be82085a61",
-    },
-  };
 
-  await axios
-    .post("https://khalti.com/api/v2/payment/verify/", dataSend, config)
-    .then((response) => {
-      console.log(response.data, "succeess");
-    })
-    .catch((error) => {
-      console.log(error);
-    });
-});
 
 const PORT = process.env.PORT || 5000;
 
