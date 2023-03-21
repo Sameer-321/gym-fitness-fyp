@@ -7,9 +7,6 @@ const axios = require("axios");
 
 
 
-
-
-
 exports.khalti = async (req, res, next) => {
   const data = req.body;
   // const {data} = req.body;
