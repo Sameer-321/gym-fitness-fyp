@@ -40,6 +40,7 @@ const authSlice = createSlice({
         error: null,
       };
       cookies.remove("token");
+      
     },
     resetState(state){
       state = {
@@ -123,5 +124,5 @@ export const info = state => ({
   error: state.auth.error
 });
 
-export const { login, register, getToken,resetState } = authSlice.actions;
+export const { login,logout ,register, getToken,resetState } = authSlice.actions;
 export default authSlice.reducer;

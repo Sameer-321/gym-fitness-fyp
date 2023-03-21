@@ -1,0 +1,6 @@
+.Avatar{
+    width:40 px;
+    border-radius : 50%;
+    object-fit:fill;
+    border: 1px solid black
+} 

@@ -14,6 +14,7 @@ import Profile from "./components/UI/Profile";
 import Payment from "./pages/Payment";
 import RequireAuthUser from "./components/RequireAuthUser";
 import { info } from "./features/auth/authSlice";
+
 function App() {
   const dispatch = useDispatch();
   const informationUser = useSelector(info);
@@ -23,6 +24,7 @@ function App() {
   const [userInfo, setuserInfo] = useState(informationUser);
   console.log(userInfo)
   useEffect(() => {
+    console.log("occurs")
     const token = cookies.get("token");
     if (token) {
       console.log(token);
@@ -41,6 +43,7 @@ function App() {
 
   return (
     <div>
+     
       <Routes>
         <Route path="/" element={<Layout />}>
           //public route
