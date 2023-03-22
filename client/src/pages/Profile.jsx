@@ -1,10 +1,16 @@
-import React from "react";
+import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import { name, email } from "../features/auth/authSlice";
 
 function Profile() {
   const nam = useSelector(name);
   const emai = useSelector(email);
+
+  const [pic, setPic] = useState("");
+  const imageUpload = (e) => {
+    setPic(e.target.files[0]);
+    console.log(e.target.files[0])
+  };
 
   return (
     <>
@@ -18,7 +24,8 @@ function Profile() {
       <br />
       <br />
       <div>
-      <input/>
+        <label>Upload photo</label>
+        <input type="file" name="photo-upload" onChange={imageUpload} />
       </div>
     </>
   );
