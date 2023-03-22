@@ -5,7 +5,6 @@ import logo from "../../assets/img/dumble.png";
 import { useDispatch, useSelector } from "react-redux";
 import { isLoggedIn, token } from "../../features/auth/authSlice";
 import { getMe } from "../../features/auth/authFetch";
-import Avatar from "../Avatar/Avatar";
 import { useNavigate } from "react-router-dom";
 import Dropdown from "../DropDown/DropDown";
 const nav__links = [
@@ -80,13 +79,7 @@ const Header = () => {
               {!isLogged && <button className="register__btn">Register</button>}
             </a>
 
-            <a href="/profile">
-              <div onClick={getinfo}>
-                {/* {isLogged && <Avatar className="Avatar" />} */}
-                {isLogged && <Dropdown />}
-                {/* {isLogged && <button className="register__btn">Profile</button>} */}
-              </div>
-            </a>
+            <div onClick={getinfo}>{isLogged && <Dropdown />}</div>
 
             <span className="mobile__menu">
               <i className="ri-menu-line"></i>

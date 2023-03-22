@@ -10,7 +10,7 @@ import { useDispatch, useSelector } from "react-redux";
 import Pricing from "./components/UI/Pricing";
 import ContactUs from "./components/UI/ContactUs";
 import { getMe } from "./features/auth/authFetch";
-import Profile from "./components/UI/Profile";
+import Profile from "./pages/Profile";
 import Payment from "./pages/Payment";
 import RequireAuthUser from "./components/RequireAuthUser";
 import { info } from "./features/auth/authSlice";
@@ -18,15 +18,14 @@ import { info } from "./features/auth/authSlice";
 function App() {
   const dispatch = useDispatch();
   const informationUser = useSelector(info);
-  
+
   const cookies = new Cookies();
 
   const [userInfo, setuserInfo] = useState(informationUser);
-  console.log(userInfo)
+  // console.log(userInfo)
   useEffect(() => {
-    console.log("occurs")
     const token = cookies.get("token");
-    if (token) {
+    if (token && !userInfo.isLoggedIn) {
       console.log(token);
       dispatch(getMe(token));
       // User is authenticated, handle accordingly
@@ -38,12 +37,11 @@ function App() {
 
   useEffect(() => {
     setuserInfo(informationUser);
-    console.log(informationUser)
+    //console.log(informationUser);
   }, [informationUser]);
 
   return (
     <div>
-     
       <Routes>
         <Route path="/" element={<Layout />}>
           //public route
