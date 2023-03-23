@@ -61,6 +61,7 @@ const authSlice = createSlice({
         state.status = "loading";
       })
       .addCase(loginfetch.fulfilled, (state, action) => {
+        console.log(action.payload)
         state.status = "succeeded";
         console.log(action.payload);
         const { token } = action.payload;

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import Cookies from "universal-cookie";
+
 import "./App.css";
 import Layout from "./pages/Layout";
 import Home from "./pages/Home";
@@ -19,33 +19,30 @@ function App() {
   const dispatch = useDispatch();
   const informationUser = useSelector(info);
 
-  const cookies = new Cookies();
-
   const [userInfo, setuserInfo] = useState(informationUser);
   // console.log(userInfo)
-  useEffect(() => {
-    const token = cookies.get("token");
-    if (token && !userInfo.isLoggedIn) {
-      console.log(token);
-      dispatch(getMe(token));
-      // User is authenticated, handle accordingly
-    } else {
-      // User is not authenticated, handle accordingly
-      console.log("please login again!!!");
-    }
-  }, []);
+
 
   useEffect(() => {
     setuserInfo(informationUser);
     //console.log(informationUser);
   }, [informationUser]);
 
+  // useEffect(() => {
+  //   AutoLogin(userInfo)
+  //   //<AutoLogin userInfo={userInfo}/>
+   
+  // });
+
+
+
   return (
     <div>
+  
       <Routes>
-        <Route path="/" element={<Layout />}>
+        <Route path="/" element={<Layout userInfo={userInfo} />}>
           //public route
-          <Route index element={<Home />} />
+          <Route index element={<Home  userInfo={userInfo} />} />
           <Route path="/login" element={<LoginRegister />} />
           <Route path="/subs" element={<Pricing />} />
           <Route path="/contact" element={<ContactUs />} />
