@@ -1,9 +1,9 @@
 import Cookies from "universal-cookie";
 import { useDispatch, useSelector } from "react-redux";
-import { getMe } from "../../features/auth/authFetch";
+import { getMe } from "../features/auth/authFetch";
 import { useEffect, useState } from "react";
-import { info } from "../../features/auth/authSlice";
-import App from "../../App";
+import { info } from "../features/auth/authSlice";
+import App from "../App";
 
 export default function AutoLogin(children) {
   const dispatch = useDispatch();

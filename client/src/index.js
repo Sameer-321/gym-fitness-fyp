@@ -9,7 +9,7 @@ import store from "./app/store";
 
 import App from "./App";
 
-import AutoLogin from "./components/utils/AutoLogin";
+import AutoLogin from "./utils/AutoLogin";
 
 // const dispatch = useDispatch();
 const root = ReactDOM.createRoot(document.getElementById("root"));
@@ -21,7 +21,7 @@ root.render(
       <AutoLogin/>
         <App />
       <AutoLogin/>
-      
+
       </BrowserRouter>{" "}
     </Provider>
   </React.StrictMode>
