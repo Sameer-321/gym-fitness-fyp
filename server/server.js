@@ -6,7 +6,8 @@ const colors = require("colors");
 const errorHandler = require("./middleware/error");
 const cors = require("cors");
 const bodyParser = require("body-parser");
-
+const multer = require('multer');
+const upload = multer({ dest: "uploads/" });
 //Load env vars
 dotenv.config({ path: "./config/config.env" });
 
@@ -22,7 +23,8 @@ connectDB();
 //Routes files
 const bootcamps = require("./routes/bootcamps");
 const auth = require("./routes/auth");
-const payment = require("./routes/payment")
+const payment = require("./routes/payment");
+const uploadRoute = require("./routes/uploadRoute.js");
 const app = express();
 
 // parse application/json body parser
@@ -39,10 +41,13 @@ if (process.env.NODE_ENV === "development") {
 //Mount routers
 app.use("/api/v1/bootcamps", bootcamps);
 app.use("/api/v1/auth", auth);
-app.use("/api/v1/payment",payment );
+app.use("/api/v1/payment", payment);
+
+//app.use("/api/v1/upload", upload.single("image"), uploadRoute);
+app.use("/api/v1/upload", upload.single("image"), uploadRoute);
+
 
 app.use(errorHandler);
-
 
 const PORT = process.env.PORT || 5000;
 
