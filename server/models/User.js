@@ -29,6 +29,11 @@ const UserSchema = new mongoose.Schema({
     minlength: 6,
     select: false,
   },
+  pic:{
+    title:String,
+    description:String,
+    imageUrl:String
+  },
   createdAt: {
     type: Date,
     default: Date.now,
