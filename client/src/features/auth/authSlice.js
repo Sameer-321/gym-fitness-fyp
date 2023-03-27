@@ -86,11 +86,11 @@ const authSlice = createSlice({
         console.log(action.payload);
       })
       .addCase(getMe.fulfilled, (state, action) => {
-        //console.log("vayooooooooooooo")
-        console.log(action.payload);
-        const { email, name, id, role } = action.payload.data;
+        
+        console.log(action.payload._id);
+        const { email, name, _id, role } = action.payload.data;
         state.isLoggedIn = true;
-        state.id = id;
+        state.id = _id;
         state.name = name;
         state.email = email;
         state.status = "success";

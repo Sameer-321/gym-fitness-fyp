@@ -7,7 +7,6 @@ const axios = require("axios");
 
 exports.uploadImage = async (req, res, next) => {
   console.log(req.file, req.body, 9);
-  console.log(req,100)
 
   const title = req.body.title;
   const description = req.body.description;

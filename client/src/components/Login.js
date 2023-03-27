@@ -20,7 +20,7 @@ export default function Login(props) {
   function handleClick() {
     props.status(false);
   }
-  const handleSubmit = async (e)=>{
+  const handleSubmit =  (e)=>{
     e.preventDefault();
     dispatch(loginfetch(info))
     setInfo({

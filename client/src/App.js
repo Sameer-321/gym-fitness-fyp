@@ -14,6 +14,7 @@ import Profile from "./pages/Profile";
 import Payment from "./pages/Payment";
 import RequireAuthUser from "./components/RequireAuthUser";
 import { info } from "./features/auth/authSlice";
+import Cookies from "universal-cookie";
 
 function App() {
   const dispatch = useDispatch();
@@ -22,27 +23,23 @@ function App() {
   const [userInfo, setuserInfo] = useState(informationUser);
   // console.log(userInfo)
 
-
   useEffect(() => {
     setuserInfo(informationUser);
     //console.log(informationUser);
   }, [informationUser]);
 
-  // useEffect(() => {
-  //   AutoLogin(userInfo)
-  //   //<AutoLogin userInfo={userInfo}/>
-   
-  // });
-
-
+  const cookies = new Cookies();
+  const token = cookies.get("token");
+  useEffect(() => {
+    dispatch(getMe(token))
+  }, []);
 
   return (
     <div>
-  
       <Routes>
         <Route path="/" element={<Layout userInfo={userInfo} />}>
           //public route
-          <Route index element={<Home  userInfo={userInfo} />} />
+          <Route index element={<Home userInfo={userInfo} />} />
           <Route path="/login" element={<LoginRegister />} />
           <Route path="/subs" element={<Pricing />} />
           <Route path="/contact" element={<ContactUs />} />

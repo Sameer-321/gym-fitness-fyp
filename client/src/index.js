@@ -19,8 +19,8 @@ root.render(
       <BrowserRouter>
 
       <AutoLogin/>
-        <App />
-      <AutoLogin/>
+        {/* <App /> */}
+      
 
       </BrowserRouter>{" "}
     </Provider>
