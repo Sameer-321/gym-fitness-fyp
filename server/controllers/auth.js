@@ -7,7 +7,13 @@ const User = require("../models/User");
 
 exports.register = async (req, res, next) => {
   try {
+
     const { name, email, password, role } = req.body;
+    
+    if(email==="admin@gymFitness.com"){
+      ErrorResponse("EMail is already taken, please try with new email.")
+      next()
+    }
 
     // Create user
     const user = await User.create({
@@ -15,7 +21,7 @@ exports.register = async (req, res, next) => {
       email,
       password,
       role,
-    });
+    })
 
     sendTokenRespons(user, 200, res);
   } catch (error) {
