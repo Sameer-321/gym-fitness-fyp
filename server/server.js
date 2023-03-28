@@ -6,8 +6,7 @@ const colors = require("colors");
 const errorHandler = require("./middleware/error");
 const cors = require("cors");
 const bodyParser = require("body-parser");
-const multer = require('multer');
-const upload = multer({ dest: "uploads/" });
+
 //Load env vars
 dotenv.config({ path: "./config/config.env" });
 
@@ -33,6 +32,9 @@ app.use(bodyParser.json());
 // Enable cors
 app.use(cors());
 
+// Make folder public 
+app.use("/uploads", express.static("uploads"));
+
 //Dev logging middleware
 if (process.env.NODE_ENV === "development") {
   app.use(morgan("dev"));
@@ -44,7 +46,7 @@ app.use("/api/v1/auth", auth);
 app.use("/api/v1/payment", payment);
 
 //app.use("/api/v1/upload", upload.single("image"), uploadRoute);
-app.use("/api/v1/upload", upload.single("image"), uploadRoute);
+app.use("/api/v1/upload", uploadRoute);
 
 
 app.use(errorHandler);

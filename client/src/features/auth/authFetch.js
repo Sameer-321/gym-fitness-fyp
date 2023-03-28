@@ -1,8 +1,6 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 import Cookies from "universal-cookie";
-import { isLoggedIn } from "./authSlice";
-import { useSelector } from "react-redux";
 const URL = "http://localhost:5000/api/v1/auth/";
 
 export const loginfetch = createAsyncThunk("login", async (credentials) => {
