@@ -12,6 +12,7 @@ const initialState = {
   email: "",
   name: "",
   role: "",
+  profilePictureLink: "",
   status: "idle", //idle,loading,succeeded,failed
   error: null,
 };
@@ -39,8 +40,7 @@ const authSlice = createSlice({
       state.status = "idle";
       state.error = null;
       // Reload the page by js
-      window.location.reload()
-    
+      window.location.reload();
     },
     resetState(state) {
       state = {
@@ -61,7 +61,7 @@ const authSlice = createSlice({
         state.status = "loading";
       })
       .addCase(loginfetch.fulfilled, (state, action) => {
-        console.log(action.payload)
+        console.log(action.payload);
         state.status = "succeeded";
         console.log(action.payload);
         const { token } = action.payload;
@@ -86,15 +86,15 @@ const authSlice = createSlice({
         console.log(action.payload);
       })
       .addCase(getMe.fulfilled, (state, action) => {
-        
-        console.log(action.payload._id);
-        const { email, name, _id, role } = action.payload.data;
+        console.log(action.payload);
+        const { email, name, _id, role, profilePicture } = action.payload.data;
         state.isLoggedIn = true;
         state.id = _id;
         state.name = name;
         state.email = email;
         state.status = "success";
         state.role = role;
+        state.profilePictureLink = profilePicture.link;
         //token set at last
         const token = cookies.get("token");
         state.jwt = token;
@@ -106,15 +106,13 @@ const authSlice = createSlice({
   },
 });
 
-// export const selectAllPosts = (state) => state.posts.posts;
-// export const getPostsStatus = (state) => state.posts.status;
-// export const getPostsError = (state) => state.posts.error;
 export const isLoggedIn = (state) => state.auth.isLoggedIn;
 export const token = (state) => state.auth.jwt;
 export const name = (state) => state.auth.name;
 export const email = (state) => state.auth.email;
-export const status = (state)=>state.auth.status
+export const status = (state) => state.auth.status;
 export const err = (state) => state.auth.error;
+export const id = (state) => state.auth.id;
 
 export const info = (state) => ({
   isLoggedIn: state.auth.isLoggedIn,
@@ -123,7 +121,8 @@ export const info = (state) => ({
   email: state.auth.email,
   role: state.auth.role,
   error: state.auth.error,
-  status:state.auth.status
+  status: state.auth.status,
+  profilePictureLink: state.auth.profilePictureLink,
 });
 
 export const { login, logout, register, getToken, resetState } =
