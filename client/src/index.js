@@ -17,14 +17,9 @@ root.render(
   <React.StrictMode>
     <Provider store={store}>
       <BrowserRouter>
-
-      <AutoLogin/>
+        <AutoLogin />
         {/* <App /> */}
-      
-
       </BrowserRouter>{" "}
     </Provider>
   </React.StrictMode>
 );
-
-

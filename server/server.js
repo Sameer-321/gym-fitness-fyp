@@ -20,7 +20,7 @@ const uuid = require("uuid").v4;
 connectDB();
 
 //Routes files
-const bootcamps = require("./routes/bootcamps");
+const adminRoute = require("./routes/admin")
 const auth = require("./routes/auth");
 const payment = require("./routes/payment");
 const uploadRoute = require("./routes/uploadRoute.js");
@@ -41,10 +41,9 @@ if (process.env.NODE_ENV === "development") {
 }
 
 //Mount routers
-app.use("/api/v1/bootcamps", bootcamps);
 app.use("/api/v1/auth", auth);
 app.use("/api/v1/payment", payment);
-
+app.use("/api/v1/admin", adminRoute);
 //app.use("/api/v1/upload", upload.single("image"), uploadRoute);
 app.use("/api/v1/upload", uploadRoute);
 
