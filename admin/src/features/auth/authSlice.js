@@ -81,9 +81,6 @@ const authSlice = createSlice({
         state.status = "failed";
         state.error = action.error.message;
       })
-      .addCase(registerfetch.fulfilled, (state, action) => {
-        console.log(action.payload);
-      })
       .addCase(getMe.fulfilled, (state, action) => {
         console.log(action.payload);
         const { email, name, _id, role, profilePicture } = action.payload.data;
@@ -93,7 +90,7 @@ const authSlice = createSlice({
         state.email = email;
         state.status = "success";
         state.role = role;
-        state.profilePictureLink = profilePicture.link;
+        state.profilePictureLink = profilePicture?.link;
         //token set at last
         const token = cookies.get("token");
         state.jwt = token;

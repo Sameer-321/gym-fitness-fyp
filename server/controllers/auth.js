@@ -7,12 +7,11 @@ const User = require("../models/User");
 
 exports.register = async (req, res, next) => {
   try {
-
     const { name, email, password, role } = req.body;
-    
-    if(email==="admin@gymFitness.com"){
-      ErrorResponse("EMail is already taken, please try with new email.")
-      next()
+
+    if (email === "admin@gymFitness.com") {
+      ErrorResponse("EMail is already taken, please try with new email.");
+      next();
     }
 
     // Create user
@@ -21,7 +20,7 @@ exports.register = async (req, res, next) => {
       email,
       password,
       role,
-    })
+    });
 
     sendTokenRespons(user, 200, res);
   } catch (error) {
@@ -77,17 +76,17 @@ exports.getMe = async (req, res, next) => {
   }
 };
 
-//@desc     Log user out / clear cookie 
+//@desc     Log user out / clear cookie
 //@route    GET /api/v1/auth/logout
 //@acess    Private
 
 exports.logout = async (req, res, next) => {
   try {
-    res.cookie('token', 'none', {
+    res.cookie("token", "none", {
       expires: new Date(Date.now() + 10 * 1000),
-      httpOnly: true 
-    })
-    
+      httpOnly: true,
+    });
+
     res.status(200).json({ success: true, data: {} });
   } catch (error) {
     next(error);
@@ -113,7 +112,7 @@ exports.updatedetails = async (req, res, next) => {
   } catch (error) {
     next(error);
   }
-}
+};
 
 //@desc     Update password
 //@route    POST /api/v1/auth/updatepassword
@@ -130,7 +129,7 @@ exports.updatePassword = async (req, res, next) => {
     }
 
     user.password = req.body.newPassword;
-    
+
     await user.save();
 
     sendTokenRespons(user, 200, res);
@@ -145,9 +144,7 @@ const sendTokenRespons = (user, statusCode, res) => {
   const token = user.getSignedJwtToken();
 
   const options = {
-    expires: new Date(
-      Date.now() + 30 * 24 * 60 * 60 * 1000
-    ),
+    expires: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000),
     httpOnly: true,
   };
 
