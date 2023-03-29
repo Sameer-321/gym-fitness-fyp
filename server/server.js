@@ -24,6 +24,7 @@ const adminRoute = require("./routes/admin")
 const auth = require("./routes/auth");
 const payment = require("./routes/payment");
 const uploadRoute = require("./routes/uploadRoute.js");
+const usersRoute = require("./routes/UsersRoute.js");
 const app = express();
 
 // parse application/json body parser
@@ -43,10 +44,11 @@ if (process.env.NODE_ENV === "development") {
 //Mount routers
 app.use("/api/v1/auth", auth);
 app.use("/api/v1/payment", payment);
-app.use("/api/v1/admin", adminRoute);
 //app.use("/api/v1/upload", upload.single("image"), uploadRoute);
 app.use("/api/v1/upload", uploadRoute);
 
+app.use("/api/v1/admin", adminRoute);
+app.use("/api/v1/admin/users", usersRoute);
 
 app.use(errorHandler);
 
