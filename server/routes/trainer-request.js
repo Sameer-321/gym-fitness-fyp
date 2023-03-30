@@ -13,7 +13,7 @@ const router = express.Router();
 // Protect Middleware
 
 const { protect, authorize } = require("../middleware/auth");
-"/api/v1/admin/trainers"
+"/api/v1/admin/trainers/"
 router.post("/createRequest", uploadPdf.single("file"), protect, createRequest);
 
 router.put("/updateRequest", protect, updateRequest);

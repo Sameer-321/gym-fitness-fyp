@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { getAllUsers } from "./TrainerFetch";
+import { getAllTrainers } from "./TrainerFetch.js";
 // import Profile from "./Profile";
 
 export const RenderList = (props) => {
@@ -107,15 +107,20 @@ export const pagination = () => {
 
 export function Trainers() {
   const [users, setUsers] = useState([]);
+  const [noUsers, setNoUsers] = useState(false);
+
   const nav = useNavigate();
 
   useEffect(() => {
     async function fetchUsers() {
-      const res = await getAllUsers();
+      const res = await getAllTrainers();
       if (res.status === 200) {
         const data = res?.data;
         setUsers(data);
-        console.log(data);
+        if (data.length === 0) {
+          setNoUsers(true);
+        }
+        console.log(data.length);
         console.log(users);
       }
       return res;
@@ -124,7 +129,6 @@ export function Trainers() {
   }, []);
 
   const individualProfile = (id) => {
-    
     console.log(id);
     const getItem = users.find((item) => item._id === id);
     console.log(getItem);
@@ -133,25 +137,29 @@ export function Trainers() {
 
   return (
     <>
-      <h1>Trainers List</h1>
+      <h1>Trainers List:</h1>
       <br />
-      <ul className="max-w-md divide-y divide-gray-200 dark:divide-gray-700">
-        {users.map((i) => {
-          return (
-            <li
-              className="pb-3 sm:pb-4"
-              key={i?._id}
-              onClick={() => {
-                individualProfile(i._id);
-              }}
-            >
-              <div className="flex items-center space-x-4 cursor-pointer">
-                <RenderList data={i} />
-              </div>{" "}
-            </li>
-          );
-        })}
-      </ul>
+      {noUsers ? (
+        <div>No Trainers registered until now</div>
+      ) : (
+        <ul className="max-w-md divide-y divide-gray-200 dark:divide-gray-700">
+          {users.map((i) => {
+            return (
+              <li
+                className="pb-3 sm:pb-4"
+                key={i?._id}
+                onClick={() => {
+                  individualProfile(i._id);
+                }}
+              >
+                <div className="flex items-center space-x-4 cursor-pointer">
+                  <RenderList data={i} />
+                </div>{" "}
+              </li>
+            );
+          })}
+        </ul>
+      )}
 
       {/* pagination */}
       <br />

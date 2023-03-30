@@ -1,10 +1,10 @@
 import React from "react";
 import axios from "axios";
 import Cookies from "universal-cookie";
+// "/api/v1/admin/trainers/getall"
+const URL = "http://localhost:5000/api/v1/admin/trainers/";
 
-const URL = "http://localhost:5000/api/v1/admin/users/";
-
-export const getAllUsers = async () => {
+export const getAllTrainers = async () => {
   const cookies = new Cookies();
 
   if (cookies.get("token")) {
@@ -14,7 +14,7 @@ export const getAllUsers = async () => {
     };
     try {
       const response = await axios.get(
-        URL.concat("allUsers"),
+        URL.concat("getall"),
         { headers },
         {
           withCredentials: true,
