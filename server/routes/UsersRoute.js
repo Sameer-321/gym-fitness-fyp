@@ -18,7 +18,7 @@ router.post("/create", protect, authorize("admin"), createUser);
 
 router.get("/allUsers", protect, authorize("admin"), getAllUser);
 
-router.get("/user", protect, authorize("admin"), getUser);
+router.get("/:id", protect, authorize("admin"), getUser);
 
 router.put("/updatedetails", protect, authorize("admin"), updateUser);
 //delete
