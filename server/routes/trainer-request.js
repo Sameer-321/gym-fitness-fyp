@@ -6,17 +6,20 @@ const {
   getSingleRequest,
 } = require("../controllers/trainer-request");
 
+const uploadPdf = require("../middleware/uploadPDF");
+
 const router = express.Router();
 
 // Protect Middleware
-const { protect, authorize } = require("../middleware/auth");
 
-router.post("/createRequest", protect,  createRequest);
+const { protect, authorize } = require("../middleware/auth");
+"/api/v1/admin/trainers"
+router.post("/createRequest", uploadPdf.single("file"), protect, createRequest);
 
 router.put("/updateRequest", protect, updateRequest);
 
-router.get("/", protect, getallRequests);
+router.get("/getall", protect, authorize("admin"), getallRequests);
 
-router.get("/:id", protect, getSingleRequest);
+router.get("/get/:id", protect, authorize("admin"), getSingleRequest);
 
 module.exports = router;

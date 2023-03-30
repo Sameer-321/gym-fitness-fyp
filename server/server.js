@@ -20,11 +20,12 @@ const uuid = require("uuid").v4;
 connectDB();
 
 //Routes files
-const adminRoute = require("./routes/admin")
+const adminRoute = require("./routes/admin");
 const auth = require("./routes/auth");
 const payment = require("./routes/payment");
 const uploadRoute = require("./routes/uploadRoute.js");
 const usersRoute = require("./routes/UsersRoute.js");
+const trainerRequest = require("./routes/trainer-request.js");
 const app = express();
 
 // parse application/json body parser
@@ -33,7 +34,7 @@ app.use(bodyParser.json());
 // Enable cors
 app.use(cors());
 
-// Make folder public 
+// Make folder public
 app.use("/uploads", express.static("uploads"));
 
 //Dev logging middleware
@@ -49,6 +50,7 @@ app.use("/api/v1/upload", uploadRoute);
 
 app.use("/api/v1/admin", adminRoute);
 app.use("/api/v1/admin/users", usersRoute);
+app.use("/api/v1/admin/trainers", trainerRequest);
 
 app.use(errorHandler);
 
