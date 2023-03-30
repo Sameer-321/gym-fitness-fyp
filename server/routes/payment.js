@@ -14,12 +14,6 @@ router.post("/khalti", khalti);
 
 router.post("/stripe",protect,  stripe);
 
-// router.get("/logout", logout);
 
-// router.get("/me", protect, getMe);
-
-// router.put("/updatedetails", protect, updatedetails);
-
-// router.put("/updatepassword", protect, updatePassword);
 
 module.exports = router;

@@ -1,45 +1,20 @@
 import React, { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
-import { info } from "../features/auth/authSlice";
+import { useParams } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 
-import axios from "axios";
-function Profile() {
-  const [userInfo, setUserInfo] = useState();
-  const [pic, setPic] = useState("");
+export default function Profile(props) {
+  const location = useLocation();
+  const myData = location.state.info
 
-  const userInformation = useSelector(info);
-
+  const [ userInfo, setUserInfo ] = useState({});
   useEffect(() => {
-    setUserInfo(userInformation);
-  }, [userInformation]);
-  //   console.log(userInfo,16)
-  //    console.log(userInfo.profilePictureLink ,18)
-  console.log(userInformation);
-  const imageRender = () => {
-    if (userInfo?.profilePictureLink) {
-      return `http://localhost:5000/${userInfo?.profilePictureLink}`;
-    } else {
-      return "https://www.kindpng.com/picc/m/22-223863_no-avatar-png-circle-transparent-png.png";
-    }
-  };
+    setUserInfo((myData))
+  }, []);
 
-  const imageUpload = (e) => {
-    setPic(e.target.files[0]);
-    console.log(e.target.files[0]);
-  };
+  const params = useParams();
+  const id = params.id;
 
-  const submitButton = async () => {
-    const formData = new FormData();
-    formData.append("file", pic);
-    var user_id = "asdf";
-    await axios
-      .post(`http://localhost:5000/api/v1/upload/img/${user_id}`, formData, {
-        headers: { Authorization: "send local token from cookies" },
-      })
-      .then((res) => {
-        console.log(res.data);
-      });
-  };
+
   return (
     <>
       <div className="flex items-center h-screen w-full justify-center">
@@ -49,8 +24,8 @@ function Profile() {
               <img
                 className="w-32 h-32 rounded-full mx-auto"
                 src={
-                  userInfo?.profilePictureLink
-                    ? `http://localhost:5000/${userInfo?.profilePictureLink}`
+                  userInfo?.profilePicture
+                    ? `http://localhost:5000/${userInfo?.profilePicture?.link}`
                     : "https://www.kindpng.com/picc/m/22-223863_no-avatar-png-circle-transparent-png.png"
                 }
                 //src={}
@@ -59,7 +34,7 @@ function Profile() {
             </div>
             <div className="p-2">
               <h3 className="text-center text-xl text-gray-900 font-medium leading-8">
-                {userInformation.name}
+               {userInfo.name}
               </h3>
               <div className="text-center text-gray-400 text-xs font-semibold">
                 <p>not verified</p>
@@ -104,5 +79,3 @@ function Profile() {
     </>
   );
 }
-
-export default Profile;

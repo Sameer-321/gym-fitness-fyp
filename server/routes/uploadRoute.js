@@ -7,4 +7,4 @@ const router = express.Router();
 
 router.post("/img/:user_id",upload.single('file'), uploadImage);
 
-module.exports = router;
+module.exports = router

@@ -8,6 +8,10 @@ import { info } from "./features/auth/authSlice";
 import { getMe } from "./features/auth/authFetch";
 import Cookies from "universal-cookie";
 import { useDispatch } from "react-redux";
+import Profile from "./components/Profile";
+import { Welcome } from "./components/Welcome.js";
+import { Users } from "./components/Users";
+
 function App() {
   const dispatch = useDispatch();
   const admin_information = useSelector(info);
@@ -41,7 +45,11 @@ function App() {
                 <AdminFrame />
               </AuthAdmin>
             }
-          />
+          >
+            <Route index element={<Welcome />} />
+            <Route path="/users" element={<Users />} />
+            <Route path="/users/profile/:id" element={<Profile />} />
+          </Route>
         )}
       </Routes>
     </div>
