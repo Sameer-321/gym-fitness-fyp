@@ -1,6 +1,9 @@
 const TrainerRequest = require("../models/Trainer-Request");
-
+const User = require("../models/User")
 exports.createRequest = async (req, res, next) => {
+  const userid = req.params.id;
+  const userInfo = await User.findById(userid, "name email profilePicture");
+
   const cvPDF = {
     name: req.file.name,
     link: req.file.path,
@@ -9,6 +12,7 @@ exports.createRequest = async (req, res, next) => {
   try {
     const trainerRequest = TrainerRequest.create({
       cvPDF,
+      userInfo,
     });
     res.status(200).json(trainerRequest);
   } catch (err) {

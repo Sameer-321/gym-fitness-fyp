@@ -132,7 +132,7 @@ export function AdminFrame() {
                     clip-rule="evenodd"
                   ></path>
                 </svg>
-                <span className="flex-1 ml-3 whitespace-nowrap">Trainers</span>
+                <span className="flex-1 ml-3 whitespace-nowrap">Trainers Request</span>
               </Link>
             </li>
             <li>

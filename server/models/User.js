@@ -4,44 +4,47 @@ const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const randomize = require("randomatic");
 
-const UserSchema = new mongoose.Schema({
-  name: {
-    type: String,
-    required: [true, "Please add a name"],
-  },
-  email: {
-    type: String,
-    required: [true, "Please add an email"],
-    unique: true,
-    match: [
-      /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/,
-      "Please add a valid email",
-    ],
-  },
-  role: {
-    type: String,
-    enum: ["user", "admin", "trainer"],
-    default: "user",
-  },
-  password: {
-    type: String,
-    required: [true, "Please add a password"],
-    minlength: 6,
-    select: false,
-  },
-  profilePicture:{
+const UserSchema = new mongoose.Schema(
+  {
     name: {
       type: String,
+      required: [true, "Please add a name"],
     },
-    link: {
+    email: {
       type: String,
-    }
-  },
-  createdAt: {
-    type: Date,
-    default: Date.now,
-  },
-});
+      required: [true, "Please add an email"],
+      unique: true,
+      match: [
+        /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/,
+        "Please add a valid email",
+      ],
+    },
+    role: {
+      type: String,
+      enum: ["user", "admin", "trainer"],
+      default: "user",
+    },
+    password: {
+      type: String,
+      required: [true, "Please add a password"],
+      minlength: 6,
+      select: false,
+    },
+    profilePicture: {
+      name: {
+        type: String,
+      },
+      link: {
+        type: String,
+      },
+    },
+
+    createdAt: {
+      type: Date,
+      default: Date.now,
+    },
+  }
+);
 
 // Encrypt password using bcrypt
 UserSchema.pre("save", async function (next) {

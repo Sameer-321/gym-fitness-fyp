@@ -12,6 +12,8 @@ import Profile from "./components/Profile";
 import { Welcome } from "./components/Welcome.js";
 import { Users } from "./components/Users";
 import { Trainers } from "./components/Trainers/Trainers.js";
+import TrainersProfile from "./components/Trainers/TrainersProfile";
+import { TrainersCV } from "./components/Trainers/TrainersCV";
 
 function App() {
   const dispatch = useDispatch();
@@ -51,7 +53,8 @@ function App() {
             <Route path="/users" element={<Users />} />
             <Route path="/users/profile/:id" element={<Profile />} />
 
-            <Route path="/Trainers" element={<Trainers />} />
+            <Route path="/trainers" element={<Trainers />} />
+            <Route path="/trainers/CV/:id" element={<TrainersCV />} />
           </Route>
         )}
       </Routes>

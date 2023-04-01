@@ -5,6 +5,7 @@ import { getAllTrainers } from "./TrainerFetch.js";
 
 export const RenderList = (props) => {
   const { data } = props;
+  
   const photoUrl = data?.profilePicture?.link;
   return (
     <>
@@ -22,15 +23,15 @@ export const RenderList = (props) => {
       </div>
       <div className="flex-1 min-w-0">
         <p className="text-sm font-medium text-gray-900 truncate dark:text-white">
-          {data.name}
+          {data.userInfo.name}
         </p>
         <p className="text-sm text-gray-500 truncate dark:text-gray-400">
-          {data.email}
+          {data.userInfo.email}
         </p>
       </div>
-      <div className="inline-flex items-center text-base font-semibold text-gray-900 dark:text-white">
+      {/* <div className="inline-flex items-center text-base font-semibold text-gray-900 dark:text-white">
         $320
-      </div>
+      </div> */}
 
       {/* </div> */}
     </>
@@ -113,7 +114,7 @@ export function Trainers() {
 
   useEffect(() => {
     async function fetchUsers() {
-      const res = await getAllTrainers();
+      const res = await getAllTrainers()
       if (res.status === 200) {
         const data = res?.data;
         setUsers(data);
@@ -131,8 +132,8 @@ export function Trainers() {
   const individualProfile = (id) => {
     console.log(id);
     const getItem = users.find((item) => item._id === id);
-    console.log(getItem);
-    nav(`trainer-profile/${id}`, { state: { info: getItem } });
+    // console.log(getItem);
+    nav(`CV/${id}`, { state: { info: getItem } });
   };
 
   return (
