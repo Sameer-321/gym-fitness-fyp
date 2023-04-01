@@ -15,7 +15,7 @@ import Payment from "./pages/Payment";
 import RequireAuthUser from "./components/RequireAuthUser";
 import { info } from "./features/auth/authSlice";
 import Cookies from "universal-cookie";
-
+import { ApplyTrainers } from "./pages/ApplyTrainers";
 function App() {
   const dispatch = useDispatch();
   const informationUser = useSelector(info);
@@ -31,7 +31,7 @@ function App() {
   const cookies = new Cookies();
   const token = cookies.get("token");
   useEffect(() => {
-    dispatch(getMe(token))
+    dispatch(getMe(token));
   }, []);
 
   return (
@@ -51,6 +51,14 @@ function App() {
             element={
               <RequireAuthUser roleProps="user" info={userInfo}>
                 <Payment />
+              </RequireAuthUser>
+            }
+          />
+          <Route
+            path="/apply-trainer"
+            element={
+              <RequireAuthUser roleProps="user" info={userInfo}>
+                <ApplyTrainers info={userInfo} />
               </RequireAuthUser>
             }
           />

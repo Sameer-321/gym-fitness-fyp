@@ -1,7 +1,7 @@
 import React from "react";
 import "../../styles/footer.css";
 import logo from "../../assets/img/dumble.png";
-
+import { Link } from "react-router-dom";
 
 const navigation = {
   social: [
@@ -58,7 +58,7 @@ const navigation = {
 
 
 const Footer = () => {
-  const year = new Date().getFullYear();
+  
   return (
     <footer className="footer" data-aos="fade-up" data-aos-duration="1500">
       <div className="container">
@@ -113,7 +113,8 @@ const Footer = () => {
 
             <ul className="footer__links">
               <li>
-                <a href="#">Trainers</a>
+                <Link to="/apply-trainer">Trainers</Link>
+                {/* <a href="#">Trainers</a> */}
               </li>
             </ul>
           </div>
@@ -126,7 +127,7 @@ const Footer = () => {
             ))}
 
         <p className="copyright">
-          Copyright - {year} developed by SameerSunar_2058972. All rights reserved.
+          Copyright - 2023 developed by SameerSunar_2058972. All rights reserved.
         </p>
       </div>
     </footer>
