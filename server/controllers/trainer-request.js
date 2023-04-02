@@ -1,5 +1,6 @@
 const TrainerRequest = require("../models/Trainer-Request");
 const User = require("../models/User")
+
 exports.createRequest = async (req, res, next) => {
   const userid = req.params.id;
   const userInfo = await User.findById(userid, "name email profilePicture");

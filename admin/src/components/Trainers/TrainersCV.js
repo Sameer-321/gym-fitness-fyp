@@ -2,6 +2,7 @@ import React from "react";
 
 import { useLocation } from "react-router-dom";
 import { Worker } from "@react-pdf-viewer/core";
+
 // Import the main component
 import { Viewer } from "@react-pdf-viewer/core";
 
