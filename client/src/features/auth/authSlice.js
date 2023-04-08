@@ -87,14 +87,14 @@ const authSlice = createSlice({
       })
       .addCase(getMe.fulfilled, (state, action) => {
         console.log(action.payload);
-        const { email, name, _id, role, profilePicture } = action.payload.data;
+        const { email, name, _id, role } = action.payload.data;
         state.isLoggedIn = true;
         state.id = _id;
         state.name = name;
         state.email = email;
         state.status = "success";
         state.role = role;
-        state.profilePictureLink = profilePicture.link;
+        state.profilePictureLink = action.payload.data?.profilePicture?.link;
         //token set at last
         const token = cookies.get("token");
         state.jwt = token;
@@ -113,8 +113,10 @@ export const email = (state) => state.auth.email;
 export const status = (state) => state.auth.status;
 export const err = (state) => state.auth.error;
 export const id = (state) => state.auth.id;
+export const Profile = (state) => state.auth?.profilePictureLink;
 
 export const info = (state) => ({
+  id: state.auth.id,
   isLoggedIn: state.auth.isLoggedIn,
   token: state.auth.jwt,
   name: state.auth.name,
@@ -122,7 +124,7 @@ export const info = (state) => ({
   role: state.auth.role,
   error: state.auth.error,
   status: state.auth.status,
-  profilePictureLink: state.auth.profilePictureLink,
+  profilePictureLink: state.auth?.profilePictureLink,
 });
 
 export const { login, logout, register, getToken, resetState } =

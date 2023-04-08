@@ -1,5 +1,6 @@
 const TrainerRequest = require("../models/Trainer-Request");
-const User = require("../models/User")
+const User = require("../models/User");
+
 exports.createRequest = async (req, res, next) => {
   const userid = req.params.id;
   const userInfo = await User.findById(userid, "name email profilePicture");
@@ -20,16 +21,25 @@ exports.createRequest = async (req, res, next) => {
   }
 };
 
-exports.updateRequest = async (req, res, next) => {
+exports.updateRequest = async ( req,res, next) => {
   try {
     const updateStatus = await TrainerRequest.findByIdAndUpdate(
       req.params.id,
       { $set: { status: req.body.status } },
       { new: true } // this option returns the updated document
     );
+
+    if (updateStatus.status === "accepted") {
+      const userId = updateStatus.userInfo._id;
+      // update the role of the associated user to "trainer"
+      const user = await User.findById(userId);
+      user.role = "trainer";
+      await user.save();
+    }
+
     res.status(200).json(updateStatus);
   } catch (err) {
-    next(err);
+    console.log(err)
   }
 };
 

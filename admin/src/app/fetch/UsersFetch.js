@@ -14,7 +14,7 @@ export const getAllUsers = async () => {
     };
     try {
       const response = await axios.get(
-        URL.concat("allUsers"),
+        URL.concat("allUsers?role=user"),
         { headers },
         {
           withCredentials: true,

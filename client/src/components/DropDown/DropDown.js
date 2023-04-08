@@ -1,7 +1,9 @@
 import { Fragment } from "react";
+import { useSelector } from "react-redux";
 import { Menu, Transition } from "@headlessui/react";
 import { ChevronDownIcon } from "@heroicons/react/20/solid";
-import { useDispatch } from 'react-redux'
+import { useDispatch } from "react-redux";
+import { Profile } from "../../features/auth/authSlice";
 import { logout } from "../../features/auth/authSlice";
 import { useNavigate } from "react-router-dom";
 function classNames(...classes) {
@@ -9,20 +11,25 @@ function classNames(...classes) {
 }
 
 export default function DropDown() {
+  const pp = useSelector(Profile);
   const dispatch = useDispatch();
   const nav = useNavigate();
   return (
     <Menu as="div" className="relative inline-block text-left">
       <div>
         <Menu.Button className="inline-flex w-full justify-center gap-x-1.5 rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50">
-        <a href="/profile">
-          <img
-          className="inline-block h-6 w-6 rounded-full ring-2 ring-white"
-          src="https://images.unsplash.com/photo-1491528323818-fdd1faba62cc?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
-          alt=""
-        />
-        </a>
-        
+          <a href="/profile">
+            <img
+              className="inline-block h-6 w-6 rounded-full ring-2 ring-white"
+              src={
+                pp
+                  ? `http://localhost:5000/${pp}`
+                  : "https://www.kindpng.com/picc/m/22-223863_no-avatar-png-circle-transparent-png.png"
+              }
+              alt=""
+            />
+          </a>
+
           <ChevronDownIcon
             className="-mr-1 h-5 w-5 text-gray-400"
             aria-hidden="true"
@@ -64,7 +71,7 @@ export default function DropDown() {
                   )}
                   onClick={() => {
                     dispatch(logout());
-                  nav("/")
+                    nav("/");
                   }}
                 >
                   Log out
