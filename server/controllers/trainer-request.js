@@ -21,7 +21,7 @@ exports.createRequest = async (req, res, next) => {
   }
 };
 
-exports.updateRequest = async ( req,res, next) => {
+exports.updateRequest = async (req, res, next) => {
   try {
     const updateStatus = await TrainerRequest.findByIdAndUpdate(
       req.params.id,
@@ -39,7 +39,7 @@ exports.updateRequest = async ( req,res, next) => {
 
     res.status(200).json(updateStatus);
   } catch (err) {
-    console.log(err)
+    console.log(err);
   }
 };
 
@@ -63,8 +63,33 @@ exports.updateRequestWithMessage = async (req, res, next) => {
 
 exports.getallRequests = async (req, res, next) => {
   try {
-    const trainerRequests = await TrainerRequest.find();
-    res.status(200).json(trainerRequests);
+    let query = {};
+    if (req.query.status === "accepted") {
+      query = { status: "accepted" };
+      // retrieve users based on the query filter
+      const trainerRequests = await TrainerRequest.find(query);
+      // send the response with the retrieved users
+      res.status(200).json(trainerRequests);
+    } else if (req.query.status === "pending") {
+      query = { status: "pending" };
+      // retrieve users based on the query filter
+      const trainerRequests = await TrainerRequest.find(query);
+      // send the response with the retrieved users
+      res.status(200).json(trainerRequests);
+    } else if (req.query.status === "rejected") {
+      query = { status: "rejected" };
+      // retrieve users based on the query filter
+      const trainerRequests = await TrainerRequest.find(query);
+      // send the response with the retrieved users
+      res.status(200).json(trainerRequests);
+    } else if (req.query.status === "trainers") {
+      query = { role: "trainer" };
+      const userTrainers = await User.find(query);
+      res.status(200).json(userTrainers);
+    } else if (req.query.status="all") {
+      const t = await TrainerRequest.find();
+      res.status(200).json(t);
+    }
   } catch (err) {
     next(err);
   }

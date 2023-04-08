@@ -21,7 +21,7 @@ router.put("/updateRequest/:id", protect, authorize("admin"), updateRequest);
 
 // router.get("/getall", protect, authorize("admin"), getallRequests);
 
-router.get("/getall", getallRequests);
+router.get("/getall", protect, authorize("admin"), getallRequests);
 
 router.get("/get/:id", getSingleRequest);
 

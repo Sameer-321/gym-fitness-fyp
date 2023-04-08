@@ -1,6 +1,6 @@
 const ErrorResponse = require("../utils/errorResponse");
 const User = require("../models/User");
-const fs = require('fs');
+const fs = require("fs");
 
 const axios = require("axios");
 //@desc     Register Users
