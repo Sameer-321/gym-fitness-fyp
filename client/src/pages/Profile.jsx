@@ -1,20 +1,20 @@
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { info } from "../features/auth/authSlice";
-
+import { PencilSquareIcon } from "@heroicons/react/20/solid";
 import axios from "axios";
+import { UpdateProfile } from "../components/Modal/UpdateProfile";
 function Profile() {
   const [userInfo, setUserInfo] = useState();
   const [pic, setPic] = useState("");
-
+  const [popUp, setPopUp] = useState(false);
   const userInformation = useSelector(info);
 
   useEffect(() => {
     setUserInfo(userInformation);
+    console.log(userInformation)
   }, [userInformation]);
-  //   console.log(userInfo,16)
-  //    console.log(userInfo.profilePictureLink ,18)
-  console.log(userInformation);
+
   const imageRender = () => {
     if (userInfo?.profilePictureLink) {
       return `http://localhost:5000/${userInfo?.profilePictureLink}`;
@@ -40,6 +40,9 @@ function Profile() {
         console.log(res.data);
       });
   };
+  const handleClick = () => {
+    setPopUp(!popUp);
+  };
   return (
     <>
       <div className="flex items-center h-screen w-full justify-center">
@@ -54,8 +57,18 @@ function Profile() {
                     : "https://www.kindpng.com/picc/m/22-223863_no-avatar-png-circle-transparent-png.png"
                 }
                 //src={}
-                alt="NO Profile"
+                alt="NO Avatar"
               />
+
+              <div>
+                <button
+                  onClick={() => {
+                    handleClick();
+                  }}
+                >
+                  <PencilSquareIcon className="h-10 w-10" />
+                </button>
+              </div>
             </div>
             <div className="p-2">
               <h3 className="text-center text-xl text-gray-900 font-medium leading-8">
@@ -84,7 +97,7 @@ function Profile() {
                     <td className="px-2 py-2 text-gray-500 font-semibold">
                       Email
                     </td>
-                    <td className="px-2 py-2">john@exmaple.com</td>
+                    <td className="px-2 py-2">{userInformation.email}</td>
                   </tr>
                 </tbody>
               </table>
@@ -101,6 +114,11 @@ function Profile() {
           </div>
         </div>
       </div>
+      <br />
+      <br />
+      <br />
+      <br />
+      <UpdateProfile state={popUp} info={userInfo} />
     </>
   );
 }

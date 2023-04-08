@@ -17,10 +17,9 @@ const { protect, authorize } = require("../middleware/auth");
 // router.post("/createRequest", uploadPdf.single("file"), protect, createRequest);
 router.post("/createRequest/:id", uploadPdf.single("file"), createRequest);
 
-router.put("/updateRequest", protect, updateRequest);
+router.put("/updateRequest/:id", protect, authorize("admin"), updateRequest);
 
 // router.get("/getall", protect, authorize("admin"), getallRequests);
-
 
 router.get("/getall", getallRequests);
 

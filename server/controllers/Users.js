@@ -34,14 +34,27 @@ exports.deleteUser = async (req, res, next) => {
 
 exports.getAllUser = async (req, res, next) => {
   try {
-    const userAll = await User.find();
+    let query = {};
+
+    if (req.query.role === "user") {
+      query = { role: "user" };
+    } else if (req.query.role === "trainer") {
+      query = { role: "trainer" };
+    } else if (req.query.role === "admin") {
+      query = { role: "admin" };
+    }
+
+    // retrieve users based on the query filter
+    const userAll = await User.find(query);
+
+    // send the response with the retrieved users
     res.status(200).json(userAll);
   } catch (err) {
     next(err);
   }
 };
 
-exports.getUser= async (req, res, next) => {
+exports.getUser = async (req, res, next) => {
   try {
     const savedUser = await newUser.findById(req.params.id);
     res.status(200).json(savedUser);

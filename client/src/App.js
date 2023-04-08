@@ -16,15 +16,18 @@ import RequireAuthUser from "./components/RequireAuthUser";
 import { info } from "./features/auth/authSlice";
 import Cookies from "universal-cookie";
 import { ApplyTrainers } from "./pages/ApplyTrainers";
+import { UpdateProfile } from "./components/Modal/UpdateProfile";
+import Rough from "./pages/Rough";
+
 function App() {
   const dispatch = useDispatch();
   const informationUser = useSelector(info);
 
-  const [userInfo, setuserInfo] = useState(informationUser);
+  const [userInfo, setUserInfo] = useState(informationUser);
   // console.log(userInfo)
 
   useEffect(() => {
-    setuserInfo(informationUser);
+    setUserInfo(informationUser);
     //console.log(informationUser);
   }, [informationUser]);
 
@@ -63,6 +66,8 @@ function App() {
             }
           />
         </Route>
+        <Route path="/check" element={<UpdateProfile />} />
+        <Route path="/rough" element={<Rough />} />
       </Routes>
     </div>
   );
