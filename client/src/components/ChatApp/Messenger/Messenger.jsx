@@ -19,7 +19,7 @@ export function Messenger(props) {
 
   const { info } = props;
   const { isLoggedIn } = props.info;
-  console.log(info,21)
+  console.log(info, 21);
   const scrollRef = useRef();
 
   useEffect(() => {
@@ -52,7 +52,9 @@ export function Messenger(props) {
   useEffect(() => {
     const getConversation = async () => {
       try {
-        const res = await axios.get("http://localhost:5000/api/v1/conversations/" + info.id);
+        const res = await axios.get(
+          "http://localhost:5000/api/v1/conversations/" + info.id
+        );
         setConversations(res.data);
       } catch (err) {
         console.log(err);
@@ -65,7 +67,9 @@ export function Messenger(props) {
     // console.log(messages);
     const getMessages = async () => {
       try {
-        const res = await axios.get("http://localhost:5000/api/v1/messages/" + currentChat?.id);
+        const res = await axios.get(
+          "http://localhost:5000/api/v1/messages/" + currentChat?.id
+        );
         setMessages(res.data);
       } catch (err) {
         console.log(err);
@@ -85,16 +89,17 @@ export function Messenger(props) {
       text: newMessages,
       conversationId: currentChat._id,
     };
-    const receiverId = currentChat.members.find(
-      (member) => member !== info.id
-    );
+    const receiverId = currentChat.members.find((member) => member !== info.id);
     socket.current.emit("sendMessage", {
       senderId: info.id,
       receiverId,
       text: newMessages,
     });
     try {
-      const res = await axios.post("http://localhost:5000/api/v1/messages", message);
+      const res = await axios.post(
+        "http://localhost:5000/api/v1/messages",
+        message
+      );
       setMessages([...messages, res.data]);
       setNewMessages("");
     } catch (err) {
@@ -115,7 +120,11 @@ export function Messenger(props) {
                   setCurrentChat(c);
                 }}
               >
-                <Conversation conversation={c} currentUser={info} userInfo={info} />
+                <Conversation
+                  conversation={c}
+                  currentUser={info}
+                  userInfo={info}
+                />
               </div>
             ))}
           </div>
