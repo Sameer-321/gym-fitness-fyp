@@ -1,6 +1,6 @@
 const express = require("express");
 
-const { createSubscription } = require("../controllers/createSubscription.js");
+const { createSubscription } = require("../controllers/subscription.js");
 
 const router = express.Router();
 

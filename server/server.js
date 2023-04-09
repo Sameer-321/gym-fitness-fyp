@@ -10,10 +10,6 @@ const bodyParser = require("body-parser");
 //Load env vars
 dotenv.config({ path: "./config/config.env" });
 
-const stripe = require("stripe")(
-  "sk_test_51MmvcYIJni8Lp9hbz0X8qOpXrqRKNQUF9lGjLDCieZNcu6s0lhsk36Hv5DoYpeYr6nZR27Fur2qTGQmRERykbMLa00Gl15NEq3"
-);
-
 const uuid = require("uuid").v4;
 
 //connect to DB
