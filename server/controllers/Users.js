@@ -56,7 +56,7 @@ exports.getAllUser = async (req, res, next) => {
 
 exports.getUser = async (req, res, next) => {
   try {
-    const savedUser = await newUser.findById(req.params.id);
+    const savedUser = await User.findById(req.params.id);
     res.status(200).json(savedUser);
   } catch (err) {
     next(err);

@@ -3,17 +3,19 @@ import "./conversation.css";
 import axios from "axios";
 
 export function Conversation(props) {
-  const { conversation, currentUser } = props;
+  const { conversation, currentUser, userInfo } = props;
   const [user, setUser] = useState(null);
-  const PF = process.env.REACT_APP_PUBLIC_FOLDER;
+  console.log(userInfo);
 
   useEffect(() => {
     console.log(currentUser);
-    const friendId = conversation.members.find((m) => m !== currentUser._id);
-
+    const friendId = conversation.members.find((m) => m !== currentUser.id);
+    console.log(friendId,13)
     const getUser = async () => {
       try {
-        const res = await axios("/users?userId=" + friendId);
+        const res = await axios(
+          "http://localhost:5000/api/v1/admin/users/" + friendId
+        );
         setUser(res.data);
       } catch (err) {
         console.log(err);
@@ -27,13 +29,13 @@ export function Conversation(props) {
       <img
         className="conversationImg"
         src={
-          user?.profilePicture
-            ? PF + user.profilePicture
-            : PF + "person/noAvatar.png"
+          user?.profilePictureLink
+            ? `http://localhost:5000/${user?.profilePictureLink}`
+            : "https://www.kindpng.com/picc/m/22-223863_no-avatar-png-circle-transparent-png.png"
         }
         alt="dubmbell"
       />
-      <span className="conversationName">{user?.username}</span>
+      <span className="conversationName">{user?.name}</span>
     </div>
   );
 }
