@@ -18,7 +18,7 @@ import Cookies from "universal-cookie";
 import { ApplyTrainers } from "./pages/ApplyTrainers";
 import { UpdateProfile } from "./components/Modal/UpdateProfile";
 import Rough from "./pages/Rough";
-
+import { Messenger } from "./components/ChatApp/Messenger/Messenger";
 function App() {
   const dispatch = useDispatch();
   const informationUser = useSelector(info);
@@ -62,6 +62,14 @@ function App() {
             element={
               <RequireAuthUser roleProps="user" info={userInfo}>
                 <ApplyTrainers info={userInfo} />
+              </RequireAuthUser>
+            }
+          />
+          <Route
+            path="/messenger"
+            element={
+              <RequireAuthUser roleProps={"user" || "trainer"} info={userInfo}>
+                <Messenger info={userInfo} />
               </RequireAuthUser>
             }
           />
