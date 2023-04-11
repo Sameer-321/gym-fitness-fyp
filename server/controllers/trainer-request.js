@@ -82,7 +82,7 @@ exports.getallRequests = async (req, res, next) => {
       const trainerRequests = await TrainerRequest.find(query);
       // send the response with the retrieved users
       res.status(200).json(trainerRequests);
-    } else if (req.query.status === "trainers") {
+    } else if (req.query.status === "trainer") {
       query = { role: "trainer" };
       const userTrainers = await User.find(query);
       res.status(200).json(userTrainers);

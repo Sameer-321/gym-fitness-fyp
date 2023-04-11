@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
 
-export const TrainerListCard = (props) => {
+export const TrainerReqListCard = (props) => {
   const nav = useNavigate();
   const { data } = props;
   console.log(data);
