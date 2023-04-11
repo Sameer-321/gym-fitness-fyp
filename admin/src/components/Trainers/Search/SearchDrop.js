@@ -15,7 +15,7 @@ function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }
 export function DropDown(props) {
-  const { changeStatus } = props;
+  const { changeStatus } = props
   const handleChange = (st) => {
     changeStatus(st);
   };

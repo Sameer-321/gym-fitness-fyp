@@ -44,7 +44,7 @@ function App() {
           <Route
             path="/"
             element={
-              <AuthAdmin propsRole={adminInfo.role}>
+              <AuthAdmin propsRole={"admin"}>
                 <AdminFrame />
               </AuthAdmin>
             }
