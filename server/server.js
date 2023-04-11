@@ -10,10 +10,6 @@ const bodyParser = require("body-parser");
 //Load env vars
 dotenv.config({ path: "./config/config.env" });
 
-const stripe = require("stripe")(
-  "sk_test_51MmvcYIJni8Lp9hbz0X8qOpXrqRKNQUF9lGjLDCieZNcu6s0lhsk36Hv5DoYpeYr6nZR27Fur2qTGQmRERykbMLa00Gl15NEq3"
-);
-
 const uuid = require("uuid").v4;
 
 //connect to DB
@@ -26,6 +22,9 @@ const payment = require("./routes/payment");
 const uploadRoute = require("./routes/uploadRoute.js");
 const usersRoute = require("./routes/UsersRoute.js");
 const trainerRequest = require("./routes/trainer-request.js");
+const subscription = require("./routes/subscription.js");
+const conversationRoute = require("./routes/conversations");
+const messageRoute = require("./routes/messages");
 const app = express();
 
 // parse application/json body parser
@@ -51,6 +50,10 @@ app.use("/api/v1/upload", uploadRoute);
 app.use("/api/v1/admin", adminRoute);
 app.use("/api/v1/admin/users", usersRoute);
 app.use("/api/v1/admin/trainers", trainerRequest);
+app.use("/api/v1/admin/sub", subscription);
+
+app.use("/api/v1/conversations", conversationRoute);
+app.use("/api/v1/messages", messageRoute);
 
 app.use(errorHandler);
 

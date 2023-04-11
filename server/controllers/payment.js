@@ -5,8 +5,6 @@ const axios = require("axios");
 //@route    POST /api/v1/auth/register
 //@acess    Public
 
-
-
 exports.khalti = async (req, res, next) => {
   const data = req.body;
   // const {data} = req.body;
@@ -78,10 +76,6 @@ exports.stripe = async (req, res, next) => {
     status = "failure";
   }
 };
-
-
-
-
 
 // //
 // const options = {

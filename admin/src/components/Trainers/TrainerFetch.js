@@ -5,7 +5,7 @@ import Cookies from "universal-cookie";
 const URL = "http://localhost:5000/api/v1/admin/trainers/";
 
 //***************All for the TRainer Request:*************
-export const getAllTrainers = async () => {
+export const getAllTrainers = async (showCondition) => {
   const cookies = new Cookies();
 
   if (cookies.get("token")) {
@@ -15,7 +15,7 @@ export const getAllTrainers = async () => {
     };
     try {
       const response = await axios.get(
-        URL.concat("getall"),
+        URL.concat(`getall?status=${showCondition}`),
         { headers },
         {
           withCredentials: true,
@@ -36,13 +36,13 @@ export const AdminDecisionTrainersReq = async (id, Status) => {
   if (cookies.get("token")) {
     const headers = {
       "Content-Type": "application/json",
-      "authorization": `Bearer ${cookies.get("token")}`,
+      authorization: `Bearer ${cookies.get("token")}`,
     };
 
     try {
       const response = await axios.put(
         URL.concat(`updateRequest/${id}`),
-        { status:Status },
+        { status: Status },
         { headers }
       );
       //console.log(response.data, 51);

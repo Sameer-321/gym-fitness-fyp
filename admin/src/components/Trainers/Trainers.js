@@ -3,14 +3,14 @@ import { useNavigate } from "react-router-dom";
 import { getAllTrainers } from "./TrainerFetch.js";
 import { Pagination } from "../pagination/Pagination.js";
 import { TrainerListCard } from "./TrainerListCard.js";
-
+import { SearchDrop } from "./Search/SearchDrop.js";
 export function Trainers() {
   const [users, setUsers] = useState([]);
   const [noUsers, setNoUsers] = useState(false);
-
+  const [showCondition, setShowCondition] = useState("all");
   useEffect(() => {
     async function fetchUsers() {
-      const res = await getAllTrainers();
+      const res = await getAllTrainers(showCondition);
       if (res.status === 200) {
         const data = res?.data;
         setUsers(data);
@@ -23,7 +23,12 @@ export function Trainers() {
       return res;
     }
     fetchUsers();
-  }, []);
+  }, [showCondition]);
+
+  const renderListCondition = (props) => {
+    //accepted,rejected,pending and all-------->trainer req
+    setShowCondition(props);
+  };
 
   return (
     <>
@@ -33,10 +38,12 @@ export function Trainers() {
         <div>No Trainers Request until now</div>
       ) : (
         <section className="container mx-auto p-6 font-mono">
+          <SearchDrop renderListCondn={renderListCondition} />
           <div className="w-full mb-8 overflow-hidden rounded-lg shadow-lg">
             <div className="w-full overflow-x-auto">
               <table className="w-full">
                 <thead>
+                  <tr></tr>
                   <tr className="text-md font-semibold tracking-wide text-left text-gray-900 bg-gray-100 uppercase border-b border-gray-600">
                     <th className="px-4 py-3">Name</th>
 
