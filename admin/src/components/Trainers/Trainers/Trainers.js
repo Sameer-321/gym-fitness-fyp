@@ -1,15 +1,14 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { getAllTrainers } from "./TrainerFetch.js";
-import { Pagination } from "../pagination/Pagination.js";
-import { TrainerReqListCard } from "./TrainerReqListCard.js";
-import { SearchDrop, DropDown } from "./Search/SearchDrop.js";
-import { createContext } from "react";
-import { ActualTrainers } from "./Actual Trainer/ActualTrainers.js";
+import { getAllTrainers } from "../Fetch/TrainerFetch.js";
+
+import { TrainerListCard } from "./TrainerListCard.js";
+import { SearchDrop, DropDown } from "../Search/SearchDrop.js";
+import { Switch } from "./SearchDrop.js";
+
 export function Trainers() {
   const [users, setUsers] = useState([]);
   const [noUsers, setNoUsers] = useState(false);
-  const [showCondition, setShowCondition] = useState("all");
+  const [showCondition, setShowCondition] = useState("trainer");
   useEffect(() => {
     async function fetchUsers() {
       const res = await getAllTrainers(showCondition);
@@ -22,9 +21,7 @@ export function Trainers() {
           setNoUsers(false);
         }
         console.log(data.length);
-        console.log(users);
-        console.log(noUsers);
-        console.log(showCondition);
+        console.log(res.data);
       }
       return res;
     }
@@ -32,7 +29,7 @@ export function Trainers() {
   }, [showCondition]);
 
   const renderListCondition = (props) => {
-    //accepted,rejected,pending,trainers and all-------->trainer req
+    //accepted,rejected,pending,trainer and all-------->trainer req
     setShowCondition(props);
   };
 
@@ -43,7 +40,8 @@ export function Trainers() {
 
       <section className="container mx-auto p-6 font-mono">
         <div className="flex">
-          <SearchDrop /> <DropDown changeStatus={renderListCondition} />
+          <SearchDrop />
+          <Switch />
         </div>
 
         <div className="w-full mb-8 overflow-hidden rounded-lg shadow-lg">
@@ -54,21 +52,16 @@ export function Trainers() {
                   <th className="px-4 py-3">Name</th>
 
                   <th className="px-4 py-3">Status</th>
-                  {showCondition !== "trainer" ? (
-                    <th className="px-4 py-3">C.V</th>
-                  ) : (
-                    <th className="px-4 py-3">Profile</th>
-                  )}
+
+                  <th className="px-4 py-3">Profile</th>
                 </tr>
               </thead>
               <tbody className="bg-white">
                 {noUsers ? (
                   <div>No {showCondition} Request</div>
-                ) : showCondition !== "trainer" ? ( //For rendering REquest trainers
-                  users.map((i) => <TrainerReqListCard data={i} />)
                 ) : (
-                  // console.log("a")
-                  users.map((i) => <ActualTrainers data={i} />)
+                  //For rendering REquest trainers
+                  users.map((i) => <TrainerListCard data={i} />)
                 )}
               </tbody>
             </table>
@@ -78,7 +71,7 @@ export function Trainers() {
 
       {/* pagination */}
       <br />
-      {<Pagination />}
+      {/* {<Pagination />} */}
     </>
   );
 }

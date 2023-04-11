@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
-
-export const ActualTrainers = (props) => {
+import { useState } from "react";
+export const TrainerListCard = (props) => {
   const nav = useNavigate();
   const { data } = props;
   console.log(data);
@@ -26,7 +26,7 @@ export const ActualTrainers = (props) => {
             <img
               className="object-cover w-full h-full rounded-full"
               src={
-                data?.profilePicture?.link
+                data.userInfo?.profilePicture?.link
                   ? `http://localhost:5000/${data?.profilePicture?.link}`
                   : `https://www.kindpng.com/picc/m/22-223863_no-avatar-png-circle-transparent-png.png`
               }
@@ -39,14 +39,14 @@ export const ActualTrainers = (props) => {
             ></div>
           </div>
           <div>
-            <p className="font-semibold text-black">{data.name}</p>
-            <p className="text-xs text-gray-600"> {data.email}</p>
+            <p className="font-semibold text-black">{data?.name}</p>
+            <p className="text-xs text-gray-600"> {data?.email}</p>
           </div>
         </div>
       </td>
 
       <td className="px-4 py-3 text-xs border">
-        <span className={statusCss(data.status)}> {data.status} </span>
+        <span className={statusCss("accepted")}> Active </span>
       </td>
       <td className="px-4 py-3 text-sm border">
         <button

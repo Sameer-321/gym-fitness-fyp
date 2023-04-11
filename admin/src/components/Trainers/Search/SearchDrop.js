@@ -1,24 +1,24 @@
 import { Fragment } from "react";
 import { Menu, Transition } from "@headlessui/react";
-import {
-  ArchiveBoxIcon,
-  ArrowRightCircleIcon,
-  ChevronDownIcon,
-  DocumentDuplicateIcon,
-  HeartIcon,
-  PencilSquareIcon,
-  TrashIcon,
-  UserPlusIcon,
-} from "@heroicons/react/20/solid";
+import { ChevronDownIcon } from "@heroicons/react/20/solid";
+import { useState } from "react";
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }
 export function DropDown(props) {
   const { changeStatus } = props;
-  const handleChange = (st) => {
-    changeStatus(st);
+
+  const handleChange = (i) => {
+    changeStatus(i);
   };
+  const dropList = [
+    { label: "Trainer Request", value: "all" },
+    { label: "Pending", value: "pending" },
+    { label: "Accepted", value: "accepted" },
+    { label: "Rejected", value: "rejected" },
+  ];
+
   return (
     <Menu as="div" className="relative inline-block text-left">
       <div>
@@ -42,81 +42,25 @@ export function DropDown(props) {
       >
         <Menu.Items className="absolute left-0 z-10 mt-2 w-56 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
           <div className="py-1">
-          <Menu.Item>
-              {({ active }) => (
-                <button
-                  onClick={() => {
-                    handleChange("trainer");
-                  }}
-                  className={classNames(
-                    active ? "bg-gray-100 text-gray-900" : "text-gray-700",
-                    "block px-4 py-2 text-sm"
+            {dropList.map((i) => {
+              return (
+                <Menu.Item>
+                  {({ active }) => (
+                    <button
+                      onClick={() => {
+                        handleChange(i.value);
+                      }}
+                      className={classNames(
+                        active ? "bg-gray-100 text-gray-900" : "text-gray-700",
+                        "block px-4 py-2 text-sm"
+                      )}
+                    >
+                      {i.label}
+                    </button>
                   )}
-                >
-                  Trainers
-                </button>
-              )}
-            </Menu.Item>
-            <Menu.Item>
-              {({ active }) => (
-                <button
-                  onClick={() => {
-                    handleChange("all");
-                  }}
-                  className={classNames(
-                    active ? "bg-gray-100 text-gray-900" : "text-gray-700",
-                    "block px-4 py-2 text-sm"
-                  )}
-                >
-                  Trainer Request
-                </button>
-              )}
-            </Menu.Item>
-            <Menu.Item>
-              {({ active }) => (
-                <button
-                  onClick={() => {
-                    handleChange("pending");
-                  }}
-                  className={classNames(
-                    active ? "bg-gray-100 text-gray-900" : "text-gray-700",
-                    "block px-4 py-2 text-sm"
-                  )}
-                >
-                  Pending
-                </button>
-              )}
-            </Menu.Item>
-            <Menu.Item>
-              {({ active }) => (
-                <button
-                  onClick={() => {
-                    handleChange("accepted");
-                  }}
-                  className={classNames(
-                    active ? "bg-gray-100 text-gray-900" : "text-gray-700",
-                    "block px-4 py-2 text-sm"
-                  )}
-                >
-                  Accepted
-                </button>
-              )}
-            </Menu.Item>
-            <Menu.Item>
-              {({ active }) => (
-                <button
-                  onClick={() => {
-                    handleChange("rejected");
-                  }}
-                  className={classNames(
-                    active ? "bg-gray-100 text-gray-900" : "text-gray-700",
-                    "block px-4 py-2 text-sm"
-                  )}
-                >
-                  Rejected
-                </button>
-              )}
-            </Menu.Item>
+                </Menu.Item>
+              );
+            })}
           </div>
         </Menu.Items>
       </Transition>
@@ -129,10 +73,6 @@ export function SearchDrop(props) {
 
   return (
     <>
-      {/* <form> */}
-      {/* <div className="flex">
-        <DropDown changeStatus={renderListCondition} /> */}
-      {/* ......... */}
       <div className="relative w-full">
         <input
           type="search"
