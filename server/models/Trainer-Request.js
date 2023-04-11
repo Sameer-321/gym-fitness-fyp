@@ -33,7 +33,7 @@ const TrainerRequest = new mongoose.Schema(
           type: String,
         },
       },
-    },  
+    },
     createdAt: {
       type: Date,
       default: Date.now,
@@ -45,7 +45,5 @@ const TrainerRequest = new mongoose.Schema(
     toObject: { virtuals: true },
   }
 );
-
-
 
 module.exports = mongoose.model("TrainerRequest", TrainerRequest);

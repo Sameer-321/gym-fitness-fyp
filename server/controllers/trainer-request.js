@@ -62,34 +62,21 @@ exports.updateRequestWithMessage = async (req, res, next) => {
 };
 
 exports.getallRequests = async (req, res, next) => {
+  //accepted,pending, rejected trainer all
   try {
     let query = {};
-    if (req.query.status === "accepted") {
-      query = { status: "accepted" };
-      // retrieve users based on the query filter
-      const trainerRequests = await TrainerRequest.find(query);
-      // send the response with the retrieved users
-      res.status(200).json(trainerRequests);
-    } else if (req.query.status === "pending") {
-      query = { status: "pending" };
-      // retrieve users based on the query filter
-      const trainerRequests = await TrainerRequest.find(query);
-      // send the response with the retrieved users
-      res.status(200).json(trainerRequests);
-    } else if (req.query.status === "rejected") {
-      query = { status: "rejected" };
-      // retrieve users based on the query filter
-      const trainerRequests = await TrainerRequest.find(query);
-      // send the response with the retrieved users
+    if (req.query.status === "all") {
+      query = { status: req.query.status };
+      const trainerRequests = await TrainerRequest.find();
       res.status(200).json(trainerRequests);
     } else if (req.query.status === "trainer") {
       query = { role: "trainer" };
       const userTrainers = await User.find(query);
       res.status(200).json(userTrainers);
-    } else if (req.query.status="all") {
-      const t = await TrainerRequest.find();
-      res.status(200).json(t);
     }
+    query = { status: req.query.status };
+    const trainerRequests = await TrainerRequest.find(query);
+    res.status(200).json(trainerRequests);
   } catch (err) {
     next(err);
   }

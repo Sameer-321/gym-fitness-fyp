@@ -1,64 +1,64 @@
-const people = [
-    { name: 'Lindsay Walton', title: 'Front-end Developer', email: 'lindsay.walton@example.com', role: 'Member' },
-    // More people...
-  ]
-  
-  export  function ActualTrainers() {
-    return (
-      <div className="px-4 sm:px-6 lg:px-8">
-        <div className="sm:flex sm:items-center">
-          <div className="sm:flex-auto">
-            <h1 className="text-base font-semibold leading-6 text-gray-900">Users</h1>
-            <p className="mt-2 text-sm text-gray-700">
-              A list of all the users in your account including their name, title, email and role.
-            </p>
+import { useNavigate } from "react-router-dom";
+
+export const ActualTrainers = (props) => {
+  const nav = useNavigate();
+  const { data } = props;
+  console.log(data);
+
+  const statusCss = (status) => {
+    if (status === "accepted") {
+      return "px-2 py-1 font-semibold leading-tight text-green-700 bg-green-100 rounded-sm";
+    } else if (status === "pending") {
+      return "px-2 py-1 font-semibold leading-tight text-orange-700 bg-gray-100 rounded-sm";
+    } else if (status === "rejected") {
+      return "px-2 py-1 font-semibold leading-tight text-red-700 bg-red-100 rounded-sm";
+    }
+  };
+  const individualProfile = () => {
+    nav(`CV/${data.id}`, { state: { info: data } });
+  };
+
+  return (
+    <tr className="text-gray-700">
+      <td className="px-4 py-3 border">
+        <div className="flex items-center text-sm">
+          <div className="relative w-8 h-8 mr-3 rounded-full md:block">
+            <img
+              className="object-cover w-full h-full rounded-full"
+              src={
+                data?.profilePicture?.link
+                  ? `http://localhost:5000/${data?.profilePicture?.link}`
+                  : `https://www.kindpng.com/picc/m/22-223863_no-avatar-png-circle-transparent-png.png`
+              }
+              alt=""
+              loading="lazy"
+            />
+            <div
+              className="absolute inset-0 rounded-full shadow-inner"
+              aria-hidden="true"
+            ></div>
           </div>
-          <div className="mt-4 sm:ml-16 sm:mt-0 sm:flex-none">
-            <button
-              type="button"
-              className="block rounded-md bg-indigo-600 px-3 py-2 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-            >
-              Add user
-            </button>
-          </div>
-        </div>
-        <div className="mt-8 flow-root">
-          <div className="-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
-            <div className="inline-block min-w-full py-2 align-middle sm:px-6 lg:px-8">
-              <table className="min-w-full divide-y divide-gray-300">
-                <thead>
-                  <tr className="divide-x divide-gray-200">
-                    <th scope="col" className="py-3.5 pl-4 pr-4 text-left text-sm font-semibold text-gray-900 sm:pl-0">
-                      Name
-                    </th>
-                    <th scope="col" className="px-4 py-3.5 text-left text-sm font-semibold text-gray-900">
-                      Title
-                    </th>
-                    <th scope="col" className="px-4 py-3.5 text-left text-sm font-semibold text-gray-900">
-                      Email
-                    </th>
-                    <th scope="col" className="py-3.5 pl-4 pr-4 text-left text-sm font-semibold text-gray-900 sm:pr-0">
-                      Role
-                    </th>
-                  </tr>
-                </thead>
-                <tbody className="divide-y divide-gray-200 bg-white">
-                  {people.map((person) => (
-                    <tr key={person.email} className="divide-x divide-gray-200">
-                      <td className="whitespace-nowrap py-4 pl-4 pr-4 text-sm font-medium text-gray-900 sm:pl-0">
-                        {person.name}
-                      </td>
-                      <td className="whitespace-nowrap p-4 text-sm text-gray-500">{person.title}</td>
-                      <td className="whitespace-nowrap p-4 text-sm text-gray-500">{person.email}</td>
-                      <td className="whitespace-nowrap py-4 pl-4 pr-4 text-sm text-gray-500 sm:pr-0">{person.role}</td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
+          <div>
+            <p className="font-semibold text-black">{data.name}</p>
+            <p className="text-xs text-gray-600"> {data.email}</p>
           </div>
         </div>
-      </div>
-    )
-  }
-  
+      </td>
+
+      <td className="px-4 py-3 text-xs border">
+        <span className={statusCss(data.status)}> {data.status} </span>
+      </td>
+      <td className="px-4 py-3 text-sm border">
+        <button
+          type="button"
+          class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-200 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
+          onClick={() => {
+            individualProfile();
+          }}
+        >
+          View
+        </button>
+      </td>
+    </tr>
+  );
+};

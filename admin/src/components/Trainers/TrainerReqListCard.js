@@ -39,8 +39,8 @@ export const TrainerReqListCard = (props) => {
             ></div>
           </div>
           <div>
-            <p className="font-semibold text-black">{data.userInfo.name}</p>
-            <p className="text-xs text-gray-600"> {data.userInfo.email}</p>
+            <p className="font-semibold text-black">{data?.userInfo.name}</p>
+            <p className="text-xs text-gray-600"> {data?.userInfo.email}</p>
           </div>
         </div>
       </td>

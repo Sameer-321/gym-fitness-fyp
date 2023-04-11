@@ -31,10 +31,6 @@ function App() {
     setAdminInfo(admin_information);
   }, [admin_information]);
 
-  // useEffect(() => {
-  //   adminInfo.isLoggedIn ? nav("/admin") : nav("/login");
-  // }, [admin_information, nav]);
-  //console.log(adminInfo,21)
   return (
     <div className="App">
       <Routes>
