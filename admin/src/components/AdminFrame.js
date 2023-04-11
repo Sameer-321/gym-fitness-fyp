@@ -52,7 +52,7 @@ export function AdminFrame() {
                 <span className="ml-3">Dashboard</span>
               </Link>
             </li>
-            <li>
+            {/* <li>
               <Link
                 to="#"
                 className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700"
@@ -71,13 +71,13 @@ export function AdminFrame() {
                   Pro
                 </span>
               </Link>
-            </li>
-            <li>
+            </li> */}
+            {/* <li>
               <Link
                 to="#"
                 className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700"
               >
-                <svg
+                <svgC
                   aria-hidden="true"
                   className="flex-shrink-0 w-6 h-6 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white"
                   fill="currentColor"
@@ -92,7 +92,7 @@ export function AdminFrame() {
                   3
                 </span>
               </Link>
-            </li>
+            </li> */}
             <li>
               <Link
                 to="users"
@@ -132,10 +132,12 @@ export function AdminFrame() {
                     clip-rule="evenodd"
                   ></path>
                 </svg>
-                <span className="flex-1 ml-3 whitespace-nowrap">Trainers Request</span>
+                <span className="flex-1 ml-3 whitespace-nowrap">
+                  Trainers Request
+                </span>
               </Link>
             </li>
-            <li>
+            {/* <li>
               <Link
                 to="#"
                 className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700"
@@ -155,8 +157,8 @@ export function AdminFrame() {
                 </svg>
                 <span className="flex-1 ml-3 whitespace-nowrap">Sign In</span>
               </Link>
-            </li>
-            <li>
+            </li> */}
+            {/* <li>
               <Link
                 to="#"
                 className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700"
@@ -176,7 +178,7 @@ export function AdminFrame() {
                 </svg>
                 <span className="flex-1 ml-3 whitespace-nowrap">Sign Up</span>
               </Link>
-            </li>
+            </li> */}
           </ul>
         </div>
       </aside>
