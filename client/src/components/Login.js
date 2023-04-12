@@ -22,13 +22,14 @@ export default function Login(props) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+
     dispatch(loginfetch(info));
 
     setInfo({
       email: "",
       password: "",
     });
-  
+
     nav("/");
   };
 

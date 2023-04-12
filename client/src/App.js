@@ -4,7 +4,7 @@ import "./App.css";
 import Layout from "./pages/Layout";
 import Home from "./pages/Home";
 import Notfound from "./pages/Notfound";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, redirect } from "react-router-dom";
 import LoginRegister from "./pages/LoginRegister";
 import { useDispatch, useSelector } from "react-redux";
 import Pricing from "./components/UI/Pricing";
@@ -25,13 +25,13 @@ function App() {
   const informationUser = useSelector(info);
   const userRole = useSelector(role);
   const isLoading = useSelector(status);
+
   const [userInfo, setUserInfo] = useState(informationUser);
-  // console.log(userInfo)
+  console.log(userInfo);
 
   useEffect(() => {
     setUserInfo(informationUser);
   }, [informationUser]);
-
 
   useEffect(() => {
     const cookies = new Cookies();
@@ -41,9 +41,9 @@ function App() {
 
   return (
     <div>
-      {isLoading === "loading" ? (
+      {isLoading === "loading" || userInfo.role == "loading" ? (
         <Loading />
-      ) : userInfo.role !== "trainer" ? (
+      ) : userInfo.role === "user" || userInfo.role === "all" ? (
         <Routes>
           <Route path="/" element={<Layout userInfo={userInfo} />}>
             //public route
@@ -82,13 +82,26 @@ function App() {
           <Route path="/check" element={<UpdateProfile />} />
           <Route path="/rough" element={<Rough />} />
         </Routes>
-      ) : (
+      ) : userInfo.role === "trainer" ? (
         <Routes>
           <Route path="/" element={<Layout userInfo={userInfo} />}>
             //public route
-            <Route element={<Rough />} />
+            <Route
+              index
+              element={
+                <Rough
+                  // image={image}
+                  // appendImages={appendImages}
+                  // removeImages={removeImages}
+                  // errors={errors}
+                />
+              }
+            />
+            <Route path="*" element={<Notfound />} />
           </Route>
         </Routes>
+      ) : (
+        console.log("asdf")
       )}
     </div>
   );

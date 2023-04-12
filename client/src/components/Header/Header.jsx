@@ -80,7 +80,7 @@ const Header = () => {
               {!isLogged && <button className="register__btn">Register</button>}
             </a>
 
-            <div onClick={getinfo}>{isLogged && <Dropdown pic={pp} />}</div>
+            <div onClick={()=>getinfo()}>{isLogged && <Dropdown pic={pp} />}</div>
 
             <span className="mobile__menu">
               <i className="ri-menu-line"></i>

@@ -11,7 +11,7 @@ const initialState = {
   id: "",
   email: "",
   name: "",
-  role: "",
+  role: "all",
   profilePictureLink: "",
   status: "idle", //idle,loading,succeeded,failed
   error: null,
@@ -42,15 +42,11 @@ const authSlice = createSlice({
       // Reload the page by js
       window.location.reload();
     },
-    resetState(state) {
+    LoginLoading(state) {
       state = {
         // ...state,
-        isLoggedIn: false,
-        jwt: null,
-        id: "",
-        email: "",
-        name: "",
-        status: "idle",
+        role: "loading",
+        status: "loading", //idle,loading,succeeded,failed
         error: null,
       };
     },
@@ -59,11 +55,11 @@ const authSlice = createSlice({
     builder
       .addCase(loginfetch.pending, (state, action) => {
         state.status = "loading";
+        state.role = "loading";
       })
       .addCase(loginfetch.fulfilled, (state, action) => {
-        
         state.status = "succeeded";
-       
+
         const { token } = action.payload;
 
         //state management
@@ -78,7 +74,6 @@ const authSlice = createSlice({
           expires: new Date(token.exp * 1000 * 60 * 60 * 24 * 30),
         });
         window.location.reload(true);
-        
       })
       .addCase(loginfetch.rejected, (state, action) => {
         state.status = "failed";
@@ -87,8 +82,12 @@ const authSlice = createSlice({
       .addCase(registerfetch.fulfilled, (state, action) => {
         console.log(action.payload);
       })
+      // .addCase(getMe.pending, (state) => {
+      //   state.status = "loading";
+      //   state.role = "loading";
+      // })
       .addCase(getMe.fulfilled, (state, action) => {
-        console.log(action.payload);
+        //console.log(action.payload);
         const { email, name, _id, role } = action.payload.data;
         state.isLoggedIn = true;
         state.id = _id;
@@ -130,6 +129,6 @@ export const info = (state) => ({
   profilePictureLink: state.auth?.profilePictureLink,
 });
 
-export const { login, logout, register, getToken, resetState } =
+export const { login, logout, register, getToken, LoginLoading } =
   authSlice.actions;
 export default authSlice.reducer;
