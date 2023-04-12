@@ -61,9 +61,9 @@ const authSlice = createSlice({
         state.status = "loading";
       })
       .addCase(loginfetch.fulfilled, (state, action) => {
-        
+        console.log(action.payload);
         state.status = "succeeded";
-       
+        console.log(action.payload);
         const { token } = action.payload;
 
         //state management
@@ -77,8 +77,6 @@ const authSlice = createSlice({
         cookies.set("token", action.payload.token, {
           expires: new Date(token.exp * 1000 * 60 * 60 * 24 * 30),
         });
-        window.location.reload(true);
-        
       })
       .addCase(loginfetch.rejected, (state, action) => {
         state.status = "failed";
@@ -116,7 +114,6 @@ export const status = (state) => state.auth.status;
 export const err = (state) => state.auth.error;
 export const id = (state) => state.auth.id;
 export const Profile = (state) => state.auth?.profilePictureLink;
-export const role = (state) => state.auth.role;
 
 export const info = (state) => ({
   id: state.auth.id,

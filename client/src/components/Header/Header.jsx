@@ -4,7 +4,7 @@ import logo from "../../assets/img/dumble.png";
 
 import { useDispatch, useSelector } from "react-redux";
 import { isLoggedIn, token, Profile } from "../../features/auth/authSlice";
-import { getMe } from "../../features/auth/authFetch";
+import { getMe } from "../../features/trainer/authFetchaaaa";
 import { useNavigate } from "react-router-dom";
 import Dropdown from "../DropDown/DropDown";
 const nav__links = [

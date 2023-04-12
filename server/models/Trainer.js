@@ -3,11 +3,11 @@ const mongoose = require("mongoose");
 const TrainerSchema = new mongoose.Schema({
   active: {
     type: Boolean,
-    default: false, 
+    default: false,
   },
   initalForm: {
     type: Boolean,
-    default: false, 
+    default: false,
   },
   name: {
     type: String,
