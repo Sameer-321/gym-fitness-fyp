@@ -9,6 +9,7 @@ export const loginfetch = createAsyncThunk("login", async (credentials) => {
     //.log(response.data)
     console.log(response.data);
     return response.data;
+    // getMe()
   } catch (err) {
     if (!err?.response) {
       console.log("NO Server Response");
@@ -49,6 +50,7 @@ export const registerfetch = createAsyncThunk(
 export const getMe = createAsyncThunk("getMe", async (jwt_token) => {
   const cookies = new Cookies();
   const token = cookies.get("token");
+
   const headers = {
     "Content-Type": "application/json",
     authorization: `Bearer ${token}`,

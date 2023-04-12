@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "../../styles/LoginPopUp.css";
-import { loginfetch } from "../../features/auth/authFetch";
+import { loginfetch } from "../../features/trainer/authFetchaaaa";
 import { useDispatch,useSelector } from "react-redux";
 import { status } from "../../features/auth/authSlice";
 
