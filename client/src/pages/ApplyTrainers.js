@@ -1,10 +1,9 @@
 import React, { useState } from "react";
-import axios from "axios"
+import axios from "axios";
 export const ApplyTrainers = (props) => {
-
-  const {info}=props
-  console.log(info,6)
-  console.log(info.id,7)
+  const { info } = props;
+  console.log(info, 6);
+  console.log(info.id, 7);
 
   const [file, setFile] = useState(null);
 
@@ -17,11 +16,15 @@ export const ApplyTrainers = (props) => {
 
     const formData = new FormData();
     formData.append("file", file);
-    const user_id=123
+    const user_id = 123;
     await axios
-      .post(`http://localhost:5000/api/v1/admin/trainers/createRequest`, formData, {
-        headers: { Authorization: "send local token from cookies" },
-      })
+      .post(
+        `http://localhost:5000/api/v1/admin/trainers/createRequest/${info.id}`,
+        formData,
+        {
+          headers: { Authorization: "send local token from cookies" },
+        }
+      )
       .then((res) => {
         console.log(res.data);
       });
