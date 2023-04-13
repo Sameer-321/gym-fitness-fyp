@@ -1,22 +1,19 @@
 const mongoose = require("mongoose");
 
 const TrainerSchema = new mongoose.Schema({
-  active: {
-    type: Boolean,
-    default: false,
-  },
-  initalForm: {
-    type: Boolean,
-    default: false,
-  },
-  name: {
-    type: String,
+  gender: {
+    type: text,
     required: true,
   },
-  email: {
-    type: String,
+  status: [
+    {
+      type: String,
+      enum: ["powerLifting", "bodyBuilding", "crossFit"],
+    },
+  ],
+  yearOfExperience: {
+    type: Number,
     required: true,
-    unique: true,
   },
   description: {
     type: String,
@@ -42,12 +39,9 @@ const TrainerSchema = new mongoose.Schema({
       },
     },
   ],
+
   credential_id: {
     type: String,
-  },
-  activeStatus: {
-    type: Boolean,
-    default: false,
   },
 });
 

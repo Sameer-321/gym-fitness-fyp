@@ -1,8 +1,57 @@
 import { PhotoIcon, UserCircleIcon } from "@heroicons/react/24/solid";
+import { useState } from "react";
 
 export function TrainerPendingForm() {
+  //For Trainer Schema
+  const [trainerForm, setTrainerForm] = useState({
+    yearsOfExperience: "",
+    description: "",
+    credential_id: "",
+    certificates: "",
+    photos: "",
+    gender: "",
+    youCanTrain: [],
+    firstName: "",
+    lastName: "",
+  });
+
+  const handleChangeTrainer = (e) => {
+    const { name, value, type, checked } = e.target;
+    const newValue =
+      type === "checkbox" ? checked : type === "radio" ? value : value;
+    setTrainerForm((prevState) => ({ ...prevState, [name]: newValue }));
+  };
+  const [checkedItems, setCheckedItems] = useState([]);
+  const handleCheckboxChange = (e) => {
+    const target = e.target;
+    const value = target.value;
+    const isChecked = target.checked;
+
+    if (isChecked) {
+      setCheckedItems([...checkedItems, value]);
+    } else {
+      setCheckedItems(checkedItems.filter((item) => item !== value));
+    }
+  };
+
+  const [credientialUpdate, setCredientialUpdate] = useState({
+    name: "",
+    email: "",
+    profilePicture: "",
+  });
+  const handleChangeUser = (e) => {
+    const { name, value } = e.target;
+    setCredientialUpdate((prevState) => ({ ...prevState, [name]: value }));
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    console.log(trainerForm);
+    console.log(checkedItems);
+  };
+
   return (
-    <form>
+    <form onSubmit={handleSubmit}>
       <div className="space-y-12">
         <div className="grid grid-cols-1 gap-x-8 gap-y-10 border-b border-gray-900/10 pb-12 md:grid-cols-3">
           <div>
@@ -17,14 +66,25 @@ export function TrainerPendingForm() {
 
           <div className="grid max-w-2xl grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6 md:col-span-2">
             <div className="sm:col-span-4">
-              <label className="block text-sm font-medium leading-6 text-gray-900">
+              <label
+                htmlFor="yearsOfExperience"
+                className="block text-sm font-medium leading-6 text-gray-900"
+              >
                 Years of Experiece
               </label>
               <div className="mt-2">
                 <div className="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset  sm:max-w-md">
                   <input
-                    type="text"
-                    className="block flex-1 border-0 bg-transparent py-1.5 pl-1 text-gray-900 placeholder:number-gray-400 focus:ring-0 sm:number-sm "
+                    type="number"
+                    id="yearsOfExperience"
+                    name="yearsOfExperience"
+                    value={trainerForm.yearsOfExperience}
+                    onChange={handleChangeTrainer}
+                    min="0"
+                    max="100"
+                    step="1"
+                    required
+                    className="block text-sm font-medium leading-6 text-gray-500"
                     placeholder="please enter the year of experience in number"
                   />
                 </div>
@@ -33,15 +93,17 @@ export function TrainerPendingForm() {
 
             <div className="col-span-full">
               <label
-                htmlFor="about"
+                htmlFor="description"
                 className="block text-sm font-medium leading-6 text-gray-900"
               >
                 Description
               </label>
               <div className="mt-2">
                 <textarea
-                  id="about"
-                  name="about"
+                  id="description"
+                  name="description"
+                  value={trainerForm.description}
+                  onChange={handleChangeTrainer}
                   rows={3}
                   className="block w-full rounded-md border-0 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:py-1.5 sm:text-sm sm:leading-6"
                   defaultValue={""}
@@ -55,10 +117,10 @@ export function TrainerPendingForm() {
 
             <div className="col-span-full">
               <label
-                htmlFor="photo"
+                htmlFor="profilePicture"
                 className="block text-sm font-medium leading-6 text-gray-900"
               >
-                Photo
+                Profile Picture
               </label>
               <div className="mt-2 flex items-center gap-x-3">
                 <UserCircleIcon
@@ -67,6 +129,10 @@ export function TrainerPendingForm() {
                 />
                 <button
                   type="button"
+                  id="profilePicture"
+                  name="profilePicture"
+                  value={credientialUpdate.profilePicture}
+                  onChange={handleChangeTrainer}
                   className="rounded-md bg-white px-2.5 py-1.5 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50"
                 >
                   Change
@@ -79,7 +145,7 @@ export function TrainerPendingForm() {
                 htmlFor="cover-photo"
                 className="block text-sm font-medium leading-6 text-gray-900"
               >
-                Cover photo
+                Certificates
               </label>
               <div className="mt-2 flex justify-center rounded-lg border border-dashed border-gray-900/25 px-6 py-10">
                 <div className="text-center">
@@ -89,13 +155,15 @@ export function TrainerPendingForm() {
                   />
                   <div className="mt-4 flex text-sm leading-6 text-gray-600">
                     <label
-                      htmlFor="file-upload"
+                      htmlFor="certificates"
                       className="relative cursor-pointer rounded-md bg-white font-semibold text-indigo-600 focus-within:outline-none focus-within:ring-2 focus-within:ring-indigo-600 focus-within:ring-offset-2 hover:text-indigo-500"
                     >
                       <span>Upload a file</span>
                       <input
-                        id="file-upload"
-                        name="file-upload"
+                        id="certificates"
+                        name="certificates"
+                        value={trainerForm.certificates}
+                        onChange={handleChangeTrainer}
                         type="file"
                         className="sr-only"
                       />
@@ -124,7 +192,7 @@ export function TrainerPendingForm() {
           <div className="grid max-w-2xl grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6 md:col-span-2">
             <div className="sm:col-span-3">
               <label
-                htmlFor="first-name"
+                htmlFor="firstName"
                 className="block text-sm font-medium leading-6 text-gray-900"
               >
                 First name
@@ -132,9 +200,10 @@ export function TrainerPendingForm() {
               <div className="mt-2">
                 <input
                   type="text"
-                  name="first-name"
-                  id="first-name"
-                  autoComplete="given-name"
+                  id="firstName"
+                  name="firstName"
+                  value={trainerForm.firstName}
+                  onChange={handleChangeTrainer}
                   className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                 />
               </div>
@@ -142,57 +211,23 @@ export function TrainerPendingForm() {
 
             <div className="sm:col-span-3">
               <label
-                htmlFor="last-name"
+                htmlFor="lastName"
                 className="block text-sm font-medium leading-6 text-gray-900"
               >
-                Last name
+                Last Name
               </label>
               <div className="mt-2">
                 <input
                   type="text"
-                  name="last-name"
-                  id="last-name"
-                  autoComplete="family-name"
+                  id="lastName"
+                  name="lastName"
+                  value={trainerForm.lastName}
+                  onChange={handleChangeTrainer}
                   className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                 />
               </div>
             </div>
 
-            <div className="sm:col-span-4">
-              <label
-                htmlFor="email"
-                className="block text-sm font-medium leading-6 text-gray-900"
-              >
-                Email address
-              </label>
-              <div className="mt-2">
-                <input
-                  id="email"
-                  name="email"
-                  type="email"
-                  autoComplete="email"
-                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                />
-              </div>
-            </div>
-
-            <div className="col-span-full">
-              <label
-                htmlFor="street-address"
-                className="block text-sm font-medium leading-6 text-gray-900"
-              >
-                ssssssssssssss
-              </label>
-              <div className="mt-2">
-                <input
-                  type="text"
-                  name="street-address"
-                  id="street-address"
-                  autoComplete="street-address"
-                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                />
-              </div>
-            </div>
             <fieldset>
               <legend className="text-sm font-semibold leading-6 text-gray-900">
                 Gender
@@ -201,54 +236,34 @@ export function TrainerPendingForm() {
               <div className="mt-6 space-y-6">
                 <div className="flex items-center gap-x-3">
                   <input
-                    id="push-everything"
-                    name="push-notifications"
+                    name="gender"
+                    value="male"
                     type="radio"
+                    checked={trainerForm.gender === "male"}
+                    onChange={handleChangeTrainer}
                     className="h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-600"
                   />
-                  <label
-                    htmlFor="push-everything"
-                    className="block text-sm font-medium leading-6 text-gray-900"
-                  >
+                  <label className="block text-sm font-medium leading-6 text-gray-900">
                     Male
                   </label>
                 </div>
                 <div className="flex items-center gap-x-3">
                   <input
-                    id="push-email"
-                    name="push-notifications"
+                    name="gender"
+                    value="female"
                     type="radio"
+                    checked={trainerForm.gender === "female"}
+                    onChange={handleChangeTrainer}
                     className="h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-600"
                   />
-                  <label
-                    htmlFor="push-email"
-                    className="block text-sm font-medium leading-6 text-gray-900"
-                  >
+                  <label className="block text-sm font-medium leading-6 text-gray-900">
                     Female
                   </label>
                 </div>
               </div>
             </fieldset>
 
-            <div className="sm:col-span-2 sm:col-start-1">
-              <label
-                htmlFor="city"
-                className="block text-sm font-medium leading-6 text-gray-900"
-              >
-                Sex
-              </label>
-              <div className="mt-2">
-                <input
-                  type="text"
-                  name="city"
-                  id="city"
-                  autoComplete="address-level2"
-                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                />
-              </div>
-            </div>
-
-            <div className="sm:col-span-2">
+            {/* <div className="sm:col-span-2">
               <label
                 htmlFor="region"
                 className="block text-sm font-medium leading-6 text-gray-900"
@@ -264,25 +279,7 @@ export function TrainerPendingForm() {
                   className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                 />
               </div>
-            </div>
-
-            <div className="sm:col-span-2">
-              <label
-                htmlFor="postal-code"
-                className="block text-sm font-medium leading-6 text-gray-900"
-              >
-                ZIP / Postal code
-              </label>
-              <div className="mt-2">
-                <input
-                  type="text"
-                  name="postal-code"
-                  id="postal-code"
-                  autoComplete="postal-code"
-                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                />
-              </div>
-            </div>
+            </div> */}
           </div>
         </div>
 
@@ -306,17 +303,16 @@ export function TrainerPendingForm() {
                 <div className="relative flex gap-x-3">
                   <div className="flex h-6 items-center">
                     <input
-                      id="comments"
-                      name="comments"
+                      name="powerLifting"
+                      value="powerLifting"
                       type="checkbox"
+                      //checked={trainerForm.youCanTrain.includes("powerLifting")}
+                      onChange={handleCheckboxChange}
                       className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600"
                     />
                   </div>
                   <div className="text-sm leading-6">
-                    <label
-                      htmlFor="comments"
-                      className="font-medium text-gray-900"
-                    >
+                    <label className="font-medium text-gray-900">
                       Power Lifting
                     </label>
                   </div>
@@ -324,17 +320,16 @@ export function TrainerPendingForm() {
                 <div className="relative flex gap-x-3">
                   <div className="flex h-6 items-center">
                     <input
-                      id="candidates"
-                      name="candidates"
+                      name="bodyBuilding"
                       type="checkbox"
+                      value="bodyBuilding"
+                      //checked={trainerForm.youCanTrain.includes("bodyBuilding")}
+                      onChange={handleCheckboxChange}
                       className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600"
                     />
                   </div>
                   <div className="text-sm leading-6">
-                    <label
-                      htmlFor="candidates"
-                      className="font-medium text-gray-900"
-                    >
+                    <label className="font-medium text-gray-900">
                       Body-Building
                     </label>
                   </div>
@@ -342,9 +337,11 @@ export function TrainerPendingForm() {
                 <div className="relative flex gap-x-3">
                   <div className="flex h-6 items-center">
                     <input
-                      id="offers"
-                      name="offers"
+                      name="crossFit"
                       type="checkbox"
+                      value="crossFit"
+                      //checked={trainerForm.youCanTrain.includes("crossFit")}
+                      onChange={handleCheckboxChange}
                       className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600"
                     />
                   </div>
@@ -367,6 +364,7 @@ export function TrainerPendingForm() {
         <button
           type="button"
           className="text-sm font-semibold leading-6 text-gray-900"
+          onClick={() => window.location.reload(true)}
         >
           Cancel
         </button>
