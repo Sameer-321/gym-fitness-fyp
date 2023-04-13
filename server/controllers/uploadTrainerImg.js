@@ -2,7 +2,7 @@ const ErrorResponse = require("../utils/errorResponse");
 const User = require("../models/User");
 const fs = require("fs");
 
-const axios = require("axios");
+
 //@desc     Register Users
 //@route    POST /api/v1/auth/register
 //@acess    Public

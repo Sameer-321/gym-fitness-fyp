@@ -20,6 +20,11 @@ import { UpdateProfile } from "./components/Modal/UpdateProfile";
 import { Rough } from "./pages/Rough";
 import { Messenger } from "./components/ChatApp/Messenger/Messenger";
 import { Loading } from "./components/assests/Loading";
+
+
+////imports for Traienrs******
+import { TrainerPendingForm } from "./components/trainerSection/TrainerPendingForm";
+
 function App() {
   const dispatch = useDispatch();
   const informationUser = useSelector(info);
@@ -82,26 +87,15 @@ function App() {
           <Route path="/check" element={<UpdateProfile />} />
           <Route path="/rough" element={<Rough />} />
         </Routes>
-      ) : userInfo.role === "trainer" ? (
+      ) : (
+        // userInfo.role === "trainer" userInfo.role === "trainer-pending" ?
         <Routes>
           <Route path="/" element={<Layout userInfo={userInfo} />}>
             //public route
-            <Route
-              index
-              element={
-                <Rough
-                  // image={image}
-                  // appendImages={appendImages}
-                  // removeImages={removeImages}
-                  // errors={errors}
-                />
-              }
-            />
+            <Route index element={<TrainerPendingForm />} />
             <Route path="*" element={<Notfound />} />
           </Route>
         </Routes>
-      ) : (
-        console.log("asdf")
       )}
     </div>
   );

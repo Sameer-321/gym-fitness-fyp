@@ -33,7 +33,7 @@ exports.updateRequest = async (req, res, next) => {
       const userId = updateStatus.userInfo._id;
       // update the role of the associated user to "trainer"
       const user = await User.findById(userId);
-      user.role = "trainer";
+      user.role = "trainer-pending";
       await user.save();
     }
 
