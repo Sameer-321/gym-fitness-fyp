@@ -14,8 +14,6 @@ export function UpdateProfile(props) {
   }, [state]);
   useEffect(() => {
     setUserInfo(info);
-    // console.log(info);
-    // console.log(info?.profilePictureLink);
   }, [info]);
 
   const imageUpload = (e) => {

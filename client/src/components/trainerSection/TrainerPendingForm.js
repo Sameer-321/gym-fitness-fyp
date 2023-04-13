@@ -1,19 +1,21 @@
 import { PhotoIcon, UserCircleIcon } from "@heroicons/react/24/solid";
 import { useState } from "react";
-
+import axios from "axios";
 export function TrainerPendingForm() {
   //For Trainer Schema
   const [trainerForm, setTrainerForm] = useState({
     yearsOfExperience: "",
     description: "",
     credential_id: "",
-    certificates: "",
+    certificates: [],
     photos: "",
     gender: "",
     youCanTrain: [],
     firstName: "",
     lastName: "",
   });
+  const [profilePicture, setProfilePicture] = useState("");
+  const [manyPic, setManyPic] = useState("");
 
   const handleChangeTrainer = (e) => {
     const { name, value, type, checked } = e.target;
@@ -48,6 +50,21 @@ export function TrainerPendingForm() {
     e.preventDefault();
     console.log(trainerForm);
     console.log(checkedItems);
+  };
+
+  const submitProfilePic = async () => {
+    const formData = new FormData();
+    formData.append("file", profilePicture);
+    console.log(formData);
+  };
+  const submitManyPic = async (pictures) => {
+    const formData = new FormData();
+    for (let index = 0; index < manyPic.length; index++) {
+      const file = manyPic[index];
+      formData.append("file", manyPic);
+    }
+    console.log(manyPic)
+    console.log(formData);
   };
 
   return (
@@ -128,15 +145,23 @@ export function TrainerPendingForm() {
                   aria-hidden="true"
                 />
                 <button
-                  type="button"
+                  type="files"
                   id="profilePicture"
                   name="profilePicture"
                   value={credientialUpdate.profilePicture}
-                  onChange={handleChangeTrainer}
+                  onClick={() => submitProfilePic()}
                   className="rounded-md bg-white px-2.5 py-1.5 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50"
                 >
                   Change
                 </button>
+                <input
+                  type="file"
+                  id="profilePicture"
+                  name="profilePicture"
+                  className="rounded-md bg-white px-2.5 py-1.5 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50"
+                  value={credientialUpdate.profilePicture}
+                  onChange={(e) => setProfilePicture(e.target.files[0])}
+                />
               </div>
             </div>
 
@@ -149,30 +174,20 @@ export function TrainerPendingForm() {
               </label>
               <div className="mt-2 flex justify-center rounded-lg border border-dashed border-gray-900/25 px-6 py-10">
                 <div className="text-center">
-                  <PhotoIcon
-                    className="mx-auto h-12 w-12 text-gray-300"
-                    aria-hidden="true"
+                  <input
+                    type="file"
+                    multiple
+                    className="rounded-md bg-white px-2.5 py-1.5 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50"
+                    // value={credientialUpdate.profilePicture}
+                    onChange={(e) => setManyPic(e.target.files)}
                   />
-                  <div className="mt-4 flex text-sm leading-6 text-gray-600">
-                    <label
-                      htmlFor="certificates"
-                      className="relative cursor-pointer rounded-md bg-white font-semibold text-indigo-600 focus-within:outline-none focus-within:ring-2 focus-within:ring-indigo-600 focus-within:ring-offset-2 hover:text-indigo-500"
-                    >
-                      <span>Upload a file</span>
-                      <input
-                        id="certificates"
-                        name="certificates"
-                        value={trainerForm.certificates}
-                        onChange={handleChangeTrainer}
-                        type="file"
-                        className="sr-only"
-                      />
-                    </label>
-                    <p className="pl-1">or drag and drop</p>
-                  </div>
-                  <p className="text-xs leading-5 text-gray-600">
-                    PNG, JPG, GIF
-                  </p>
+
+                  <button
+                    onClick={() => submitManyPic()}
+                    className="rounded-md bg-white px-2.5 py-1.5 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50"
+                  >
+                    Change
+                  </button>
                 </div>
               </div>
             </div>
@@ -202,8 +217,8 @@ export function TrainerPendingForm() {
                   type="text"
                   id="firstName"
                   name="firstName"
-                  value={trainerForm.firstName}
-                  onChange={handleChangeTrainer}
+                  value={trainerForm.certificates}
+                  onChange={submitManyPic}
                   className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                 />
               </div>
@@ -262,24 +277,6 @@ export function TrainerPendingForm() {
                 </div>
               </div>
             </fieldset>
-
-            {/* <div className="sm:col-span-2">
-              <label
-                htmlFor="region"
-                className="block text-sm font-medium leading-6 text-gray-900"
-              >
-                State / Province
-              </label>
-              <div className="mt-2">
-                <input
-                  type="text"
-                  name="region"
-                  id="region"
-                  autoComplete="address-level1"
-                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                />
-              </div>
-            </div> */}
           </div>
         </div>
 
