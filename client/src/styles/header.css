@@ -46,10 +46,11 @@
 
 .nav__item a {
   color: var(--heading-color);
-  font-weight: 600 !important;
+  font-weight: 500 !important;
+  letter-spacing: 1px;
   cursor: pointer;
   transition: 0.3s;
-  font-size: 1.1rem;
+  font-size: 0.8rem;
 }
 
 .nav__item a:hover {

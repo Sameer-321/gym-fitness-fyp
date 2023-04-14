@@ -53,7 +53,6 @@ export const getMe = createAsyncThunk("getMe", async (jwt_token) => {
     "Content-Type": "application/json",
     authorization: `Bearer ${token}`,
   };
-
   if (cookies.get("token")) {
     try {
       const response = await axios.get(

@@ -25,6 +25,7 @@ const trainerRequest = require("./routes/trainer-request.js");
 const subscription = require("./routes/subscription.js");
 const conversationRoute = require("./routes/conversations");
 const messageRoute = require("./routes/messages");
+const trainerProfile = require("./routes/trainerProfile");
 const app = express();
 
 // parse application/json body parser
@@ -54,6 +55,7 @@ app.use("/api/v1/admin/sub", subscription);
 
 app.use("/api/v1/conversations", conversationRoute);
 app.use("/api/v1/messages", messageRoute);
+app.use("/api/v1/trainer-profile", trainerProfile);
 
 app.use(errorHandler);
 

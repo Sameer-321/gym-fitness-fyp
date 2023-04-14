@@ -1,21 +1,24 @@
 import { PhotoIcon, UserCircleIcon } from "@heroicons/react/24/solid";
 import { useState } from "react";
 import axios from "axios";
+import Cookies from "universal-cookie";
 export function TrainerPendingForm() {
+  const cookies = new Cookies();
+
   //For Trainer Schema
   const [trainerForm, setTrainerForm] = useState({
-    yearsOfExperience: "",
+    yearsOfExperience: 0,
     description: "",
-    credential_id: "",
-    certificates: [],
-    photos: "",
     gender: "",
     youCanTrain: [],
     firstName: "",
     lastName: "",
   });
-  const [profilePicture, setProfilePicture] = useState("");
-  const [manyPic, setManyPic] = useState("");
+
+  const [photos, setPhotos] = useState({
+    certificates: [],
+    photos: [],
+  });
 
   const handleChangeTrainer = (e) => {
     const { name, value, type, checked } = e.target;
@@ -23,48 +26,85 @@ export function TrainerPendingForm() {
       type === "checkbox" ? checked : type === "radio" ? value : value;
     setTrainerForm((prevState) => ({ ...prevState, [name]: newValue }));
   };
-  const [checkedItems, setCheckedItems] = useState([]);
+
   const handleCheckboxChange = (e) => {
     const target = e.target;
     const value = target.value;
     const isChecked = target.checked;
+    setTrainerForm((prevState) => {
+      if (isChecked) {
+        return { ...prevState, youCanTrain: [...prevState.youCanTrain, value] };
+      } else {
+        const updatedYouCanTrain = prevState.youCanTrain.filter(
+          (item) => item !== value
+        );
+        return { ...prevState, youCanTrain: updatedYouCanTrain };
+      }
+    });
+  };
 
-    if (isChecked) {
-      setCheckedItems([...checkedItems, value]);
-    } else {
-      setCheckedItems(checkedItems.filter((item) => item !== value));
+  const submitManyPic = async (query, id) => {
+    let pictures = null;
+    let URL = null;
+    if (query === "certificates") {
+      pictures = photos.certificates;
+      URL = `http://localhost:5000/api/v1/trainer-profile/uploadCertificates/${id}`;
+    } else if (query === "photos") {
+      pictures = photos.photos;
+      URL = `http://localhost:5000/api/v1/trainer-profile/uploadPhotos/${id}`;
     }
+
+    const formData = new FormData();
+    for (let index = 0; index < pictures.length; index++) {
+      const file = pictures[index];
+      formData.append("file", file);
+    }
+    const headers = {
+      "Content-Type": "application/json",
+      authorization: `Bearer ${cookies.get("token")}`,
+    };
+
+    try {
+      const response = await axios.put(URL, { pictures }, { headers });
+      await submitManyPic("certificates");
+      await submitManyPic("photos");
+
+      return response;
+    } catch (err) {
+      console.log(err);
+    }
+    return formData;
+    console.log(pictures);
+    console.log(formData);
   };
 
-  const [credientialUpdate, setCredientialUpdate] = useState({
-    name: "",
-    email: "",
-    profilePicture: "",
-  });
-  const handleChangeUser = (e) => {
-    const { name, value } = e.target;
-    setCredientialUpdate((prevState) => ({ ...prevState, [name]: value }));
-  };
-
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     console.log(trainerForm);
-    console.log(checkedItems);
-  };
+    const res = async () => {
+      if (cookies.get("token")) {
+        const headers = {
+          "Content-Type": "application/json",
+          authorization: `Bearer ${cookies.get("token")}`,
+        };
 
-  const submitProfilePic = async () => {
-    const formData = new FormData();
-    formData.append("file", profilePicture);
-    console.log(formData);
-  };
-  const submitManyPic = async (pictures) => {
-    const formData = new FormData();
-    for (let index = 0; index < manyPic.length; index++) {
-      const file = manyPic[index];
-      formData.append("file", manyPic);
-    }
-    console.log(manyPic)
-    console.log(formData);
+        try {
+          const response = await axios.post(
+            `http://localhost:5000/api/v1/trainer-profile`,
+            { trainerForm },
+            { headers }
+          );
+          console.log(response)
+          await submitManyPic("certificates", response.data._id);
+          await submitManyPic("photos", response.data._id);
+
+          return response;
+        } catch (err) {
+          console.log(err);
+        }
+      }
+    };
+    res();
   };
 
   return (
@@ -96,7 +136,12 @@ export function TrainerPendingForm() {
                     id="yearsOfExperience"
                     name="yearsOfExperience"
                     value={trainerForm.yearsOfExperience}
-                    onChange={handleChangeTrainer}
+                    onChange={(e) =>
+                      setTrainerForm({
+                        ...trainerForm,
+                        yearsOfExperience: e.target.value,
+                      })
+                    }
                     min="0"
                     max="100"
                     step="1"
@@ -120,7 +165,12 @@ export function TrainerPendingForm() {
                   id="description"
                   name="description"
                   value={trainerForm.description}
-                  onChange={handleChangeTrainer}
+                  onChange={(e) =>
+                    setTrainerForm({
+                      ...trainerForm,
+                      description: e.target.value,
+                    })
+                  }
                   rows={3}
                   className="block w-full rounded-md border-0 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:py-1.5 sm:text-sm sm:leading-6"
                   defaultValue={""}
@@ -130,39 +180,6 @@ export function TrainerPendingForm() {
                 Write a few sentences about yourself which is shown in your
                 profile.
               </p>
-            </div>
-
-            <div className="col-span-full">
-              <label
-                htmlFor="profilePicture"
-                className="block text-sm font-medium leading-6 text-gray-900"
-              >
-                Profile Picture
-              </label>
-              <div className="mt-2 flex items-center gap-x-3">
-                <UserCircleIcon
-                  className="h-12 w-12 text-gray-300"
-                  aria-hidden="true"
-                />
-                <button
-                  type="files"
-                  id="profilePicture"
-                  name="profilePicture"
-                  value={credientialUpdate.profilePicture}
-                  onClick={() => submitProfilePic()}
-                  className="rounded-md bg-white px-2.5 py-1.5 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50"
-                >
-                  Change
-                </button>
-                <input
-                  type="file"
-                  id="profilePicture"
-                  name="profilePicture"
-                  className="rounded-md bg-white px-2.5 py-1.5 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50"
-                  value={credientialUpdate.profilePicture}
-                  onChange={(e) => setProfilePicture(e.target.files[0])}
-                />
-              </div>
             </div>
 
             <div className="col-span-full">
@@ -178,16 +195,39 @@ export function TrainerPendingForm() {
                     type="file"
                     multiple
                     className="rounded-md bg-white px-2.5 py-1.5 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50"
-                    // value={credientialUpdate.profilePicture}
-                    onChange={(e) => setManyPic(e.target.files)}
+                    onChange={(e) => {
+                      const pictures = e.target.files;
+                      setPhotos((prevState) => ({
+                        ...prevState,
+                        certificates: pictures,
+                      }));
+                    }}
                   />
+                </div>
+              </div>
+            </div>
 
-                  <button
-                    onClick={() => submitManyPic()}
+            <div className="col-span-full">
+              <label
+                htmlFor="cover-photo"
+                className="block text-sm font-medium leading-6 text-gray-900"
+              >
+                Photos
+              </label>
+              <div className="mt-2 flex justify-center rounded-lg border border-dashed border-gray-900/25 px-6 py-10">
+                <div className="text-center">
+                  <input
+                    type="file"
+                    multiple
                     className="rounded-md bg-white px-2.5 py-1.5 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50"
-                  >
-                    Change
-                  </button>
+                    onChange={(e) => {
+                      const pictures = e.target.files;
+                      setPhotos((prevState) => ({
+                        ...prevState,
+                        photos: pictures,
+                      }));
+                    }}
+                  />
                 </div>
               </div>
             </div>
@@ -217,8 +257,8 @@ export function TrainerPendingForm() {
                   type="text"
                   id="firstName"
                   name="firstName"
-                  value={trainerForm.certificates}
-                  onChange={submitManyPic}
+                  value={trainerForm.firstName}
+                  onChange={handleChangeTrainer}
                   className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                 />
               </div>
