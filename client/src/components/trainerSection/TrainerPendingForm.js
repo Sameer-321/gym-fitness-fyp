@@ -7,7 +7,7 @@ export function TrainerPendingForm() {
     yearsOfExperience: "",
     description: "",
     credential_id: "",
-    certificates: null,
+    certificates: [],
     photos: "",
     gender: "",
     youCanTrain: [],
@@ -37,31 +37,26 @@ export function TrainerPendingForm() {
       }
     });
   };
-  const [credientialUpdate, setCredientialUpdate] = useState({
-    name: "",
-    email: "",
-    profilePicture: "",
-  });
+
+  const submitManyPic = (pictures) => {
+    const formData = new FormData();
+    for (let index = 0; index < pictures.length; index++) {
+      const file = pictures[index];
+      formData.append("certificates", file);
+    }
+    setTrainerForm((prevForm) => ({
+      ...prevForm,
+      certificates: formData,
+    }));
+    console.log(pictures);
+    console.log(formData);
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(credientialUpdate);
-    console.log(trainerForm);
-  };
 
-  // const submitManyPic = async (pictures) => {
-  //   const formData = new FormData();
-  //   for (let index = 0; index < pictures.length; index++) {
-  //     const file = pictures[index];
-  //     formData.append("certificates", file);
-  //   }
-  //   setTrainerForm((prevForm) => ({
-  //     ...prevForm,
-  //     certificates: formData,
-  //   }));
-  //   console.log(pictures);
-  //   console.log(pictures);
-  // };
+    console.log(trainerForm.certificates);
+  };
 
   return (
     <form onSubmit={handleSubmit}>
@@ -130,34 +125,6 @@ export function TrainerPendingForm() {
 
             <div className="col-span-full">
               <label
-                htmlFor="profilePicture"
-                className="block text-sm font-medium leading-6 text-gray-900"
-              >
-                Profile Picture
-              </label>
-              <div className="mt-2 flex items-center gap-x-3">
-                <UserCircleIcon
-                  className="h-12 w-12 text-gray-300"
-                  aria-hidden="true"
-                />
-                <input
-                  type="file"
-                  id="profilePicture"
-                  name="profilePicture"
-                  className="rounded-md bg-white px-2.5 py-1.5 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50"
-                  onChange={(e) => {
-                    const file = e.target.files[0];
-                    setCredientialUpdate((prevState) => ({
-                      ...prevState,
-                      profilePicture: file,
-                    }));
-                  }}
-                />
-              </div>
-            </div>
-
-            <div className="col-span-full">
-              <label
                 htmlFor="cover-photo"
                 className="block text-sm font-medium leading-6 text-gray-900"
               >
@@ -169,15 +136,40 @@ export function TrainerPendingForm() {
                     type="file"
                     multiple
                     className="rounded-md bg-white px-2.5 py-1.5 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50"
+                    onChange={(e) => {
+                      const pictures = e.target.files;
+                      submitManyPic(pictures);
+                    }}
                     // onChange={(e) => {
                     //   const file = e.target.files;
-                    //   submitManyPic(file);
+                    //   setTrainerForm((prevState) => ({
+                    //     ...prevState,
+                    //     certificates: file,
+                    //   }));
                     // }}
+                  />
+                </div>
+              </div>
+            </div>
+
+            <div className="col-span-full">
+              <label
+                htmlFor="cover-photo"
+                className="block text-sm font-medium leading-6 text-gray-900"
+              >
+                Photos
+              </label>
+              <div className="mt-2 flex justify-center rounded-lg border border-dashed border-gray-900/25 px-6 py-10">
+                <div className="text-center">
+                  <input
+                    type="file"
+                    multiple
+                    className="rounded-md bg-white px-2.5 py-1.5 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50"
                     onChange={(e) => {
                       const file = e.target.files;
                       setTrainerForm((prevState) => ({
                         ...prevState,
-                        certificates: file,
+                        photos: file,
                       }));
                     }}
                   />

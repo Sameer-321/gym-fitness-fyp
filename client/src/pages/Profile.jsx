@@ -12,7 +12,7 @@ function Profile() {
 
   useEffect(() => {
     setUserInfo(userInformation);
-    console.log(userInformation)
+    console.log(userInformation);
   }, [userInformation]);
 
   const imageRender = () => {
@@ -46,11 +46,22 @@ function Profile() {
   return (
     <>
       <div className="flex items-center h-screen w-full justify-center">
-        <div className="max-w-xs">
-          <div className="bg-white shadow-xl rounded-lg py-3">
+        <div className="max-w-xs -mt-12">
+          <div className="bg-white shadow rounded-2xl py-3">
+            <div className="px-4 flex">
+              <button
+                className="ml-auto text-gray-500 p-2 hover:bg-gray-100 rounded-full"
+                title="Edit profile"
+                onClick={() => {
+                  handleClick();
+                }}
+              >
+                <PencilSquareIcon className="h-4 w-4" />
+              </button>
+            </div>
             <div className="photo-wrapper p-2">
               <img
-                className="w-32 h-32 rounded-full mx-auto"
+                className="w-28 h-28 rounded-full mx-auto border"
                 src={
                   userInfo?.profilePictureLink
                     ? `http://localhost:5000/${userInfo?.profilePictureLink}`
@@ -59,28 +70,20 @@ function Profile() {
                 //src={}
                 alt="NO Avatar"
               />
-
-              <div>
-                <button
-                  onClick={() => {
-                    handleClick();
-                  }}
-                >
-                  <PencilSquareIcon className="h-10 w-10" />
-                </button>
-              </div>
             </div>
             <div className="p-2">
-              <h3 className="text-center text-xl text-gray-900 font-medium leading-8">
+              <h3 className="text-center text-lg text-gray-900 mb-2 font-medium leading-8">
                 {userInformation.name}
               </h3>
               <div className="text-center text-gray-400 text-xs font-semibold">
-                <p>not verified</p>
+                <span className="px-3 py-1 rounded-full bg-green-400 text-white font-semibold">
+                  Verified
+                </span>
               </div>
               <table className="text-xs my-3">
                 <tbody>
                   <tr>
-                    <td className="px-2 py-2 text-gray-500 font-semibold">
+                    <td className="px-2 py-2 text-gray-500 font-normal">
                       Address
                     </td>
                     <td className="px-2 py-2">
@@ -88,13 +91,13 @@ function Profile() {
                     </td>
                   </tr>
                   <tr>
-                    <td className="px-2 py-2 text-gray-500 font-semibold">
+                    <td className="px-2 py-2 text-gray-500 font-normal">
                       Phone
                     </td>
                     <td className="px-2 py-2">+977 9955221114</td>
                   </tr>
                   <tr>
-                    <td className="px-2 py-2 text-gray-500 font-semibold">
+                    <td className="px-2 py-2 text-gray-500 font-normal">
                       Email
                     </td>
                     <td className="px-2 py-2">{userInformation.email}</td>
@@ -102,9 +105,9 @@ function Profile() {
                 </tbody>
               </table>
 
-              <div className="text-center my-3">
+              <div className="text-center mt-3">
                 <a
-                  className="text-xs text-indigo-500 italic hover:underline hover:text-indigo-600 font-medium"
+                  className="text-xs text-indigo-500  hover:underline hover:text-indigo-600 font-medium"
                   href="#"
                 >
                   View Profile

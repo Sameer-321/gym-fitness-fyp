@@ -52,7 +52,7 @@ const Header = () => {
               <div className="logo__img">
                 <img src={logo} alt="dumbell logo" />
               </div>
-              <h2>Gym Fitness</h2>
+              <p>Gym Fitness</p>
             </div>
           </a>
 
@@ -63,6 +63,7 @@ const Header = () => {
               {nav__links.map((item) => (
                 <li className="nav__item" key={item.id}>
                   <a
+                  className="text-base font-normal"
                     onClick={() => {
                       nav(`${item.path}`);
                     }}
