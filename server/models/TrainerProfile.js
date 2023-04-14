@@ -1,14 +1,14 @@
 const mongoose = require("mongoose");
 
-const TrainerSchema = new mongoose.Schema({
+const TrainerProfileSchema = new mongoose.Schema({
   gender: {
-    type: text,
-    required: true,
+    type: String,
+    enum: ["male", "female"],
   },
-  status: [
+  trainerType: [
     {
       type: String,
-      enum: ["powerLifting", "bodyBuilding", "crossFit"],
+      enum: ["powerlifting", "bodybuilding", "crossfit"],
     },
   ],
   yearOfExperience: {
@@ -39,10 +39,14 @@ const TrainerSchema = new mongoose.Schema({
       },
     },
   ],
-
-  credential_id: {
-    type: String,
+  userInfo: {
+    _id: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "User",
+    },
+    name: String,
+    email: String,
   },
 });
 
-module.exports = mongoose.model("Trainer", TrainerSchema);
+module.exports = mongoose.model("TrainerProfile", TrainerProfileSchema);

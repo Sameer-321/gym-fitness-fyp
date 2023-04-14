@@ -7,15 +7,13 @@ export function TrainerPendingForm() {
     yearsOfExperience: "",
     description: "",
     credential_id: "",
-    certificates: [],
+    certificates: null,
     photos: "",
     gender: "",
     youCanTrain: [],
     firstName: "",
     lastName: "",
   });
-  const [profilePicture, setProfilePicture] = useState("");
-  const [manyPic, setManyPic] = useState("");
 
   const handleChangeTrainer = (e) => {
     const { name, value, type, checked } = e.target;
@@ -23,49 +21,47 @@ export function TrainerPendingForm() {
       type === "checkbox" ? checked : type === "radio" ? value : value;
     setTrainerForm((prevState) => ({ ...prevState, [name]: newValue }));
   };
-  const [checkedItems, setCheckedItems] = useState([]);
+
   const handleCheckboxChange = (e) => {
     const target = e.target;
     const value = target.value;
     const isChecked = target.checked;
-
-    if (isChecked) {
-      setCheckedItems([...checkedItems, value]);
-    } else {
-      setCheckedItems(checkedItems.filter((item) => item !== value));
-    }
+    setTrainerForm((prevState) => {
+      if (isChecked) {
+        return { ...prevState, youCanTrain: [...prevState.youCanTrain, value] };
+      } else {
+        const updatedYouCanTrain = prevState.youCanTrain.filter(
+          (item) => item !== value
+        );
+        return { ...prevState, youCanTrain: updatedYouCanTrain };
+      }
+    });
   };
-
   const [credientialUpdate, setCredientialUpdate] = useState({
     name: "",
     email: "",
     profilePicture: "",
   });
-  const handleChangeUser = (e) => {
-    const { name, value } = e.target;
-    setCredientialUpdate((prevState) => ({ ...prevState, [name]: value }));
-  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    console.log(credientialUpdate);
     console.log(trainerForm);
-    console.log(checkedItems);
   };
 
-  const submitProfilePic = async () => {
-    const formData = new FormData();
-    formData.append("file", profilePicture);
-    console.log(formData);
-  };
-  const submitManyPic = async (pictures) => {
-    const formData = new FormData();
-    for (let index = 0; index < manyPic.length; index++) {
-      const file = manyPic[index];
-      formData.append("file", manyPic);
-    }
-    console.log(manyPic)
-    console.log(formData);
-  };
+  // const submitManyPic = async (pictures) => {
+  //   const formData = new FormData();
+  //   for (let index = 0; index < pictures.length; index++) {
+  //     const file = pictures[index];
+  //     formData.append("certificates", file);
+  //   }
+  //   setTrainerForm((prevForm) => ({
+  //     ...prevForm,
+  //     certificates: formData,
+  //   }));
+  //   console.log(pictures);
+  //   console.log(pictures);
+  // };
 
   return (
     <form onSubmit={handleSubmit}>
@@ -144,23 +140,18 @@ export function TrainerPendingForm() {
                   className="h-12 w-12 text-gray-300"
                   aria-hidden="true"
                 />
-                <button
-                  type="files"
-                  id="profilePicture"
-                  name="profilePicture"
-                  value={credientialUpdate.profilePicture}
-                  onClick={() => submitProfilePic()}
-                  className="rounded-md bg-white px-2.5 py-1.5 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50"
-                >
-                  Change
-                </button>
                 <input
                   type="file"
                   id="profilePicture"
                   name="profilePicture"
                   className="rounded-md bg-white px-2.5 py-1.5 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50"
-                  value={credientialUpdate.profilePicture}
-                  onChange={(e) => setProfilePicture(e.target.files[0])}
+                  onChange={(e) => {
+                    const file = e.target.files[0];
+                    setCredientialUpdate((prevState) => ({
+                      ...prevState,
+                      profilePicture: file,
+                    }));
+                  }}
                 />
               </div>
             </div>
@@ -178,16 +169,18 @@ export function TrainerPendingForm() {
                     type="file"
                     multiple
                     className="rounded-md bg-white px-2.5 py-1.5 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50"
-                    // value={credientialUpdate.profilePicture}
-                    onChange={(e) => setManyPic(e.target.files)}
+                    // onChange={(e) => {
+                    //   const file = e.target.files;
+                    //   submitManyPic(file);
+                    // }}
+                    onChange={(e) => {
+                      const file = e.target.files;
+                      setTrainerForm((prevState) => ({
+                        ...prevState,
+                        certificates: file,
+                      }));
+                    }}
                   />
-
-                  <button
-                    onClick={() => submitManyPic()}
-                    className="rounded-md bg-white px-2.5 py-1.5 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50"
-                  >
-                    Change
-                  </button>
                 </div>
               </div>
             </div>
@@ -217,8 +210,8 @@ export function TrainerPendingForm() {
                   type="text"
                   id="firstName"
                   name="firstName"
-                  value={trainerForm.certificates}
-                  onChange={submitManyPic}
+                  value={trainerForm.firstName}
+                  onChange={handleChangeTrainer}
                   className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                 />
               </div>
