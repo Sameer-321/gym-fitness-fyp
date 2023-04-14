@@ -11,8 +11,8 @@ const TrainerProfileSchema = new mongoose.Schema({
       enum: ["powerlifting", "bodybuilding", "crossfit"],
     },
   ],
-  yearOfExperience: {
-    type: Number,
+  yearsOfExperience: {
+    type: String,
     required: true,
   },
   description: {

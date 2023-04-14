@@ -112,34 +112,37 @@ exports.deleteProfilePicture = async (req, res, next) => {
 //trainer section
 
 exports.createTrainerProfile = async (req, res, next) => {
+  console.log(req.body,"body-check")
   const userId = req.user.id;
   const userInfo = await User.findById(userId, "name email profilePicture");
 
-  console.log(userInfo, "userInfouserInfouserInfo")
+  console.log(userInfo, "userInfouserInfouserInfo");
 
   try {
     const trainerProfileData = new TrainerProfile({
       userInfo,
-      yearOfExperience: req.body.yearOfExperience,
-      description: req.body.description,
-      trainerType: req.body.trainerType,
-      gender: req.body.gender,
+      yearsOfExperience: req.body.trainerForm.yearsOfExperience,
+      description: req.body.trainerForm.description,
+      trainerType: req.body.trainerForm.trainerType,
+      gender: req.body.trainerForm.gender,
     });
-    console.log(trainerProfileData, "trainerProfileDatatrainerProfileDatatrainerProfileData")
+    console.log(
+      trainerProfileData,
+      "trainerProfileDatatrainerProfileDatatrainerProfileData"
+    );
 
     const trainerProfile = await trainerProfileData.save();
 
-    console.log(trainerProfile, "trainerProfiletrainerProfiletrainerProfile")
+    console.log(trainerProfile, "trainerProfiletrainerProfiletrainerProfile");
 
     if (trainerProfile) {
       const userId = trainerProfile.userInfo._id;
       const user = await User.findById(userId);
-      console.log(user, "useruseruser")
-      // user.role = "trainer";
+      // console.log(user, "useruseruser");
+      user.role = "trainer";
       // console.log(user, "useruseruser")
       await user.save();
     }
-
     res.status(201).json(trainerProfile);
   } catch (err) {
     next(err);
@@ -157,6 +160,24 @@ exports.uploadCertificates = async (req, res, next) => {
     const trainerProfile = await TrainerProfile.findByIdAndUpdate(
       trainerProfileId,
       { $push: { certificates: { $each: certificates } } },
+      { new: true }
+    );
+    res.status(200).json(trainerProfile);
+  } catch (err) {
+    next(err);
+  }
+};
+
+exports.uploadPhotos = async (req, res, next) => {
+  const trainerProfileId = req.params.id;
+  const photos = req.files.map((file) => ({
+    name: file.originalname,
+    link: file.path,
+  }));
+  try {
+    const trainerProfile = await TrainerProfile.findByIdAndUpdate(
+      trainerProfileId,
+      { $push: { photos: { $each: photos } } },
       { new: true }
     );
     res.status(200).json(trainerProfile);

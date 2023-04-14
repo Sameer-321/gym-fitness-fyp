@@ -29,9 +29,9 @@ router.get(
   getSingleTrainerProfile
 );
 router.post("/", protect, authorize("trainer-pending"), createTrainerProfile);
-router.put("/uploadCertificates/:id", upload.array("file"), uploadCertificates);
-router.post("/img/multiple/:trainerId", upload.array("files"), uploadImage);
-router.put("/img/:user_id", upload.single("file"), updateProfilePicture);
+router.put("/uploadCertificates/:id",protect, upload.array("file"), uploadCertificates);
+router.put("/uploadPhotos/:id", upload.array("file"), uploadCertificates);
+
 router.delete("/img/:user_id", deleteProfilePicture);
 
 module.exports = router;

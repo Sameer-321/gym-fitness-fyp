@@ -1,18 +1,23 @@
 import { PhotoIcon, UserCircleIcon } from "@heroicons/react/24/solid";
 import { useState } from "react";
 import axios from "axios";
+import Cookies from "universal-cookie";
 export function TrainerPendingForm() {
+  const cookies = new Cookies();
+
   //For Trainer Schema
   const [trainerForm, setTrainerForm] = useState({
-    yearsOfExperience: "",
+    yearsOfExperience: 0,
     description: "",
-    credential_id: "",
-    certificates: [],
-    photos: "",
     gender: "",
     youCanTrain: [],
     firstName: "",
     lastName: "",
+  });
+
+  const [photos, setPhotos] = useState({
+    certificates: [],
+    photos: [],
   });
 
   const handleChangeTrainer = (e) => {
@@ -38,24 +43,68 @@ export function TrainerPendingForm() {
     });
   };
 
-  const submitManyPic = (pictures) => {
+  const submitManyPic = async (query, id) => {
+    let pictures = null;
+    let URL = null;
+    if (query === "certificates") {
+      pictures = photos.certificates;
+      URL = `http://localhost:5000/api/v1/trainer-profile/uploadCertificates/${id}`;
+    } else if (query === "photos") {
+      pictures = photos.photos;
+      URL = `http://localhost:5000/api/v1/trainer-profile/uploadPhotos/${id}`;
+    }
+
     const formData = new FormData();
     for (let index = 0; index < pictures.length; index++) {
       const file = pictures[index];
-      formData.append("certificates", file);
+      formData.append("file", file);
     }
-    setTrainerForm((prevForm) => ({
-      ...prevForm,
-      certificates: formData,
-    }));
+    const headers = {
+      "Content-Type": "application/json",
+      authorization: `Bearer ${cookies.get("token")}`,
+    };
+
+    try {
+      const response = await axios.put(URL, { pictures }, { headers });
+      await submitManyPic("certificates");
+      await submitManyPic("photos");
+
+      return response;
+    } catch (err) {
+      console.log(err);
+    }
+    return formData;
     console.log(pictures);
     console.log(formData);
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+    console.log(trainerForm);
+    const res = async () => {
+      if (cookies.get("token")) {
+        const headers = {
+          "Content-Type": "application/json",
+          authorization: `Bearer ${cookies.get("token")}`,
+        };
 
-    console.log(trainerForm.certificates);
+        try {
+          const response = await axios.post(
+            `http://localhost:5000/api/v1/trainer-profile`,
+            { trainerForm },
+            { headers }
+          );
+          console.log(response)
+          await submitManyPic("certificates", response.data._id);
+          await submitManyPic("photos", response.data._id);
+
+          return response;
+        } catch (err) {
+          console.log(err);
+        }
+      }
+    };
+    res();
   };
 
   return (
@@ -87,7 +136,12 @@ export function TrainerPendingForm() {
                     id="yearsOfExperience"
                     name="yearsOfExperience"
                     value={trainerForm.yearsOfExperience}
-                    onChange={handleChangeTrainer}
+                    onChange={(e) =>
+                      setTrainerForm({
+                        ...trainerForm,
+                        yearsOfExperience: e.target.value,
+                      })
+                    }
                     min="0"
                     max="100"
                     step="1"
@@ -111,7 +165,12 @@ export function TrainerPendingForm() {
                   id="description"
                   name="description"
                   value={trainerForm.description}
-                  onChange={handleChangeTrainer}
+                  onChange={(e) =>
+                    setTrainerForm({
+                      ...trainerForm,
+                      description: e.target.value,
+                    })
+                  }
                   rows={3}
                   className="block w-full rounded-md border-0 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:py-1.5 sm:text-sm sm:leading-6"
                   defaultValue={""}
@@ -138,15 +197,11 @@ export function TrainerPendingForm() {
                     className="rounded-md bg-white px-2.5 py-1.5 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50"
                     onChange={(e) => {
                       const pictures = e.target.files;
-                      submitManyPic(pictures);
+                      setPhotos((prevState) => ({
+                        ...prevState,
+                        certificates: pictures,
+                      }));
                     }}
-                    // onChange={(e) => {
-                    //   const file = e.target.files;
-                    //   setTrainerForm((prevState) => ({
-                    //     ...prevState,
-                    //     certificates: file,
-                    //   }));
-                    // }}
                   />
                 </div>
               </div>
@@ -166,10 +221,10 @@ export function TrainerPendingForm() {
                     multiple
                     className="rounded-md bg-white px-2.5 py-1.5 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50"
                     onChange={(e) => {
-                      const file = e.target.files;
-                      setTrainerForm((prevState) => ({
+                      const pictures = e.target.files;
+                      setPhotos((prevState) => ({
                         ...prevState,
-                        photos: file,
+                        photos: pictures,
                       }));
                     }}
                   />
