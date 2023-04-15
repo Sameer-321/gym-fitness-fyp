@@ -112,7 +112,7 @@ exports.deleteProfilePicture = async (req, res, next) => {
 //trainer section
 
 exports.createTrainerProfile = async (req, res, next) => {
-  console.log(req.body,"body-check")
+  console.log(req.body, "body-check");
   const userId = req.user.id;
   const userInfo = await User.findById(userId, "name email profilePicture");
 
@@ -151,6 +151,10 @@ exports.createTrainerProfile = async (req, res, next) => {
 
 exports.uploadCertificates = async (req, res, next) => {
   const trainerProfileId = req.params.id;
+  console.log(req.files);
+  if (!req.files) {
+    return res.status(400).json({ error: "No files were uploaded" });
+  }
   const certificates = req.files.map((file) => ({
     name: file.originalname,
     link: file.path,

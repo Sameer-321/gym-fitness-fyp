@@ -28,8 +28,13 @@ router.get(
   authorize("trainer-pending", "admin"),
   getSingleTrainerProfile
 );
-router.post("/", protect, authorize("trainer-pending"), createTrainerProfile);
-router.put("/uploadCertificates/:id",protect, upload.array("file"), uploadCertificates);
+router.post("/", protect, createTrainerProfile);
+router.put(
+  "/uploadCertificates/:id",
+  protect,
+  upload.array("file"),
+  uploadCertificates
+);
 router.put("/uploadPhotos/:id", upload.array("file"), uploadCertificates);
 
 router.delete("/img/:user_id", deleteProfilePicture);

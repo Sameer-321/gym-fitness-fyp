@@ -10,7 +10,7 @@ export function TrainerPendingForm() {
     yearsOfExperience: 0,
     description: "",
     gender: "",
-    youCanTrain: [],
+    trainerType: [],
     firstName: "",
     lastName: "",
   });
@@ -33,49 +33,50 @@ export function TrainerPendingForm() {
     const isChecked = target.checked;
     setTrainerForm((prevState) => {
       if (isChecked) {
-        return { ...prevState, youCanTrain: [...prevState.youCanTrain, value] };
+        return { ...prevState, trainerType: [...prevState.trainerType, value] };
       } else {
-        const updatedYouCanTrain = prevState.youCanTrain.filter(
+        const updatedYouCanTrain = prevState.trainerType.filter(
           (item) => item !== value
         );
-        return { ...prevState, youCanTrain: updatedYouCanTrain };
+        return { ...prevState, trainerType: updatedYouCanTrain };
       }
     });
   };
 
-  const submitManyPic = async (query, id) => {
-    let pictures = null;
+  const submitManyPic = async (event, query = "certificates") => {
+    event.preventDefault();
+    console.log(photos);
+    let pictures = [];
     let URL = null;
     if (query === "certificates") {
       pictures = photos.certificates;
-      URL = `http://localhost:5000/api/v1/trainer-profile/uploadCertificates/${id}`;
+      URL = `http://localhost:5000/api/v1/trainer-profile/uploadCertificates/${"643a1c803809397628c9e81d"}`;
     } else if (query === "photos") {
       pictures = photos.photos;
-      URL = `http://localhost:5000/api/v1/trainer-profile/uploadPhotos/${id}`;
+      URL = `http://localhost:5000/api/v1/trainer-profile/uploadPhotos/${"643a1c803809397628c9e81d"}`;
     }
-
+    console.log(pictures,"pictures")
     const formData = new FormData();
+    console.log(pictures, 60);
     for (let index = 0; index < pictures.length; index++) {
       const file = pictures[index];
       formData.append("file", file);
     }
+    console.log(formData, "formData");
     const headers = {
-      "Content-Type": "application/json",
+      "Content-Type": "multipart/form-data",
       authorization: `Bearer ${cookies.get("token")}`,
     };
-
+    console.log(formData);
     try {
-      const response = await axios.put(URL, { pictures }, { headers });
-      await submitManyPic("certificates");
-      await submitManyPic("photos");
+      const response = await axios.put(URL,  formData , { headers });
 
+      console.log(response);
       return response;
     } catch (err) {
       console.log(err);
     }
     return formData;
-    console.log(pictures);
-    console.log(formData);
   };
 
   const handleSubmit = async (e) => {
@@ -94,11 +95,11 @@ export function TrainerPendingForm() {
             { trainerForm },
             { headers }
           );
-          console.log(response)
+          console.log(response);
           await submitManyPic("certificates", response.data._id);
-          await submitManyPic("photos", response.data._id);
+          const res = await submitManyPic("photos", response.data._id);
 
-          return response;
+          return res;
         } catch (err) {
           console.log(err);
         }
@@ -108,7 +109,7 @@ export function TrainerPendingForm() {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={submitManyPic}>
       <div className="space-y-12">
         <div className="grid grid-cols-1 gap-x-8 gap-y-10 border-b border-gray-900/10 pb-12 md:grid-cols-3">
           <div>
@@ -341,7 +342,7 @@ export function TrainerPendingForm() {
                   <div className="flex h-6 items-center">
                     <input
                       name="powerLifting"
-                      value="powerLifting"
+                      value="powerlifting"
                       type="checkbox"
                       //checked={trainerForm.youCanTrain.includes("powerLifting")}
                       onChange={handleCheckboxChange}
@@ -359,7 +360,7 @@ export function TrainerPendingForm() {
                     <input
                       name="bodyBuilding"
                       type="checkbox"
-                      value="bodyBuilding"
+                      value="bodybuilding"
                       //checked={trainerForm.youCanTrain.includes("bodyBuilding")}
                       onChange={handleCheckboxChange}
                       className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600"
@@ -376,7 +377,7 @@ export function TrainerPendingForm() {
                     <input
                       name="crossFit"
                       type="checkbox"
-                      value="crossFit"
+                      value="crossfit"
                       //checked={trainerForm.youCanTrain.includes("crossFit")}
                       onChange={handleCheckboxChange}
                       className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600"
