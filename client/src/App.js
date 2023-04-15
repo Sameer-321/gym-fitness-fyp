@@ -22,9 +22,8 @@ import { Messenger } from "./components/ChatApp/Messenger/Messenger";
 import { Loading } from "./components/assests/Loading";
 
 ////imports for Traienrs******
-import { TrainerPendingForm } from "./components/trainerSection/TrainerPendingForm";
+import { TrainerPendingForm } from "./components/trainerSection/Trainer-Form/TrainerPendingForm";
 import { TrainerProfile } from "./components/trainerSection/TrainerProfile.js/TrainerProfile";
-
 import { TrainerFrame } from "./components/trainerSection/pages/TrainerFrame";
 function App() {
   const dispatch = useDispatch();

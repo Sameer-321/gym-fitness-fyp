@@ -103,6 +103,7 @@ exports.getSingleTrainerProfile = async (req, res, next) => {
     const trainerProfile = await TrainerProfile.findOne({
       "userInfo._id": req.params.id,
     });
+    console.log(trainerProfile,1067777777777777777777777777777777)
     res.status(200).json(trainerProfile);
   } catch (err) {
     next(err);

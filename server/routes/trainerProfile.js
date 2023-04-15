@@ -18,7 +18,7 @@ router.get("/", protect, authorize("trainer", "admin"), getallTrainerProfile);
 router.get(
   "/:id",
   protect,
-  authorize("trainer", "admin"),
+  authorize("trainer"),
   getSingleTrainerProfile
 );
 

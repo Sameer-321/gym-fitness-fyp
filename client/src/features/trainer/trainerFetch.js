@@ -2,13 +2,14 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 import Cookies from "universal-cookie";
 import { id } from "../auth/authSlice";
-const URL = "http://localhost:5000/api/v1/auth/";
+const URL = "http://localhost:5000/api/v1";
 
-export const getTrainerInfo = createAsyncThunk("login", async (id, token) => {
+export const getTrainerInfo = createAsyncThunk("trainerInfo", async (id) => {
+  const cookies = new Cookies();
   try {
-    const response = await axios.get(`${URL}trainer-profile/${id}`, {
+    const response = await axios.get(`${URL}/trainer-profile/${id}`, {
       headers: {
-        Authorization: `Bearer ${token}`,
+        Authorization: `Bearer ${cookies.get("token")}`,
       },
     });
     return response.data;
