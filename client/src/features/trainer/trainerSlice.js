@@ -6,54 +6,25 @@ import { loginfetch, registerfetch, getMe } from "./authFetch";
 const cookies = new Cookies();
 
 const initialState = {
-  isLoggedIn: false,
-  jwt: null,
-  id: "",
-  email: "",
-  name: "",
-  role: "",
-  profilePictureLink: "",
+  gender: null,
+  trainerType: null,
+  yearsofExperience: "",
+  description: "",
+  photos: "",
+  certificates: "",
+  userInfo: "",
   status: "idle", //idle,loading,succeeded,failed
   error: null,
 };
 
 const authSlice = createSlice({
-  name: "auth",
+  name: "trainer",
   initialState,
   reducers: {
-    login(state, action) {
+    hello(state, action) {
       console.log("login called");
-    },
-    register(state, action) {
-      const { token } = action.payload;
-      console.log(token);
-    },
-    logout(state) {
-      const cookies = new Cookies();
-      cookies.remove("token");
-      console.log("logging out");
-      state.isLoggedIn = false;
-      state.jwt = null;
-      state.id = "";
-      state.email = "";
-      state.name = "";
-      state.status = "idle";
-      state.error = null;
-      // Reload the page by js
-      window.location.reload();
-    },
-    resetState(state) {
-      state = {
-        // ...state,
-        isLoggedIn: false,
-        jwt: null,
-        id: "",
-        email: "",
-        name: "",
-        status: "idle",
-        error: null,
-      };
-    },
+    }
+    
   },
   extraReducers(builder) {
     builder

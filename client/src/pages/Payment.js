@@ -1,15 +1,12 @@
 import React from "react";
-import Stripe from "../components/payment/Stripe/Stripe.jsx";
-import Khalti from "../components/payment/Khalti/Khalti"
+
+import Khalti from "../components/payment/Khalti/Khalti";
 export default function Payment() {
   return (
     <>
+      <br />
       <div>
-        <Stripe />
-      </div>
-      <br/>
-      <div>
-        <Khalti/>
+        <Khalti />
       </div>
     </>
   );

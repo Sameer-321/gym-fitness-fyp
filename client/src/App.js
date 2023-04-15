@@ -9,7 +9,7 @@ import LoginRegister from "./pages/LoginRegister";
 import { useDispatch, useSelector } from "react-redux";
 import Pricing from "./components/UI/Pricing";
 import ContactUs from "./components/UI/ContactUs";
-import { getMe } from "./features/trainer/authFetchaaaa";
+import { getMe } from "./features/auth/authFetch";
 import Profile from "./pages/Profile";
 import Payment from "./pages/Payment";
 import RequireAuthUser from "./components/RequireAuthUser";
@@ -21,10 +21,11 @@ import { Rough } from "./pages/Rough";
 import { Messenger } from "./components/ChatApp/Messenger/Messenger";
 import { Loading } from "./components/assests/Loading";
 
-
 ////imports for Traienrs******
 import { TrainerPendingForm } from "./components/trainerSection/TrainerPendingForm";
+import { TrainerProfile } from "./components/trainerSection/TrainerProfile.js/TrainerProfile";
 
+import { TrainerFrame } from "./components/trainerSection/pages/TrainerFrame";
 function App() {
   const dispatch = useDispatch();
   const informationUser = useSelector(info);
@@ -88,13 +89,21 @@ function App() {
           <Route path="/rough" element={<Rough />} />
         </Routes>
       ) : (
-        // userInfo.role === "trainer" userInfo.role === "trainer-pending" ?
         <Routes>
-          <Route path="/" element={<Layout userInfo={userInfo} />}>
-            //public route
+          {userInfo.role === "trainer-pending" ? (
             <Route index element={<TrainerPendingForm />} />
-            <Route path="*" element={<Notfound />} />
-          </Route>
+          ) : (
+            <Route path="/" element={<TrainerFrame userInfo={userInfo} />}>
+              <Route index element={<TrainerProfile />} />
+              <Route
+                path="/messenger"
+                element={<Messenger info={userInfo} />}
+              />
+            </Route>
+          )}
+          //public route
+          <Route path="*" element={<Notfound />} />
+          {/* </Route> */}
         </Routes>
       )}
     </div>

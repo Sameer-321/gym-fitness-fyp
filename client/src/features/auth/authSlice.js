@@ -41,6 +41,7 @@ const authSlice = createSlice({
       state.error = null;
       // Reload the page by js
       window.location.reload();
+      
     },
     LoginLoading(state) {
       state = {
