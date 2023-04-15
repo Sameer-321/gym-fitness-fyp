@@ -5,6 +5,13 @@ const TrainerProfileSchema = new mongoose.Schema({
     type: String,
     enum: ["male", "female"],
   },
+  firstName: {
+    type: String,
+  },
+
+  lastName: {
+    type: String,
+  },
   trainerType: [
     {
       type: String,

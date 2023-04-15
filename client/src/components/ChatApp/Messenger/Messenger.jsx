@@ -113,7 +113,7 @@ export function Messenger(props) {
         <div className="chatMenu">
           {" "}
           <div className="chatMenuWrapper">
-            <input placeholder="Search for friends" className="chatMenuInput" />
+            {/* <input placeholder="Search for friends" className="chatMenuInput" /> */}
             {conversations.map((c) => (
               <div
                 onClick={() => {

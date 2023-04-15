@@ -11,8 +11,8 @@ export function TrainerProfile() {
   const dispatch = useDispatch();
   console.log(credientialInfo.id);
   const cookies = new Cookies();
-  useEffect( () => {
-     dispatch(getTrainerInfo(credientialInfo.id));
+  useEffect(() => {
+    dispatch(getTrainerInfo(credientialInfo.id));
   }, []);
   return (
     <>

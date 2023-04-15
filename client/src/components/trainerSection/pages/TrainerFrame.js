@@ -1,22 +1,30 @@
-import { Fragment, useState } from "react";
+import { Fragment, useEffect, useState } from "react";
 import { Dialog, Menu, Transition } from "@headlessui/react";
 import { Outlet, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import {
   Bars3Icon,
   HomeIcon,
   UsersIcon,
   XMarkIcon,
+  ChatBubbleLeftIcon,
 } from "@heroicons/react/24/outline";
 import {
   ChevronDownIcon,
   MagnifyingGlassIcon,
 } from "@heroicons/react/20/solid";
-import { useDispatch } from "react-redux";
-import { logout } from "../../../features/auth/authSlice";
 
+import { useDispatch, useSelector } from "react-redux";
+import { logout } from "../../../features/auth/authSlice";
+import { firstName, lastName } from "../../../features/trainer/trainerSlice";
 const navigation = [
-  { name: "Dashboard", href: "#", icon: HomeIcon, current: true },
-  { name: "Team", href: "#", icon: UsersIcon, current: false },
+  { name: "Dashboard", link: "/", icon: HomeIcon, current: true },
+  {
+    name: "Chat",
+    link: "/messenger",
+    icon: ChatBubbleLeftIcon,
+    current: false,
+  },
 ];
 const userNavigation = [{ name: "Your profile" }, { name: "Sign out" }];
 
@@ -27,8 +35,18 @@ function classNames(...classes) {
 export function TrainerFrame(userInfo) {
   const nav = useNavigate();
   const dispatch = useDispatch();
-  console.log(userInfo);
-  const { isLoggedIn, email, name, profilePictureLink } = userInfo;
+  const first_name = useSelector(firstName);
+  const last_name = useSelector(lastName);
+  const [name, setName] = useState({
+    f_name: "",
+    l_name: "",
+  });
+
+  useEffect(() => {
+    setName((prevState) => ({ ...prevState, f_name: first_name }));
+    setName((prevState) => ({ ...prevState, l_name: last_name }));
+  }, [firstName, lastName]);
+
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
   return (
@@ -95,8 +113,8 @@ export function TrainerFrame(userInfo) {
                       <ul role="list" className="-mx-2 flex-1 space-y-1">
                         {navigation.map((item) => (
                           <li key={item.name}>
-                            <a
-                              href={item.href}
+                            <Link
+                              to={`${item.link}`}
                               className={classNames(
                                 item.current
                                   ? "bg-gray-800 text-white"
@@ -109,7 +127,7 @@ export function TrainerFrame(userInfo) {
                                 aria-hidden="true"
                               />
                               {item.name}
-                            </a>
+                            </Link>
                           </li>
                         ))}
                       </ul>
@@ -122,34 +140,36 @@ export function TrainerFrame(userInfo) {
         </Transition.Root>
 
         {/* Static sidebar for desktop */}
-        <div className="hidden lg:fixed lg:inset-y-0 lg:left-0 lg:z-50 lg:block lg:w-20 lg:overflow-y-auto lg:bg-gray-900 lg:pb-4">
+        <div className="hidden lg:fixed lg:inset-y-0 lg:left-0 lg:z-50 lg:block lg:w-26 lg:overflow-y-auto lg:bg-gray-900 lg:pb-4">
           <div className="flex h-16 shrink-0 items-center justify-center">
             <img
               className="h-8 w-auto"
-              src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=500"
+              src={
+                "https://www.kindpng.com/picc/m/22-223863_no-avatar-png-circle-transparent-png.png"
+              }
               alt="Your Company"
             />
           </div>
           <nav className="mt-8">
             <ul role="list" className="flex flex-col items-center space-y-1">
               {navigation.map((item) => (
-                <li key={item.name}>
-                  <a
-                    href={item.href}
-                    className={classNames(
-                      item.current
-                        ? "bg-gray-800 text-white"
-                        : "text-gray-400 hover:text-white hover:bg-gray-800",
-                      "group flex gap-x-3 rounded-md p-3 text-sm leading-6 font-semibold"
-                    )}
-                  >
-                    <item.icon
-                      className="h-6 w-6 shrink-0"
-                      aria-hidden="true"
-                    />
-                    <span className="sr-only">{item.name}</span>
-                  </a>
-                </li>
+                 <li key={item.name}>
+                 <Link
+                   to={`${item.link}`}
+                   className={classNames(
+                     item.current
+                       ? "bg-gray-800 text-white"
+                       : "text-gray-400 hover:text-white hover:bg-gray-800",
+                     "group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold"
+                   )}
+                 >
+                   <item.icon
+                     className="h-6 w-6 shrink-0"
+                     aria-hidden="true"
+                   />
+                   {item.name}
+                 </Link>
+               </li>
               ))}
             </ul>
           </nav>
@@ -202,7 +222,11 @@ export function TrainerFrame(userInfo) {
                     <span className="sr-only">Open user menu</span>
                     <img
                       className="h-8 w-8 rounded-full bg-gray-50"
-                      src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+                      src={
+                        userInfo?.userInfo?.profilePictureLink
+                          ? `http://localhost:5000/${userInfo.userInfo?.profilePictureLink}`
+                          : "https://www.kindpng.com/picc/m/22-223863_no-avatar-png-circle-transparent-png.png"
+                      }
                       alt=""
                     />
                     <span className="hidden lg:flex lg:items-center">
@@ -210,7 +234,7 @@ export function TrainerFrame(userInfo) {
                         className="ml-4 text-sm font-semibold leading-6 text-gray-900"
                         aria-hidden="true"
                       >
-                        Tom Cook
+                        {`${name?.f_name} ${name?.l_name} `}
                       </span>
                       <ChevronDownIcon
                         className="ml-2 h-5 w-5 text-gray-400"
@@ -254,19 +278,11 @@ export function TrainerFrame(userInfo) {
             </div>
           </div>
 
-          <main className="xl:pl-96">
-            <div className="px-4 py-10 sm:px-6 lg:px-8 lg:py-6">
-              {/* Main area */}
-              <Outlet />
-            </div>
-          </main>
+          <div className="px-4 py-10 sm:px-6 lg:px-8 lg:py-6">
+            {/* Main area */}
+            <Outlet />
+          </div>
         </div>
-
-        <aside className="fixed bottom-0 left-20 top-16 hidden w-96 overflow-y-auto border-r border-gray-200 px-4 py-6 sm:px-6 lg:px-8 xl:block">
-          {" "}
-          {/* Secondary column (hidden on smaller screens) */}
-          small screens
-        </aside>
       </div>
     </>
   );

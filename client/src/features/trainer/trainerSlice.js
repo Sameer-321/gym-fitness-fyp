@@ -1,13 +1,12 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { useNavigate } from "react-router-dom";
-import Cookies from "universal-cookie";
-import { getTrainerInfo } from "./trainerFetch";
 
-const cookies = new Cookies();
+import { getTrainerInfo } from "./trainerFetch";
 
 const initialState = {
   isTrainer: false,
   id: "",
+  firstName: "",
+  lastName: "",
   gender: null,
   trainerType: null,
   yearsofExperience: "",
@@ -33,9 +32,11 @@ const trainerSlice = createSlice({
         state.status = "loading";
       })
       .addCase(getTrainerInfo.fulfilled, (state, action) => {
-        console.log(action.payload)
+        console.log(action.payload);
         const {
-         
+          _id,
+          firstName,
+          lastName,
           gender,
           trainerType,
           yearsOfExperience,
@@ -46,7 +47,9 @@ const trainerSlice = createSlice({
         } = action.payload;
 
         //state management
-        // state.id = _id;
+        state.id = _id;
+        state.firstName = firstName;
+        state.lastName = lastName;
         state.gender = gender;
         state.trainerType = trainerType;
         state.yearsOfExperience = yearsOfExperience;
@@ -63,15 +66,10 @@ const trainerSlice = createSlice({
   },
 });
 
-// export const isLoggedIn = (state) => state.auth.isLoggedIn;
-// export const token = (state) => state.auth.jwt;
-// export const name = (state) => state.auth.name;
-// export const email = (state) => state.auth.email;
-// export const status = (state) => state.auth.status;
-// export const err = (state) => state.auth.error;
-// export const id = (state) => state.auth.id;
-// export const Profile = (state) => state.auth?.profilePictureLink;
-
+export const firstName = (state) => state.trainer?.firstName;
+export const lastName = (state) => state.trainer?.lastName;
+export const certificates = (state) => state.trainer?.certificates;
+export const photos = (state) => state.trainer?.photos;
 // export const info = (state) => ({
 //   id: state.auth.id,
 //   isLoggedIn: state.auth.isLoggedIn,

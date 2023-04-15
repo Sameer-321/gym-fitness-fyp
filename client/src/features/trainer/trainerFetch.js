@@ -1,7 +1,7 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 import Cookies from "universal-cookie";
-import { id } from "../auth/authSlice";
+
 const URL = "http://localhost:5000/api/v1";
 
 export const getTrainerInfo = createAsyncThunk("trainerInfo", async (id) => {

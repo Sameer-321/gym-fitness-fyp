@@ -20,6 +20,9 @@ exports.createTrainerProfile = async (req, res, next) => {
     const trainerProfileData = new TrainerProfile({
       userInfo,
       yearsOfExperience: req.body.trainerForm.yearsOfExperience,
+      firstName: req.body.trainerForm.firstName,
+      lastName: req.body.trainerForm.lastName,
+      yearsOfExperience: req.body.trainerForm.yearsOfExperience,
       description: req.body.trainerForm.description,
       trainerType: req.body.trainerForm.trainerType,
       gender: req.body.trainerForm.gender,
