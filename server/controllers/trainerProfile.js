@@ -100,7 +100,9 @@ exports.getallTrainerProfile = async (req, res, next) => {
 
 exports.getSingleTrainerProfile = async (req, res, next) => {
   try {
-    const trainerProfile = await TrainerProfile.findById(req.params.id);
+    const trainerProfile = await TrainerProfile.findOne({
+      "userInfo._id": req.params.id,
+    });
     res.status(200).json(trainerProfile);
   } catch (err) {
     next(err);

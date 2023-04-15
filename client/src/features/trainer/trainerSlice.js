@@ -1,11 +1,12 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { useNavigate } from "react-router-dom";
 import Cookies from "universal-cookie";
-import { loginfetch, registerfetch, getMe } from "./authFetch";
+import { getTrainerInfo, registerfetch, getMe } from "./authFetch";
 
 const cookies = new Cookies();
 
 const initialState = {
+  isTrainer: false,
   gender: null,
   trainerType: null,
   yearsofExperience: "",
@@ -22,16 +23,15 @@ const authSlice = createSlice({
   initialState,
   reducers: {
     hello(state, action) {
-      console.log("login called");
-    }
-    
+      console.log("hello called");
+    },
   },
   extraReducers(builder) {
     builder
-      .addCase(loginfetch.pending, (state, action) => {
+      .addCase(getTrainerInfo.pending, (state, action) => {
         state.status = "loading";
       })
-      .addCase(loginfetch.fulfilled, (state, action) => {
+      .addCase(getTrainerInfo.fulfilled, (state, action) => {
         console.log(action.payload);
         state.status = "succeeded";
         console.log(action.payload);
@@ -42,20 +42,14 @@ const authSlice = createSlice({
         state.jwt = token;
         state.status = "success";
 
-        const cookies = new Cookies();
 
-        //Set cookies
-        cookies.set("token", action.payload.token, {
-          expires: new Date(token.exp * 1000 * 60 * 60 * 24 * 30),
-        });
+        
       })
-      .addCase(loginfetch.rejected, (state, action) => {
+      .addCase(getTrainerInfo.rejected, (state, action) => {
         state.status = "failed";
         state.error = action.error.message;
       })
-      .addCase(registerfetch.fulfilled, (state, action) => {
-        console.log(action.payload);
-      })
+      
       .addCase(getMe.fulfilled, (state, action) => {
         console.log(action.payload);
         const { email, name, _id, role } = action.payload.data;
@@ -98,6 +92,6 @@ export const info = (state) => ({
   profilePictureLink: state.auth?.profilePictureLink,
 });
 
-export const { login, logout, register, getToken, resetState } =
+export const { register, getToken, resetState } =
   authSlice.actions;
 export default authSlice.reducer;

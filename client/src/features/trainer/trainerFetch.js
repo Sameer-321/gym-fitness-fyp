@@ -4,16 +4,14 @@ import Cookies from "universal-cookie";
 import { id } from "../auth/authSlice";
 const URL = "http://localhost:5000/api/v1/auth/";
 
-export const loginfetch = createAsyncThunk("login", async (credentials) => {
+export const getTrainerInfo = createAsyncThunk("login", async (id, token) => {
   try {
-    const response = await axios.get(
-      URL.concat(`trainer-profile/${id}`),
-      credentials
-    );
-    //.log(response.data)
-    console.log(response.data);
+    const response = await axios.get(`${URL}trainer-profile/${id}`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
     return response.data;
-    // getMe()
   } catch (err) {
     if (!err?.response) {
       console.log("NO Server Response");

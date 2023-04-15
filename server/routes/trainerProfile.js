@@ -14,12 +14,14 @@ const router = express.Router();
 const { protect, authorize } = require("../middleware/auth");
 
 router.get("/", protect, authorize("trainer", "admin"), getallTrainerProfile);
+
 router.get(
   "/:id",
   protect,
   authorize("trainer", "admin"),
   getSingleTrainerProfile
 );
+
 router.post("/", protect, createTrainerProfile);
 router.put(
   "/uploadCertificates/:id",
