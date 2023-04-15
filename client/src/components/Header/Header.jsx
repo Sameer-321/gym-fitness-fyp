@@ -4,7 +4,7 @@ import logo from "../../assets/img/dumble.png";
 
 import { useDispatch, useSelector } from "react-redux";
 import { isLoggedIn, token, Profile } from "../../features/auth/authSlice";
-import { getMe } from "../../features/trainer/authFetchaaaa";
+import { getMe } from "../../features/trainer/trainerFetch";
 import { useNavigate } from "react-router-dom";
 import Dropdown from "../DropDown/DropDown";
 const nav__links = [
@@ -63,7 +63,7 @@ const Header = () => {
               {nav__links.map((item) => (
                 <li className="nav__item" key={item.id}>
                   <a
-                  className="text-base font-normal"
+                    className="text-base font-normal"
                     onClick={() => {
                       nav(`${item.path}`);
                     }}
@@ -81,7 +81,9 @@ const Header = () => {
               {!isLogged && <button className="register__btn">Register</button>}
             </a>
 
-            <div onClick={()=>getinfo()}>{isLogged && <Dropdown pic={pp} />}</div>
+            <div onClick={() => getinfo()}>
+              {isLogged && <Dropdown pic={pp} />}
+            </div>
 
             <span className="mobile__menu">
               <i className="ri-menu-line"></i>

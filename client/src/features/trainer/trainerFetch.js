@@ -1,15 +1,18 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 import Cookies from "universal-cookie";
-const URL = "http://localhost:5000/api/v1/auth/";
 
-export const loginfetch = createAsyncThunk("login", async (credentials) => {
+const URL = "http://localhost:5000/api/v1";
+
+export const getTrainerInfo = createAsyncThunk("trainerInfo", async (id) => {
+  const cookies = new Cookies();
   try {
-    const response = await axios.post(URL.concat("login"), credentials);
-    //.log(response.data)
-    console.log(response.data);
+    const response = await axios.get(`${URL}/trainer-profile/${id}`, {
+      headers: {
+        Authorization: `Bearer ${cookies.get("token")}`,
+      },
+    });
     return response.data;
-    // getMe()
   } catch (err) {
     if (!err?.response) {
       console.log("NO Server Response");

@@ -1,7 +1,7 @@
 import React, { useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { loginfetch, getMe } from "../features/trainer/authFetchaaaa";
+import { loginfetch, getMe } from "../features/auth/authFetch";
 
 export default function Login(props) {
   const userRef = useRef();
