@@ -1,12 +1,11 @@
 const express = require("express");
 const {
-  uploadImage,
-  updateProfilePicture,
   deleteProfilePicture,
   getallTrainerProfile,
   getSingleTrainerProfile,
   createTrainerProfile,
   uploadCertificates,
+  uploadPhotos,
 } = require("../controllers/trainerProfile.js");
 const upload = require("../middleware/upload.js");
 const uploadPdf = require("../middleware/uploadPDF");
@@ -35,7 +34,7 @@ router.put(
   upload.array("file"),
   uploadCertificates
 );
-router.put("/uploadPhotos/:id", upload.array("file"), uploadCertificates);
+router.put("/uploadPhotos/:id", upload.array("file"), uploadPhotos);
 
 router.delete("/img/:user_id", deleteProfilePicture);
 

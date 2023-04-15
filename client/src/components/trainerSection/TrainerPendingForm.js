@@ -2,6 +2,7 @@ import { PhotoIcon, UserCircleIcon } from "@heroicons/react/24/solid";
 import { useState } from "react";
 import axios from "axios";
 import Cookies from "universal-cookie";
+import { submitPhotos, submitCertificates } from "./trainerFormAPI";
 export function TrainerPendingForm() {
   const cookies = new Cookies();
 
@@ -43,45 +44,9 @@ export function TrainerPendingForm() {
     });
   };
 
-  const submitManyPic = async (event, query = "certificates") => {
-    event.preventDefault();
-    console.log(photos);
-    let pictures = [];
-    let URL = null;
-    if (query === "certificates") {
-      pictures = photos.certificates;
-      URL = `http://localhost:5000/api/v1/trainer-profile/uploadCertificates/${"643a1c803809397628c9e81d"}`;
-    } else if (query === "photos") {
-      pictures = photos.photos;
-      URL = `http://localhost:5000/api/v1/trainer-profile/uploadPhotos/${"643a1c803809397628c9e81d"}`;
-    }
-    console.log(pictures,"pictures")
-    const formData = new FormData();
-    console.log(pictures, 60);
-    for (let index = 0; index < pictures.length; index++) {
-      const file = pictures[index];
-      formData.append("file", file);
-    }
-    console.log(formData, "formData");
-    const headers = {
-      "Content-Type": "multipart/form-data",
-      authorization: `Bearer ${cookies.get("token")}`,
-    };
-    console.log(formData);
-    try {
-      const response = await axios.put(URL,  formData , { headers });
-
-      console.log(response);
-      return response;
-    } catch (err) {
-      console.log(err);
-    }
-    return formData;
-  };
-
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(trainerForm);
+    console.log(photos.photos);
     const res = async () => {
       if (cookies.get("token")) {
         const headers = {
@@ -96,20 +61,21 @@ export function TrainerPendingForm() {
             { headers }
           );
           console.log(response);
-          await submitManyPic("certificates", response.data._id);
-          const res = await submitManyPic("photos", response.data._id);
-
+          await submitCertificates(photos.certificates, response.data._id);
+          const res = await submitPhotos(photos.photos, response.data._id);
+          console.log(res);
           return res;
         } catch (err) {
           console.log(err);
         }
       }
     };
+
     res();
   };
 
   return (
-    <form onSubmit={submitManyPic}>
+    <form onSubmit={handleSubmit}>
       <div className="space-y-12">
         <div className="grid grid-cols-1 gap-x-8 gap-y-10 border-b border-gray-900/10 pb-12 md:grid-cols-3">
           <div>
