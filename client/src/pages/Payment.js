@@ -7,6 +7,7 @@ export default function Payment() {
   const myData = location.state?.myData;
   console.log(myData)
   return (
+    //subscription is made after the khalti payment
     <>
       <br />
       <div>

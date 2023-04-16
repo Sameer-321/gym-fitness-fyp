@@ -24,7 +24,7 @@ exports.khalti = async (req, res, next) => {
     .post("https://khalti.com/api/v2/payment/verify/", dataSend, config)
     .then((response) => {
       console.log(response.data, response.status, "succeess");
-      res.status(200).json({ success: true, data: response });
+      res.status(200).json({ success: true, data: response.data });
     })
     .catch((error) => {
       console.log(error);

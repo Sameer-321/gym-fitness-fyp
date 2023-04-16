@@ -1,7 +1,7 @@
 import myKey from "./khaltiKey";
 import axios from "axios";
 
-export function khaltiConfig(productName,productIdentity ) {
+export function khaltiConfig(productName, productIdentity) {
   let config = {
     // replace this key with yours
     publicKey: myKey.publicTestKey,
@@ -11,11 +11,12 @@ export function khaltiConfig(productName,productIdentity ) {
     eventHandler: {
       async onSuccess(payload) {
         // hit merchant api for initiating verfication
-        console.log(payload);
-        await axios.post(
+        // console.log(payload);
+        const response = await axios.post(
           "http://localhost:5000/api/v1/payment/khalti",
           payload
         );
+        console.log(response, 19);
       },
       // onError handler is optionalc
       onError(error) {
