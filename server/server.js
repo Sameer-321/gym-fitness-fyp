@@ -51,7 +51,7 @@ app.use("/api/v1/upload", uploadRoute);
 app.use("/api/v1/admin", adminRoute);
 app.use("/api/v1/admin/users", usersRoute);
 app.use("/api/v1/admin/trainers", trainerRequest);
-app.use("/api/v1/admin/sub", subscription);
+app.use("/api/v1/subscribe", subscription);
 
 app.use("/api/v1/conversations", conversationRoute);
 app.use("/api/v1/messages", messageRoute);

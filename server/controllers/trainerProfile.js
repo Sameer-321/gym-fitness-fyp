@@ -44,7 +44,7 @@ exports.createTrainerProfile = async (req, res, next) => {
       // console.log(user, "useruseruser")
       await user.save();
     }
-    res.status(201).json(trainerProfile);
+    return res.status(201).json(trainerProfile);
   } catch (err) {
     next(err);
   }
@@ -68,7 +68,7 @@ exports.uploadCertificates = async (req, res, next) => {
       { $push: { certificates: { $each: certificates } } },
       { new: true }
     );
-    res.status(200).json(trainerProfile);
+   return  res.status(200).json(trainerProfile);
   } catch (err) {
     next(err);
   }
@@ -86,7 +86,7 @@ exports.uploadPhotos = async (req, res, next) => {
       { $push: { photos: { $each: photos } } },
       { new: true }
     );
-    res.status(200).json(trainerProfile);
+    return res.status(200).json(trainerProfile);
   } catch (err) {
     next(err);
   }
@@ -95,7 +95,7 @@ exports.uploadPhotos = async (req, res, next) => {
 exports.getallTrainerProfile = async (req, res, next) => {
   try {
     const trainerProfiles = await TrainerProfile.find();
-    res.status(200).json(trainerProfiles);
+    return res.status(200).json(trainerProfiles);
   } catch (err) {
     next(err);
   }
@@ -106,8 +106,8 @@ exports.getSingleTrainerProfile = async (req, res, next) => {
     const trainerProfile = await TrainerProfile.findOne({
       "userInfo._id": req.params.id,
     });
-    console.log(trainerProfile,1067777777777777777777777777777777)
-    res.status(200).json(trainerProfile);
+
+    return res.status(200).json(trainerProfile);
   } catch (err) {
     next(err);
   }

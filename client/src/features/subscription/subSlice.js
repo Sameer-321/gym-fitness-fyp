@@ -1,20 +1,18 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { useNavigate } from "react-router-dom";
-import Cookies from "universal-cookie";
-import { loginfetch, registerfetch, getMe } from "./authFetch";
+import { getMe, createSubscription } from "./subFetch";
 
 const cookies = new Cookies();
 
 const initialState = {
-  isLoggedIn: false,
-  jwt: null,
-  id: "",
-  email: "",
-  name: "",
-  role: "all",
-  profilePictureLink: "",
-  status: "idle", //idle,loading,succeeded,failed
-  error: null,
+  isSubscriber: false,
+  userInfo: null,
+  subscribtionTier: "",
+  amount: "",
+  startDate: "",
+  endDate: "all",
+  status: "", // active,expired,cancelled ----> cancelled need to be exclude
+  loading: "idle",
+  paymentMethod: "khalti",
 };
 
 const authSlice = createSlice({
@@ -28,20 +26,6 @@ const authSlice = createSlice({
       const { token } = action.payload;
       console.log(token);
     },
-    logout(state) {
-      const cookies = new Cookies();
-      cookies.remove("token");
-      console.log("logging out");
-      state.isLoggedIn = false;
-      state.jwt = null;
-      state.id = "";
-      state.email = "";
-      state.name = "";
-      state.status = "idle";
-      state.error = null;
-      // Reload the page by js
-      window.location.reload();
-    },
     LoginLoading(state) {
       state = {
         // ...state,
@@ -53,12 +37,11 @@ const authSlice = createSlice({
   },
   extraReducers(builder) {
     builder
-      .addCase(loginfetch.pending, (state, action) => {
-        state.status = "loading";
-        state.role = "loading";
+      .addCase(createSubAPI.pending, (state, action) => {
+        state.loading = "loading";
       })
-      .addCase(loginfetch.fulfilled, (state, action) => {
-        state.status = "succeeded";
+      .addCase(createSubscription.fulfilled, (state, action) => {
+        state.loading = "succeeded";
 
         const { token } = action.payload;
 
@@ -66,14 +49,6 @@ const authSlice = createSlice({
         state.isLoggedIn = true;
         state.jwt = token;
         state.status = "success";
-
-        const cookies = new Cookies();
-
-        //Set cookies
-        cookies.set("token", action.payload.token, {
-          expires: new Date(token.exp * 1000 * 60 * 60 * 24 * 30),
-        });
-        window.location.reload(true);
       })
       .addCase(loginfetch.rejected, (state, action) => {
         state.status = "failed";
@@ -108,26 +83,18 @@ const authSlice = createSlice({
 });
 
 export const isLoggedIn = (state) => state.auth.isLoggedIn;
-export const token = (state) => state.auth.jwt;
-export const name = (state) => state.auth.name;
-export const email = (state) => state.auth.email;
-export const status = (state) => state.auth.status;
-export const err = (state) => state.auth.error;
-export const id = (state) => state.auth.id;
-export const Profile = (state) => state.auth?.profilePictureLink;
-export const role = (state) => state.auth.role;
 
-export const info = (state) => ({
-  id: state.auth.id,
-  isLoggedIn: state.auth.isLoggedIn,
-  token: state.auth.jwt,
-  name: state.auth.name,
-  email: state.auth.email,
-  role: state.auth.role,
-  error: state.auth.error,
-  status: state.auth.status,
-  profilePictureLink: state.auth?.profilePictureLink,
-});
+// export const info = (state) => ({
+//   id: state.auth.id,
+//   isLoggedIn: state.auth.isLoggedIn,
+//   token: state.auth.jwt,
+//   name: state.auth.name,
+//   email: state.auth.email,
+//   role: state.auth.role,
+//   error: state.auth.error,
+//   status: state.auth.status,
+//   profilePictureLink: state.auth?.profilePictureLink,
+// });
 
 export const { login, logout, register, getToken, LoginLoading } =
   authSlice.actions;
