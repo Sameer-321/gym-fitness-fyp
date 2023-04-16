@@ -6,17 +6,7 @@ const SubscriptionSchema = new mongoose.Schema(
       _id: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "User",
-      },
-      name: String,
-      email: String,
-      profilePicture: {
-        name: {
-          type: String,
-        },
-        link: {
-          type: String,
-        },
-      },
+      }
     },
     subscribtionTier: {
       type: String,
@@ -32,10 +22,13 @@ const SubscriptionSchema = new mongoose.Schema(
     },
     status: {
       type: String,
-      enum: ["active", "expired", "cancelled"],
+      enum: ["active", "expired", "pause", "cancelled"],
       default: "active",
     },
     paymentMethod: {
+      type: String,
+    },
+    data: {
       type: String,
     },
   },

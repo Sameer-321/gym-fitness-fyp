@@ -1,7 +1,9 @@
 import myKey from "./khaltiKey";
 import axios from "axios";
+import moment from 'moment';
 
 export function khaltiConfig(productName, productIdentity) {
+
   let config = {
     // replace this key with yours
     publicKey: myKey.publicTestKey,
@@ -17,6 +19,10 @@ export function khaltiConfig(productName, productIdentity) {
           payload
         );
         console.log(response, 19);
+        //res comes in
+        //if response.status==200 then hit subscription APi
+        if (response.status === 200) {
+        }
       },
       // onError handler is optionalc
       onError(error) {
