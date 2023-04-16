@@ -26,7 +26,7 @@ const products = [
 export function TrainerPhoto() {
   const pic = useSelector(photos);
   const [pictures, setPictures] = useState(null);
-  console.log(pictures)
+  console.log(pictures);
   useEffect(() => {
     setPictures(pic);
   }, [pic]);
@@ -46,18 +46,18 @@ export function TrainerPhoto() {
         </div>
 
         <div className="mt-6 grid grid-cols-1 gap-y-10 sm:grid-cols-3 sm:gap-x-6 sm:gap-y-0 lg:gap-x-8">
-        {Array.isArray(pictures) && pictures.map((photo) => (
-  <div key={photo.id} className="group relative">
-    <div className="h-96 w-full overflow-hidden rounded-lg sm:aspect-h-3 sm:aspect-w-2 group-hover:opacity-75 sm:h-auto">
-      <img
-        src={`http://localhost:5000/${photo?.link}`}
-        alt={photo?.name}
-        className="h-full w-full object-cover object-center"
-      />
-    </div>
-  </div>
-))}
-         
+          {Array.isArray(pictures) &&
+            pictures.map((photo) => (
+              <div key={photo.id} className="group relative">
+                <div className="h-96 w-full overflow-hidden rounded-lg sm:aspect-h-3 sm:aspect-w-2 group-hover:opacity-75 sm:h-auto">
+                  <img
+                    src={`http://localhost:5000/${photo?.link}`}
+                    alt={photo?.name}
+                    className="h-full w-full object-cover object-center"
+                  />
+                </div>
+              </div>
+            ))}
         </div>
 
         <div className="mt-6 sm:hidden">

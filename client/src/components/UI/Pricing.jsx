@@ -1,8 +1,14 @@
-import React from "react";
+import React, { useState } from "react";
 import "../../styles/pricing.css";
 import { useNavigate } from "react-router-dom";
 const Sub = () => {
-  const nav = useNavigate()
+  const nav = useNavigate();
+
+  const handleClick = (price, productName, productIdentity) => {
+    nav("/pay", {
+      state: { myData: { price, productName, productIdentity } },
+    });
+  };
   return (
     <section>
       <div className="container">
@@ -60,11 +66,17 @@ const Sub = () => {
                   <span>
                     <i className="ri-checkbox-blank-circle-fill"></i>
                   </span>
-                 Drinking Water Supply
+                  Drinking Water Supply
                 </li>
               </ul>
-                <a href="/pay"><button className="register__btn">Join Now</button></a>
-              
+              <button
+                onClick={() => {
+                  handleClick(1000, "1month", "1");
+                }}
+                className="register__btn"
+              >
+                Join Now
+              </button>
             </div>
           </div>
 
@@ -112,7 +124,16 @@ const Sub = () => {
                 </li>
               </ul>
 
-              <a href="/pay"><button className="register__btn">Join Now</button></a>
+              {/* <a href="/pay"> */}
+              <button
+                onClick={() => {
+                  handleClick(11000, "6months", "6");
+                }}
+                className="register__btn"
+              >
+                Join Now
+              </button>
+              {/* </a> */}
             </div>
           </div>
 
@@ -156,11 +177,18 @@ const Sub = () => {
                   <span>
                     <i className="ri-checkbox-blank-circle-fill"></i>
                   </span>
-                 .....
+                  .....
                 </li>
               </ul>
 
-              <a href="/pay"><button className="register__btn">Join Now</button></a>
+              <button
+                onClick={() => {
+                  handleClick(12000, "12months", "12");
+                }}
+                className="register__btn"
+              >
+                Join Now
+              </button>
             </div>
           </div>
         </div>
