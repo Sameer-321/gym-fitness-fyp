@@ -6,7 +6,7 @@ const SubscriptionSchema = new mongoose.Schema(
       _id: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "User",
-      }
+      },
     },
     subscribtionTier: {
       type: String,
@@ -26,9 +26,6 @@ const SubscriptionSchema = new mongoose.Schema(
       default: "active",
     },
     paymentMethod: {
-      type: String,
-    },
-    data: {
       type: String,
     },
   },
