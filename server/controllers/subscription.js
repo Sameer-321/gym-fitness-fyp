@@ -10,7 +10,9 @@ exports.createSubscription = async (req, res, next) => {
   try {
     const subscription = new Subscription({
       userInfo,
-      subscriptionTier: req.body.subscriptionTier,
+      subscribtionTier: req.body.subscriptionTier,
+      productIdentity: req.body.productIdentity,
+      status: req.body.status,
       amount: req.body.amount,
       startDate: req.body.startDate,
       endDate: req.body.endDate,

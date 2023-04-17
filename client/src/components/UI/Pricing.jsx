@@ -1,9 +1,16 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "../../styles/pricing.css";
 import { useNavigate } from "react-router-dom";
+import { isSubscriber } from "../../features/subscription/subSlice";
+import { useSelector } from "react-redux";
 const Sub = () => {
+  const subscriptionStatus = useSelector(isSubscriber);
   const nav = useNavigate();
+  const [subscription, setSubscription] = useState(true);
 
+  useEffect(() => {
+    setSubscription(subscriptionStatus);
+  }, [subscriptionStatus]);
   const handleClick = (price, productName, productIdentity) => {
     nav("/pay", {
       state: { myData: { price, productName, productIdentity } },
@@ -13,6 +20,7 @@ const Sub = () => {
     <section>
       <div className="container">
         <div className="pricing__top">
+          {subscriptionStatus && <p>--------u r a subscriber----</p>}
           <h2 className="section__title">
             Gym <span className="highlights">Pricing</span> Plan
           </h2>
@@ -70,8 +78,9 @@ const Sub = () => {
                 </li>
               </ul>
               <button
+                disabled={subscription}
                 onClick={() => {
-                  handleClick(1000, "1month", "1");
+                  handleClick(1000, "1 month", "1");
                 }}
                 className="register__btn"
               >
@@ -126,8 +135,9 @@ const Sub = () => {
 
               {/* <a href="/pay"> */}
               <button
+                disabled={subscription}
                 onClick={() => {
-                  handleClick(11000, "6months", "6");
+                  handleClick(1100, "6 months", "6");
                 }}
                 className="register__btn"
               >
@@ -182,8 +192,9 @@ const Sub = () => {
               </ul>
 
               <button
+                disabled={subscription}
                 onClick={() => {
-                  handleClick(12000, "12months", "12");
+                  handleClick(1200, "1 year", "12");
                 }}
                 className="register__btn"
               >

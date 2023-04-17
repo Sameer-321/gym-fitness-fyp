@@ -11,6 +11,9 @@ const SubscriptionSchema = new mongoose.Schema(
     subscribtionTier: {
       type: String,
     },
+    productIdentity: {
+      type: String,
+    },
     amount: {
       type: Number,
     },

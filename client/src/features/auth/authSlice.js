@@ -1,5 +1,4 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { useNavigate } from "react-router-dom";
 import Cookies from "universal-cookie";
 import { loginfetch, registerfetch, getMe } from "./authFetch";
 
@@ -88,7 +87,7 @@ const authSlice = createSlice({
       // })
       .addCase(getMe.fulfilled, (state, action) => {
         //console.log(action.payload);
-        const { email, name, _id, role } = action.payload.data;
+        const { email, name, _id, role } = action.payload?.data;
         state.isLoggedIn = true;
         state.id = _id;
         state.name = name;

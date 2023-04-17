@@ -16,7 +16,7 @@ exports.khalti = async (req, res, next) => {
 
   let config = {
     headers: {
-      Authorization: "Key test_secret_key_82b5a273ca6a4171a2f5c8be82085a61",
+      Authorization: "Key test_secret_key_5060955037eb4201aef28c7d8745420a",
     },
   };
 

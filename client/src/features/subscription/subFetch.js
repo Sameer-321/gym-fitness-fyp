@@ -36,14 +36,14 @@ export const createSubscription = createAsyncThunk(
 
 export const getSubscriptionDetail = createAsyncThunk(
   "subscribe/getSubscriptionDetail",
-  async (_,{ getState }) => {
+  async (_, { getState }) => {
     const token = getState().auth.jwt;
     const id = getState().auth.id;
     const headers = {
       "Content-Type": "application/json",
       authorization: `Bearer ${token}`,
     };
-    console.log(token, "-------", id);
+    // console.log(token, "-------", id);
     if (token) {
       try {
         const response = await axios.get(
