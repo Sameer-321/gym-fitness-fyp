@@ -1,7 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { getMe, createSubscription } from "./subFetch";
-
-const cookies = new Cookies();
+import { getSubscriptionDetail, createSubscription } from "./subFetch";
 
 const initialState = {
   isSubscriber: false,
@@ -13,10 +11,11 @@ const initialState = {
   status: "", // active,expired,cancelled ----> cancelled need to be exclude
   loading: "idle",
   paymentMethod: "khalti",
+  error: "",
 };
 
-const authSlice = createSlice({
-  name: "auth",
+const subscriptionSlice = createSlice({
+  name: "subscription",
   initialState,
   reducers: {
     login(state, action) {
@@ -37,11 +36,11 @@ const authSlice = createSlice({
   },
   extraReducers(builder) {
     builder
-      .addCase(createSubAPI.pending, (state, action) => {
+      .addCase(createSubscription.pending, (state, action) => {
         state.loading = "loading";
       })
       .addCase(createSubscription.fulfilled, (state, action) => {
-        state.loading = "succeeded";
+        state.loading = "success";
 
         const { token } = action.payload;
 
@@ -50,34 +49,34 @@ const authSlice = createSlice({
         state.jwt = token;
         state.status = "success";
       })
-      .addCase(loginfetch.rejected, (state, action) => {
-        state.status = "failed";
-        state.error = action.error.message;
+      .addCase(createSubscription.rejected, (state) => {
+        console.log("error while creating your subscription");
       })
-      .addCase(registerfetch.fulfilled, (state, action) => {
+      .addCase(getSubscriptionDetail.pending, (state) => {
+        state.loading = "loading";
+      })
+      .addCase(getSubscriptionDetail.fulfilled, (state, action) => {
         console.log(action.payload);
+        const {
+          userInfo,
+          subscribtionTier,
+          amount,
+          startDate,
+          endDate,
+          status,
+          paymentMethod,
+        } = action.payload;
+        state.isSubscriber = true;
+        state.subscribtionTier = subscribtionTier;
+        state.amount = amount;
+        state.startDate = startDate;
+        state.endDate = endDate;
+        state.status = status;
+        state.paymentMethod = paymentMethod;
+        state.userInfo = userInfo;
       })
-      // .addCase(getMe.pending, (state) => {
-      //   state.status = "loading";
-      //   state.role = "loading";
-      // })
-      .addCase(getMe.fulfilled, (state, action) => {
-        //console.log(action.payload);
-        const { email, name, _id, role } = action.payload.data;
-        state.isLoggedIn = true;
-        state.id = _id;
-        state.name = name;
-        state.email = email;
-        state.status = "success";
-        state.role = role;
-        state.profilePictureLink = action.payload.data?.profilePicture?.link;
-        //token set at last
-        const token = cookies.get("token");
-        state.jwt = token;
-      })
-      .addCase(getMe.rejected, (state, action) => {
-        state.error = action.error.message;
-        console.log(state.error);
+      .addCase(getSubscriptionDetail.rejected, (state, action) => {
+        state.isSubscriber = false;
       });
   },
 });
@@ -96,6 +95,5 @@ export const isLoggedIn = (state) => state.auth.isLoggedIn;
 //   profilePictureLink: state.auth?.profilePictureLink,
 // });
 
-export const { login, logout, register, getToken, LoginLoading } =
-  authSlice.actions;
-export default authSlice.reducer;
+export const { login, register, LoginLoading } = subscriptionSlice.actions;
+export default subscriptionSlice.reducer;
