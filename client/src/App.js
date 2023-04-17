@@ -25,6 +25,7 @@ import { Loading } from "./components/assests/Loading";
 import { TrainerPendingForm } from "./components/trainerSection/Trainer-Form/TrainerPendingForm";
 import { TrainerProfile } from "./components/trainerSection/TrainerProfile.js/TrainerProfile";
 import { TrainerFrame } from "./components/trainerSection/pages/TrainerFrame";
+import { getSubscriptionDetail } from "./features/subscription/subFetch";
 function App() {
   const dispatch = useDispatch();
   const informationUser = useSelector(info);
@@ -43,6 +44,10 @@ function App() {
     const token = cookies.get("token");
     dispatch(getMe(token));
   }, []);
+
+  useEffect(() => {
+    dispatch(getSubscriptionDetail());
+  }, [informationUser]);
 
   return (
     <div>

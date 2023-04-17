@@ -2,8 +2,8 @@ const Subscription = require("../models/Subscription");
 const User = require("../models/User");
 
 exports.createSubscription = async (req, res, next) => {
-  console.log(req.params.id,5555555555555555);
-  console.log(req.body,666666666666666);
+  console.log(req.params.id, 5555555555555555);
+  console.log(req.body, 666666666666666);
   const userId = req.params.id;
   const userInfo = await User.findById(userId, "name  email profilePicture");
 
