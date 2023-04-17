@@ -33,7 +33,7 @@ function App() {
   const isLoading = useSelector(status);
 
   const [userInfo, setUserInfo] = useState(informationUser);
-  console.log(userInfo);
+  // console.log(userInfo);
 
   useEffect(() => {
     setUserInfo(informationUser);
@@ -47,7 +47,7 @@ function App() {
 
   useEffect(() => {
     dispatch(getSubscriptionDetail());
-  }, [informationUser]);
+  }, [userInfo.id]);
 
   return (
     <div>

@@ -4,6 +4,7 @@ import { info } from "../features/auth/authSlice";
 import { PencilSquareIcon } from "@heroicons/react/20/solid";
 import axios from "axios";
 import { UpdateProfile } from "../components/Modal/UpdateProfile";
+import { SubscriptionDetail } from "../components/UI/SubscriptionDetail";
 function Profile() {
   const [userInfo, setUserInfo] = useState();
   const [pic, setPic] = useState("");
@@ -122,6 +123,7 @@ function Profile() {
       <br />
       <br />
       <UpdateProfile state={popUp} info={userInfo} />
+      <SubscriptionDetail />
     </>
   );
 }

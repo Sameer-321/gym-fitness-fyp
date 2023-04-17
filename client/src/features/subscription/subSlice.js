@@ -3,7 +3,7 @@ import { getSubscriptionDetail, createSubscription } from "./subFetch";
 
 const initialState = {
   isSubscriber: false,
-  userInfo: null,
+  // userInfo: null,
   subscribtionTier: "",
   amount: "",
   startDate: "",
@@ -58,14 +58,13 @@ const subscriptionSlice = createSlice({
       .addCase(getSubscriptionDetail.fulfilled, (state, action) => {
         console.log(action.payload);
         const {
-          userInfo,
           subscribtionTier,
           amount,
           startDate,
           endDate,
           status,
           paymentMethod,
-        } = action.payload;
+        } = action?.payload;
         state.isSubscriber = true;
         state.subscribtionTier = subscribtionTier;
         state.amount = amount;
@@ -73,7 +72,7 @@ const subscriptionSlice = createSlice({
         state.endDate = endDate;
         state.status = status;
         state.paymentMethod = paymentMethod;
-        state.userInfo = userInfo;
+        state.loading = "success";
       })
       .addCase(getSubscriptionDetail.rejected, (state, action) => {
         state.isSubscriber = false;
@@ -81,19 +80,16 @@ const subscriptionSlice = createSlice({
   },
 });
 
-export const isLoggedIn = (state) => state.auth.isLoggedIn;
+export const isSubscriber = (state) => state.subscription.isSubscriber;
 
-// export const info = (state) => ({
-//   id: state.auth.id,
-//   isLoggedIn: state.auth.isLoggedIn,
-//   token: state.auth.jwt,
-//   name: state.auth.name,
-//   email: state.auth.email,
-//   role: state.auth.role,
-//   error: state.auth.error,
-//   status: state.auth.status,
-//   profilePictureLink: state.auth?.profilePictureLink,
-// });
+export const SubInfo = (state) => ({
+  isSubscriber: state.subscription.isSubscriber,
+  subscribtionTier: state.subscription.subscribtionTier,
+  amount: state.subscription.amount,
+  startDate: state.subscription.startDate,
+  endDate: state.subscription.endDate,
+  status: state.subscription.status,
+});
 
 export const { login, register, LoginLoading } = subscriptionSlice.actions;
 export default subscriptionSlice.reducer;
