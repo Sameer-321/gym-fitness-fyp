@@ -57,7 +57,7 @@ const subscriptionSlice = createSlice({
         state.loading = "loading";
       })
       .addCase(getSubscriptionDetail.fulfilled, (state, action) => {
-        console.log(action.payload);
+        // console.log(action.payload);
         const {
           subscribtionTier,
           productIdentity,
@@ -66,7 +66,7 @@ const subscriptionSlice = createSlice({
           endDate,
           status,
           paymentMethod,
-        } = action?.payload;
+        } = action?.payload || {};
         state.isSubscriber = true;
         state.subscribtionTier = subscribtionTier;
         state.productIdentity = productIdentity;
