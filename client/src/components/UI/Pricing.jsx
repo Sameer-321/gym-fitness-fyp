@@ -3,6 +3,7 @@ import "../../styles/pricing.css";
 import { useNavigate } from "react-router-dom";
 import { isSubscriber } from "../../features/subscription/subSlice";
 import { useSelector } from "react-redux";
+
 const Sub = () => {
   const subscriptionStatus = useSelector(isSubscriber);
   const nav = useNavigate();
@@ -19,12 +20,11 @@ const Sub = () => {
   return (
     <section>
       <div className="container">
-        <div className="pricing__top">
-          {subscriptionStatus && <p>--------u r a subscriber----</p>}
-          <h2 className="section__title">
-            Gym <span className="highlights">Pricing</span> Plan
+        <div className="text-center">
+          <h2 className="mb-8 text-4xl font-bold sm:text-5xl">
+            Gym <span className="text-indigo-500">Pricing</span> Plan
           </h2>
-          <p>
+          <p className="mb-10 text-xl sm:text-2xl">
             Our gym provides flexible pricing options beginning
             <br />
             at an affordable rate without any undisclosed fees or extended
@@ -33,19 +33,20 @@ const Sub = () => {
         </div>
 
         {/* ========== pricing wrapper =========== */}
-        <div className="pricing__wrapper">
+        <div className="flex flex-col gap-10 lg:flex-row pricing__wrapper">
           <div
-            className="pricing__item"
+            className="w-full p-10 bg-gray-100 shadow lg:px-6 lg:py-10 rounded-xl"
             data-aos="fade-up"
             data-aos-duration="1500"
           >
-            <div className="pricing__card-top">
-              <h2 className="section__title"> Monthly</h2>
-              <h2 className="pricing section__title">Rs.2,000</h2>
+            <div className="px-6 pb-10 text-center border-b border-gray-300 lg:pb-6 lg:px-0">
+              <h2 className="text-4xl lg:text-3xl">
+                Rs.2,000<sub className="text-lg text-gray-600">/Month</sub>
+              </h2>
             </div>
 
-            <div className="services">
-              <ul>
+            <div className="pt-6 text-center">
+              <ul className="flex flex-col gap-4 pb-10 text-xl">
                 <li>
                   <span>
                     <i className="ri-checkbox-blank-circle-fill"></i>
@@ -58,12 +59,6 @@ const Sub = () => {
                   </span>
                   Free Cardio and Crossfit
                 </li>
-                {/* <li>
-                  <span>
-                    <i className="ri-checkbox-blank-circle-fill"></i>
-                  </span>
-                  Personal trainer
-                </li> */}
                 <li>
                   <span>
                     <i className="ri-checkbox-blank-circle-fill"></i>
@@ -77,12 +72,13 @@ const Sub = () => {
                   Drinking Water Supply
                 </li>
               </ul>
+
               <button
                 disabled={subscription}
                 onClick={() => {
                   handleClick(1000, "1 month", "1");
                 }}
-                className="register__btn"
+                className="px-8 py-3 text-indigo-500 border border-indigo-500 rounded-lg hover:text-white hover:bg-indigo-600"
               >
                 Join Now
               </button>
@@ -90,17 +86,18 @@ const Sub = () => {
           </div>
 
           <div
-            className="pricing__item pricing__item-02"
+            className="w-full p-10 bg-indigo-300 shadow lg:px-6 lg:py-10 rounded-xl"
             data-aos="fade-up"
-            data-aos-duration="1800"
+            data-aos-duration="1500"
           >
-            <div className="pricing__card-top">
-              <h2 className="section__title">6 Month</h2>
-              <h2 className="pricing section__title">Rs.11,000</h2>
+            <div className="px-6 pb-10 text-center border-b lg:pb-6 lg:px-0">
+              <h2 className="text-4xl text-white lg:text-3xl">
+                Rs.11,000<sub className="text-lg text-gray-200">/6 Months</sub>
+              </h2>
             </div>
 
-            <div className="services">
-              <ul>
+            <div className="pt-6 text-center">
+              <ul className="flex flex-col gap-4 pb-10 text-xl text-white lg:pb-6">
                 <li>
                   <span>
                     <i className="ri-checkbox-blank-circle-fill"></i>
@@ -119,12 +116,6 @@ const Sub = () => {
                   </span>
                   Sauna for 12 times
                 </li>
-                {/* <li>
-                  <span>
-                    <i className="ri-checkbox-blank-circle-fill"></i>
-                  </span>
-                  Standard options
-                </li> */}
                 <li>
                   <span>
                     <i className="ri-checkbox-blank-circle-fill"></i>
@@ -133,32 +124,31 @@ const Sub = () => {
                 </li>
               </ul>
 
-              {/* <a href="/pay"> */}
               <button
                 disabled={subscription}
                 onClick={() => {
                   handleClick(1100, "6 months", "6");
                 }}
-                className="register__btn"
+                className="px-8 py-3 text-white bg-indigo-500 rounded-lg hover:bg-indigo-600"
               >
-                Join Now
+                Buy Now
               </button>
-              {/* </a> */}
             </div>
           </div>
 
           <div
-            className="pricing__item"
+            className="w-full p-10 bg-gray-100 shadow lg:px-6 lg:py-10 rounded-xl"
             data-aos="fade-up"
-            data-aos-duration="2000"
+            data-aos-duration="1500"
           >
-            <div className="pricing__card-top">
-              <h2 className="section__title">Yearly</h2>
-              <h2 className="pricing section__title">Rs.20,000</h2>
+            <div className="px-6 pb-10 text-center border-b border-gray-300 lg:pb-6 lg:px-0">
+              <h2 className="text-4xl lg:text-3xl">
+                Rs.20,000<sub className="text-lg text-gray-600">/Year</sub>
+              </h2>
             </div>
 
-            <div className="services">
-              <ul>
+            <div className="pt-6 text-center">
+              <ul className="flex flex-col gap-4 pb-10 text-xl">
                 <li>
                   <span>
                     <i className="ri-checkbox-blank-circle-fill"></i>
@@ -183,12 +173,6 @@ const Sub = () => {
                   </span>
                   Standard options
                 </li>
-                <li>
-                  <span>
-                    <i className="ri-checkbox-blank-circle-fill"></i>
-                  </span>
-                  .....
-                </li>
               </ul>
 
               <button
@@ -196,9 +180,9 @@ const Sub = () => {
                 onClick={() => {
                   handleClick(1200, "1 year", "12");
                 }}
-                className="register__btn"
+                className="px-8 py-3 text-indigo-500 border border-indigo-500 rounded-lg hover:text-white hover:bg-indigo-600"
               >
-                Join Now
+                Buy Now
               </button>
             </div>
           </div>

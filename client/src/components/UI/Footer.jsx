@@ -1,9 +1,31 @@
 import React from "react";
-import "../../styles/footer.css";
 import logo from "../../assets/img/dumble.png";
-import { Link } from "react-router-dom";
 
 const navigation = {
+  solutions: [
+    { name: 'Marketing', href: '#' },
+    { name: 'Analytics', href: '#' },
+    { name: 'Commerce', href: '#' },
+    { name: 'Insights', href: '#' },
+  ],
+  support: [
+    { name: 'Pricing', href: '#' },
+    { name: 'Documentation', href: '#' },
+    { name: 'Guides', href: '#' },
+    { name: 'API Status', href: '#' },
+  ],
+  company: [
+    { name: 'About', href: '#' },
+    { name: 'Blog', href: '#' },
+    { name: 'Jobs', href: '#' },
+    { name: 'Press', href: '#' },
+    { name: 'Partners', href: '#' },
+  ],
+  legal: [
+    { name: 'Claim', href: '#' },
+    { name: 'Privacy', href: '#' },
+    { name: 'Terms', href: '#' },
+  ],
   social: [
     {
       name: 'Facebook',
@@ -56,82 +78,91 @@ const navigation = {
   ],
 }
 
-
-const Footer = () => {
-  
+export default function Footer() {
   return (
-    <footer className="footer" data-aos="fade-up" data-aos-duration="1500">
-      <div className="container">
-        <div className="footer__wrapper">
-          <div className="footer__box">
-            <div className="logo">
-              <div className="logo__img">
-                <img src={logo} alt="" />
-              </div>
-              <h2>Fitbody</h2>
-            </div>
-            <p>
-              Transform Your Body, Elevate Your Mind AND PERSONALITY: Welcome to
-              the Gym.
+    <footer className="bg-indigo-200" aria-labelledby="footer-heading">
+      <h2 id="footer-heading" className="sr-only">
+        Footer
+      </h2>
+      <div className="px-6 pt-16 pb-8 mx-auto max-w-7xl sm:pt-24 lg:px-8 lg:pt-32">
+        <div className="xl:grid xl:grid-cols-3 xl:gap-8">
+          <div className="space-y-8">
+            <img
+              className="h-7"
+              src={logo}
+              alt="Company name"
+            />
+            <p className="text-sm leading-6 text-gray-600">
+              Making the world a better place through constructing elegant hierarchies.
             </p>
+            <div className="flex space-x-6">
+              {navigation.social.map((item) => (
+                <a key={item.name} href={item.href} className="text-gray-400 hover:text-gray-500">
+                  <span className="sr-only">{item.name}</span>
+                  <item.icon className="w-6 h-6" aria-hidden="true" />
+                </a>
+              ))}
+            </div>
           </div>
-
-          <div className="footer__box">
-            <h4 className="footer__title">Company</h4>
-
-            <ul className="footer__links">
-              <li>
-                <a href="#">Our program</a>
-              </li>
-              <li>
-                <a href="#">Our plan</a>
-              </li>
-              <li>
-                <a href="#">Become a member</a>
-              </li>
-            </ul>
-          </div>
-
-          <div className="footer__box">
-            <h4 className="footer__title">Quick Links</h4>
-
-            <ul className="footer__links">
-              <li>
-                <a href="#">About us</a>
-              </li>
-              <li>
-                <a href="/contact">Contact us</a>
-              </li>
-              <li>
-                <a href="#">Join us</a>
-              </li>
-            </ul>
-          </div>
-
-          <div className="footer__box">
-            <h4 className="footer__title">Career</h4>
-
-            <ul className="footer__links">
-              <li>
-                <Link to="/apply-trainer">Trainers</Link>
-                {/* <a href="#">Trainers</a> */}
-              </li>
-            </ul>
+          <div className="grid grid-cols-2 gap-8 mt-16 xl:col-span-2 xl:mt-0">
+            <div className="md:grid md:grid-cols-2 md:gap-8">
+              <div>
+                <h3 className="text-sm font-semibold leading-6 text-gray-900">Solutions</h3>
+                <ul className="mt-6 space-y-4">
+                  {navigation.solutions.map((item) => (
+                    <li key={item.name}>
+                      <a href={item.href} className="text-sm leading-6 text-gray-600 hover:text-gray-900">
+                        {item.name}
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+              <div className="mt-10 md:mt-0">
+                <h3 className="text-sm font-semibold leading-6 text-gray-900">Support</h3>
+                <ul role="list" className="mt-6 space-y-4">
+                  {navigation.support.map((item) => (
+                    <li key={item.name}>
+                      <a href={item.href} className="text-sm leading-6 text-gray-600 hover:text-gray-900">
+                        {item.name}
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+            <div className="md:grid md:grid-cols-2 md:gap-8">
+              <div>
+                <h3 className="text-sm font-semibold leading-6 text-gray-900">Company</h3>
+                <ul role="list" className="mt-6 space-y-4">
+                  {navigation.company.map((item) => (
+                    <li key={item.name}>
+                      <a href={item.href} className="text-sm leading-6 text-gray-600 hover:text-gray-900">
+                        {item.name}
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+              <div className="mt-10 md:mt-0">
+                <h3 className="text-sm font-semibold leading-6 text-gray-900">Legal</h3>
+                <ul role="list" className="mt-6 space-y-4">
+                  {navigation.legal.map((item) => (
+                    <li key={item.name}>
+                      <a href={item.href} className="text-sm leading-6 text-gray-600 hover:text-gray-900">
+                        {item.name}
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </div>
           </div>
         </div>
-        {navigation.social.map((item) => (
-              <a key={item.name} href={item.href} className="text-gray-400 hover:text-gray-500">
-                <span className="sr-only">{item.name}</span>
-                <item.icon className="h-6 w-6" aria-hidden="true" />
-              </a>
-            ))}
-
-        <p className="copyright">
-          Copyright - 2023 developed by SameerSunar_2058972. All rights reserved.
-        </p>
+        <div className="pt-8 mt-16 border-t border-gray-900/10 sm:mt-20 lg:mt-24">
+          <p className="text-xs leading-5 text-gray-500">&copy; 2020 Your Company, Inc. All rights reserved.</p>
+        </div>
       </div>
     </footer>
-  );
-};
-
-export default Footer;
+  )
+}

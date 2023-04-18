@@ -4,11 +4,9 @@
 :root {
   --primary-color: rgba(103, 101, 240, 1);
   --heading-color: #132742;
-  --bg-gradient: linear-gradient(
-    90deg,
-    rgba(103, 101, 240, 1) 27%,
-    rgba(141, 141, 235, 1) 85%
-  );
+  --bg-gradient: linear-gradient(90deg,
+      rgba(103, 101, 240, 1) 27%,
+      rgba(141, 141, 235, 1) 85%);
   --font-name: "Questrial", sans-serif;
 
   /* 
@@ -31,6 +29,7 @@
 body {
   font-family: var(--font-name);
 }
+
 html {
   scroll-behavior: smooth;
 }
@@ -54,7 +53,7 @@ ul {
 
 /* ============ reusable class =========*/
 .container {
-  width: 1140px;
+  /* width: 1140px; */
   padding: 0px 15px;
   margin: auto;
 }
@@ -62,4 +61,11 @@ ul {
 .section__title {
   color: var(--heading-color);
   font-weight: 800;
+}
+
+
+@media (max-width: 769px) {
+  .rh5v-DefaultPlayer_component {
+    height: 422px;
+  }
 }

@@ -1,10 +1,10 @@
 .header {
   width: 100%;
-  height: 70px;
-  line-height: 70px;
+  padding: 20px 0;
+  background-color: #fff;
 }
 
-.nav__wrapper {
+.navwrapper {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -16,7 +16,7 @@
   column-gap: 0.5rem;
 }
 
-.logo__img {
+.logoimg {
   background: var(--bg-gradient);
   width: 35px;
   height: 35px;
@@ -28,7 +28,7 @@
   justify-content: center;
 }
 
-.logo__img img {
+.logoimg img {
   width: 100%;
 }
 
@@ -44,7 +44,7 @@
   column-gap: 2.7rem;
 }
 
-.nav__item a {
+.navitem a {
   color: var(--heading-color);
   font-weight: 500 !important;
   letter-spacing: 1px;
@@ -53,37 +53,24 @@
   font-size: 0.8rem;
 }
 
-.nav__item a:hover {
+.navitem a:hover {
   color: var(--primary-color);
 }
 
-.nav__right {
+.navright {
   display: flex;
   align-items: center;
   column-gap: 1.5rem;
 }
 
-.register__btn {
-  border: none;
-  outline: none;
-  padding: 10px 20px;
-  color: #fff;
-  background: var(--primary-color);
-  border-radius: 5px;
-  font-family: var(--font-name);
-  font-size: 1rem;
-  font-weight: 500;
-  cursor: pointer;
-}
-
-.mobile__menu {
+.mobilemenu {
   color: var(--heading-color);
   font-size: 1.3rem;
   cursor: pointer;
   display: none;
 }
 
-.sticky__header {
+.stickyheader {
   width: 100%;
   position: sticky;
   top: 0;
@@ -91,4 +78,3 @@
   z-index: 99;
   background: #fff;
 }
-
