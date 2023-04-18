@@ -1,7 +1,7 @@
 import myKey from "./khaltiKey";
 import axios from "axios";
 
-export function khaltiConfig(productName, productIdentity,createSub) {
+export function khaltiConfig(productName, productIdentity, createSub) {
   // console.log(productName,productIdentity)
   let config = {
     // replace this key with yours
@@ -12,14 +12,13 @@ export function khaltiConfig(productName, productIdentity,createSub) {
     eventHandler: {
       async onSuccess(payload) {
         // hit merchant api for initiating verfication
-         console.log(payload);
+        console.log(payload);
         const response = await axios.post(
           "http://localhost:5000/api/v1/payment/khalti",
           payload
         );
         console.log(response, 19);
-    
-      
+
         if (response.status === 200) {
           createSub();
         }
@@ -28,7 +27,6 @@ export function khaltiConfig(productName, productIdentity,createSub) {
       onError(error) {
         // handle errors
         console.log(error);
-
       },
       onClose() {
         console.log("widget is closing");

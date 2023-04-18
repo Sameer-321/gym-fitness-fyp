@@ -4,26 +4,28 @@ import { SubInfo } from "../../features/subscription/subSlice";
 import { useState } from "react";
 import { useEffect } from "react";
 import moment from "moment";
+import Moment from "moment";
 export function SubscriptionDetail() {
   const UserName = useSelector(name);
   const sub = useSelector(SubInfo);
 
   const [subscriptionDetail, setSubcriptionDetail] = useState({});
-  //   const [date, setDate] = useState({
-  //     from: "",
-  //     to: "",
-  //   });
+
+  function RemainingDays(startDate, endDate) {
+    const start = Moment(startDate).startOf("day");
+    const end = Moment(endDate).startOf("day");
+
+    if (start.isAfter(end)) {
+      return <div>Your subscriptioin has been expired</div>;
+    }
+
+    const remainingDays = end.diff(start, "days");
+    // console.log(remainingDays);
+    return <div> {remainingDays}</div>;
+  }
 
   useEffect(() => {
     setSubcriptionDetail(sub);
-    // setDate((prevState) => ({
-    //   ...prevState,
-    //   from: sub.startDate.toISOString().slice(0, 19).replace("T", " "),
-    // }));
-    // setDate((prevState) => ({
-    //   ...prevState,
-    //   to: sub.endDate.toISOString().slice(0, 19).replace("T", " "),
-    // }));
   }, [sub]);
 
   return (
@@ -79,6 +81,14 @@ export function SubscriptionDetail() {
           </div>
           <div className="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
             <dt className="text-sm font-medium leading-6 text-gray-900">
+              Remaining Days
+            </dt>
+            <dd className="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">
+              {RemainingDays(sub.startDate, sub.endDate)}
+            </dd>
+          </div>
+          <div className="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
+            <dt className="text-sm font-medium leading-6 text-gray-900">
               Active Status
             </dt>
             <dd className="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">
@@ -90,7 +100,7 @@ export function SubscriptionDetail() {
               Payment Method
             </dt>
             <dd className="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">
-              {sub.paymentMethod}
+              "Khalti"
             </dd>
           </div>
         </dl>

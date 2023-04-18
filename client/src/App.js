@@ -50,8 +50,8 @@ function App() {
   }, [userInfo.id]);
 
   return (
-    <div>
-      {isLoading === "loading" || userInfo.role == "loading" ? (
+    <>
+      {isLoading === "loading" || userInfo.role === "loading" ? (
         <Loading />
       ) : userInfo.role === "user" || userInfo.role === "all" ? (
         <Routes>
@@ -90,7 +90,7 @@ function App() {
             />
           </Route>
           <Route path="/check" element={<UpdateProfile />} />
-          <Route path="/rough" element={<Rough />} />
+          {/* <Route path="/rough" element={<Rough />} /> */}
         </Routes>
       ) : (
         <Routes>
@@ -110,7 +110,7 @@ function App() {
           {/* </Route> */}
         </Routes>
       )}
-    </div>
+    </>
   );
 }
 

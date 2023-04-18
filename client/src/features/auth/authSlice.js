@@ -87,17 +87,21 @@ const authSlice = createSlice({
       // })
       .addCase(getMe.fulfilled, (state, action) => {
         //console.log(action.payload);
-        const { email, name, _id, role } = action.payload?.data;
-        state.isLoggedIn = true;
-        state.id = _id;
-        state.name = name;
-        state.email = email;
-        state.status = "success";
-        state.role = role;
-        state.profilePictureLink = action.payload.data?.profilePicture?.link;
-        //token set at last
-        const token = cookies.get("token");
-        state.jwt = token;
+        const data = action?.payload?.data;
+        if (data) {
+          const { email, name, _id, role } = data;
+          state.isLoggedIn = true;
+          state.id = _id;
+          state.name = name;
+          state.email = email;
+          state.status = "success";
+          state.role = role;
+          state.profilePictureLink =
+            action?.payload?.data?.profilePicture?.link;
+          //token set at last
+          const token = cookies.get("token");
+          state.jwt = token;
+        }
       })
       .addCase(getMe.rejected, (state, action) => {
         state.error = action.error.message;
