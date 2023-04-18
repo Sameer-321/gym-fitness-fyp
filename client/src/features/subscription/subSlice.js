@@ -5,6 +5,7 @@ const initialState = {
   isSubscriber: false,
   // userInfo: null,
   subscribtionTier: "",
+  productIdentity: "",
   amount: "",
   startDate: "",
   endDate: "all",
@@ -59,6 +60,7 @@ const subscriptionSlice = createSlice({
         console.log(action.payload);
         const {
           subscribtionTier,
+          productIdentity,
           amount,
           startDate,
           endDate,
@@ -67,6 +69,7 @@ const subscriptionSlice = createSlice({
         } = action?.payload;
         state.isSubscriber = true;
         state.subscribtionTier = subscribtionTier;
+        state.productIdentity = productIdentity;
         state.amount = amount;
         state.startDate = startDate;
         state.endDate = endDate;
@@ -85,6 +88,7 @@ export const isSubscriber = (state) => state.subscription.isSubscriber;
 export const SubInfo = (state) => ({
   isSubscriber: state.subscription.isSubscriber,
   subscribtionTier: state.subscription.subscribtionTier,
+  productIdentity: state.subscription.productIdentity,
   amount: state.subscription.amount,
   startDate: state.subscription.startDate,
   endDate: state.subscription.endDate,

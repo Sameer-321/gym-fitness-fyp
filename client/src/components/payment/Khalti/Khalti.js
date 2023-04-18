@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import KhaltiCheckout from "khalti-checkout-web";
-import  {khaltiConfig}  from "./khaltiConfig";
+import { khaltiConfig } from "./khaltiConfig";
 import moment from "moment";
 import { useDispatch, useSelector } from "react-redux";
 import { createSubscription } from "../../../features/subscription/subFetch";
@@ -8,7 +8,7 @@ import { id } from "../../../features/auth/authSlice";
 
 export default function Khalti(props) {
   const { price, productName, productIdentity } = props.detailSubs;
-  
+
   const dispatch = useDispatch();
 
   const now = moment();
@@ -28,10 +28,8 @@ export default function Khalti(props) {
   const createSub = () => {
     dispatch(createSubscription(subDetail));
   };
-  let config=khaltiConfig(productName, productIdentity,createSub)
-  let checkout = new KhaltiCheckout(
-   config
-  );
+  let config = khaltiConfig(productName, productIdentity, createSub);
+  let checkout = new KhaltiCheckout(config);
   let buttonStyles = {
     backgroundColor: "purple",
     padding: "10px",
