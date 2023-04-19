@@ -57,12 +57,21 @@ exports.extendSubscription = async (req, res, next) => {
   try {
     const { endDate } = req.body;
 
-    const updateStatus = await TrainerRequest.findByIdAndUpdate(
+    const updateStatus = await Subscription.findByIdAndUpdate(
       req.params.id,
-      { $set: {endDate:endDate} },
+      { $set: { endDate: endDate } },
       { new: true } // this option returns the updated document
     );
     res.status(200).json(updateStatus);
+  } catch (err) {
+    next(err);
+  }
+};
+
+exports.deleteSubscriber = async (req, res, next) => {
+  try {
+    await Subscription.findByIdAndDelete(req.params.id);
+    res.status(200).json("Subscriber has been delete");
   } catch (err) {
     next(err);
   }

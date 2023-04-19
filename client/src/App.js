@@ -27,6 +27,7 @@ import { TrainerProfile } from "./components/trainerSection/TrainerProfile.js/Tr
 import { TrainerFrame } from "./components/trainerSection/pages/TrainerFrame";
 import { getSubscriptionDetail } from "./features/subscription/subFetch";
 import ShowTrainers from "./pages/ShowTrainers";
+
 function App() {
   const dispatch = useDispatch();
   const informationUser = useSelector(info);
@@ -92,7 +93,7 @@ function App() {
             />
           </Route>
           <Route path="/check" element={<UpdateProfile />} />
-          {/* <Route path="/rough" element={<Rough />} /> */}
+          <Route path="/rough" element={<Rough />} />
         </Routes>
       ) : (
         <Routes>
