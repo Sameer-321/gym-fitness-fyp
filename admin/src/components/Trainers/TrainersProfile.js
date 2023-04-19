@@ -4,16 +4,15 @@ import { useLocation } from "react-router-dom";
 
 export default function TrainersProfile(props) {
   const location = useLocation();
-  const myData = location.state.info
+  const myData = location.state.info;
 
-  const [ userInfo, setUserInfo ] = useState({});
+  const [userInfo, setUserInfo] = useState({});
   useEffect(() => {
-    setUserInfo((myData))
+    setUserInfo(myData);
   }, []);
 
   const params = useParams();
   const id = params.id;
-
 
   return (
     <>
@@ -34,7 +33,7 @@ export default function TrainersProfile(props) {
             </div>
             <div className="p-2">
               <h3 className="text-center text-xl text-gray-900 font-medium leading-8">
-               {userInfo.name}
+                {userInfo.name}
               </h3>
               <div className="text-center text-gray-400 text-xs font-semibold">
                 <p>not verified</p>
