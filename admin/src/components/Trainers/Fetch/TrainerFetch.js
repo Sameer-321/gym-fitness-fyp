@@ -21,7 +21,7 @@ export const getAllTrainers = async (showCondition) => {
           withCredentials: true,
           credentials: "include",
         }
-      );
+      ); 
       console.log(response.data, 24);
       return response;
     } catch (err) {
