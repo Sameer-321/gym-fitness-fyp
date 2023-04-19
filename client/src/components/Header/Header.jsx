@@ -69,7 +69,7 @@ const Header = () => {
             <button onClick={() => getinfo()}>
               {isLogged && <Dropdown pic={pp} />}
             </button>
-            
+
             <button
               type="button"
               className="-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 text-gray-50"
@@ -104,7 +104,7 @@ const Header = () => {
             </button>
           </div>
         </nav>
-        
+
         <Dialog
           as="div"
           className="lg:hidden"
