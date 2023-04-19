@@ -7,17 +7,13 @@ function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }
 export function DropDown(props) {
-  const { changeStatus } = props;
+  console.log(props.dataList);
+  const { changeStatus, dataList } = props;
 
   const handleChange = (i) => {
     changeStatus(i);
   };
-  const dropList = [
-    { label: "Trainer Request", value: "all" },
-    { label: "Pending", value: "pending" },
-    { label: "Accepted", value: "accepted" },
-    { label: "Rejected", value: "rejected" },
-  ];
+  
 
   return (
     <Menu as="div" className="relative inline-block text-left">
@@ -42,7 +38,7 @@ export function DropDown(props) {
       >
         <Menu.Items className="absolute left-0 z-10 mt-2 w-56 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
           <div className="py-1">
-            {dropList.map((i) => {
+            {dataList.map((i) => {
               return (
                 <Menu.Item>
                   {({ active }) => (

@@ -4,6 +4,13 @@ import { getAllTrainers } from "../Fetch/TrainerFetch.js";
 import { TrainerReqListCard } from "../Trainer-Req/TrainerReqListCard.js";
 import { SearchDrop, DropDown } from "../Search/SearchDrop.js";
 
+const List = [
+  { label: "Trainer Request", value: "all" },
+  { label: "Pending", value: "pending" },
+  { label: "Accepted", value: "accepted" },
+  { label: "Rejected", value: "rejected" },
+];
+
 export function TrainersReq() {
   const [users, setUsers] = useState([]);
   const [noUsers, setNoUsers] = useState(false);
@@ -38,7 +45,7 @@ export function TrainersReq() {
       <section className="container mx-auto p-6 font-mono">
         <div className="flex">
           <SearchDrop />
-          <DropDown changeStatus={renderListCondition} />
+          <DropDown changeStatus={renderListCondition} dataList={List}/>
         </div>
 
         <div className="w-full mb-8 overflow-hidden rounded-lg shadow-lg">
@@ -58,7 +65,7 @@ export function TrainersReq() {
                   <div>No {showCondition} Request</div>
                 ) : (
                   //For rendering REquest trainers
-                  users.map((i) => <TrainerReqListCard data={i} />)
+                  users.map((i) => <TrainerReqListCard data={i}  />)
                 )}
               </tbody>
             </table>
@@ -69,6 +76,7 @@ export function TrainersReq() {
       {/* pagination */}
       <br />
       {/* {<Pagination />} */}
+     
     </>
   );
 }
