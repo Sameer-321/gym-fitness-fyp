@@ -20,7 +20,6 @@ export function Subscriber() {
         } else if (data.length > 0) {
           setNoUsers(false);
         }
-
       }
     }
     fetchAllSubscriber();

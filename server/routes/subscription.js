@@ -18,7 +18,7 @@ router.post("/create/:id", protect, authorize("user"), createSubscription);
 router.get(
   "/getSubscriptionDetail/:id",
   protect,
-  authorize("user"),
+  authorize("user","admin"),
   getSingleSubscriptionDetail
 );
 router.get(
@@ -30,14 +30,14 @@ router.get(
 
 router.put(
   "/extendSubscription/:id", //id of the subscription schema
-  // protect,
-  // authorize("admin"),
+  protect,
+  authorize("admin"),
   extendSubscription
 );
 router.delete(
   "/deleteSubscriber/:id", //id of the subscription schema
-  // protect,
-  // authorize("admin"),
+  protect,
+  authorize("admin"),
   deleteSubscriber
 );
 
