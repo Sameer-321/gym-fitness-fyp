@@ -16,6 +16,7 @@ import { Trainers } from "./components/Trainers/Trainers/Trainers";
 
 import { TrainersCV } from "./components/Trainers/TrainersCV";
 import { Subscriber } from "./Subscriber/Subscriber.js";
+import SubscriberProfile from "./Subscriber/SubscriberProfile";
 
 function App() {
   const dispatch = useDispatch();
@@ -54,6 +55,7 @@ function App() {
             <Route path="/trainers-req" element={<TrainersReq />} />
             <Route path="/trainers-req/CV/:id" element={<TrainersCV />} />
             <Route path="/subscriber" element={<Subscriber />} />
+            <Route path="/subscriber/profile" element={<SubscriberProfile />} />
           </Route>
         )}
       </Routes>

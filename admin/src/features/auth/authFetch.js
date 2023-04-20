@@ -40,7 +40,7 @@ export const getMe = createAsyncThunk("getMe", async (jwt_token) => {
           credentials: "include",
         }
       );
-      console.log(response.data);
+      // console.log(response.data);
       return response.data;
     } catch (err) {
       console.log(err);

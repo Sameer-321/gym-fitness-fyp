@@ -10,17 +10,18 @@ export function Subscriber() {
   useEffect(() => {
     async function fetchAllSubscriber() {
       const res = await getAllSubscriber();
+
       if (res.status === 200) {
-        const data = await res?.data;
+        const data = await res.data;
         setUsers(data);
-        console.log(data);
+
         if (data.length === 0) {
           setNoUsers(true);
         } else if (data.length > 0) {
           setNoUsers(false);
         }
+
       }
-      //   return res;
     }
     fetchAllSubscriber();
   }, []);

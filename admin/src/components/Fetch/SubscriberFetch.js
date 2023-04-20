@@ -15,7 +15,8 @@ export const getAllSubscriber = async () => {
         },
       }
     );
-    return response.data;
+    // console.log(response.data)
+    return response;
   } catch (err) {
     if (!err?.response) {
       console.log("NO Server Response");
