@@ -159,7 +159,7 @@
 
 import React, { useEffect, useState } from "react";
 
-import { getAllTrainers } from "./Trainers/Fetch/TrainerFetch.js";
+import { getAllTrainers } from "./Fetch/TrainerFetch.js";
 
 import { TrainerReqListCard } from "./Trainers/Trainer-Req/TrainerReqListCard.js";
 

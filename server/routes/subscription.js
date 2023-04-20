@@ -5,7 +5,7 @@ const {
   getSingleSubscriptionDetail,
   getAllSubscriptionDetail,
   extendSubscription,
-  deleteSubscriber
+  deleteSubscriber,
 } = require("../controllers/subscription.js");
 
 const router = express.Router();
@@ -22,9 +22,9 @@ router.get(
   getSingleSubscriptionDetail
 );
 router.get(
-  "/getAllSubscriptionDetail/",
-  // protect,
-  // authorize("admin"),
+  "/getAllSubscriptionDetail",
+  protect,
+  authorize("admin"),
   getAllSubscriptionDetail
 );
 
