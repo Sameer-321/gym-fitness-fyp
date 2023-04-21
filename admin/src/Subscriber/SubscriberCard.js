@@ -1,8 +1,8 @@
 import { useNavigate } from "react-router-dom";
 
-export const SubscriberCard = (props) => {
+export const SubscriberCard = ({ data }) => {
   const nav = useNavigate();
-  const { data } = props;
+
   console.log(data);
 
   const statusCss = (status) => {
@@ -14,8 +14,9 @@ export const SubscriberCard = (props) => {
       return "px-2 py-1 font-semibold leading-tight text-red-700 bg-red-100 rounded-sm";
     }
   };
+
   const subscriberProfile = () => {
-    nav(`profile/${data.id}`, { state: { profileDetail: data } });
+    nav(`profile`, { state: { profileDetail: data } });
   };
 
   return (

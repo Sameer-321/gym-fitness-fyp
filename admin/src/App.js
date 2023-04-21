@@ -55,7 +55,10 @@ function App() {
             <Route path="/trainers-req" element={<TrainersReq />} />
             <Route path="/trainers-req/CV/:id" element={<TrainersCV />} />
             <Route path="/subscriber" element={<Subscriber />} />
-            <Route path="/subscriber/profile" element={<SubscriberProfile />} />
+            <Route
+              path="/subscriber/profile/"
+              element={<SubscriberProfile />}
+            />
           </Route>
         )}
       </Routes>

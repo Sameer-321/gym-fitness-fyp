@@ -1,16 +1,7 @@
-import { name } from "../features/auth/authSlice";
-import { useSelector } from "react-redux";
-
-import { SubInfo } from "../features/subscription/subSlice";
-import { useState } from "react";
-import { useEffect } from "react";
 import moment from "moment";
 import Moment from "moment";
-export function SubscriptionDetail() {
-  const UserName = useSelector(name);
-  const sub = useSelector(SubInfo);
-
-  const [subscriptionDetail, setSubcriptionDetail] = useState({});
+export function SubscriptionDetail(props) {
+  const { subInfo } = props;
 
   function RemainingDays(startDate, endDate) {
     const start = Moment(startDate).startOf("day");
@@ -21,13 +12,9 @@ export function SubscriptionDetail() {
     }
 
     const remainingDays = end.diff(start, "days");
-    // console.log(remainingDays);
+
     return <div> {remainingDays}</div>;
   }
-
-  useEffect(() => {
-    setSubcriptionDetail(sub);
-  }, [sub]);
 
   return (
     <div>
@@ -46,7 +33,8 @@ export function SubscriptionDetail() {
               User Name
             </dt>
             <dd className="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">
-              {UserName}
+              {/* {UserName} */}
+              -------
             </dd>
           </div>
           <div className="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
@@ -54,7 +42,7 @@ export function SubscriptionDetail() {
               Subscribtion Tenture
             </dt>
             <dd className="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">
-              {sub.subscribtionTier}
+              {subInfo.subscribtionTier}
             </dd>
           </div>
           <div className="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
@@ -62,7 +50,7 @@ export function SubscriptionDetail() {
               Amount Paid
             </dt>
             <dd className="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">
-              {sub.amount}
+              {subInfo.amount}
             </dd>
           </div>
           <div className="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
@@ -71,13 +59,13 @@ export function SubscriptionDetail() {
             </dt>
             <dd className="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">
               {/* if not format,eg: Mon Apr 17 2023 23:00:04 GMT+0545 (Nepal Time)-->will be the result*/}
-              {moment(sub.startDate).format("YYYY-MM-DD")}
+              {moment(subInfo.startDate).format("YYYY-MM-DD")}
             </dd>
           </div>
           <div className="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
             <dt className="text-sm font-medium leading-6 text-gray-900">To</dt>
             <dd className="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">
-              {moment(sub.endDate).format("YYYY-MM-DD")}
+              {moment(subInfo.endDate).format("YYYY-MM-DD")}
             </dd>
           </div>
           <div className="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
@@ -85,7 +73,7 @@ export function SubscriptionDetail() {
               Remaining Days
             </dt>
             <dd className="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">
-              {RemainingDays(sub.startDate, sub.endDate)}
+              {RemainingDays(subInfo.startDate, subInfo.endDate)}
             </dd>
           </div>
           <div className="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
@@ -93,7 +81,7 @@ export function SubscriptionDetail() {
               Active Status
             </dt>
             <dd className="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">
-              {sub.status}
+              {subInfo.status}
             </dd>
           </div>
           <div className="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
