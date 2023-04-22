@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from "react";
-import { getAllTrainers } from "../Fetch/TrainerFetch.js";
+import { getAllTrainers } from "../../Fetch/TrainerFetch.js";
 
 import { TrainerListCard } from "./TrainerListCard.js";
-import { SearchDrop, DropDown } from "../Search/SearchDrop.js";
-import { Switch } from "./SearchDrop.js";
+import { SearchDrop } from "../Search/SearchDrop.js";
 
 export function Trainers() {
   const [users, setUsers] = useState([]);
@@ -28,10 +27,7 @@ export function Trainers() {
     fetchUsers();
   }, [showCondition]);
 
-  const renderListCondition = (props) => {
-    //accepted,rejected,pending,trainer and all-------->trainer req
-    setShowCondition(props);
-  };
+ 
 
   return (
     <>
@@ -41,7 +37,7 @@ export function Trainers() {
       <section className="container mx-auto p-6 font-mono">
         <div className="flex">
           <SearchDrop />
-          <Switch />
+         
         </div>
 
         <div className="w-full mb-8 overflow-hidden rounded-lg shadow-lg">
@@ -60,7 +56,7 @@ export function Trainers() {
                 {noUsers ? (
                   <div>No {showCondition} Request</div>
                 ) : (
-                  //For rendering REquest trainers
+                  //For rendering  trainers
                   users.map((i) => <TrainerListCard data={i} />)
                 )}
               </tbody>

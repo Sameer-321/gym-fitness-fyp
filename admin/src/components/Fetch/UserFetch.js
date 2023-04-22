@@ -1,13 +1,14 @@
-import { createAsyncThunk } from "@reduxjs/toolkit";
+"admin/users/:id";
 import axios from "axios";
 import Cookies from "universal-cookie";
 
-const URL = "http://localhost:5000/api/v1";
+const URL = "http://localhost:5000/api/v1/admin";
 
-export const getTrainerInfo = createAsyncThunk("trainerInfo", async (id) => {
+export const getUser = async (id) => {
   const cookies = new Cookies();
+
   try {
-    const response = await axios.get(`${URL}/trainer-profile/${id}`, {
+    const response = await axios.get(`${URL}/users/${id}`, {
       headers: {
         Authorization: `Bearer ${cookies.get("token")}`,
       },
@@ -16,11 +17,9 @@ export const getTrainerInfo = createAsyncThunk("trainerInfo", async (id) => {
   } catch (err) {
     if (!err?.response) {
       console.log("NO Server Response");
-    } else if (err?.response?.status === 400) {
-      console.log("Missing Password or UserName");
     } else if (err?.response?.status === 401) {
       console.log("UnAuthorized");
     }
     console.log(err);
   }
-});
+};

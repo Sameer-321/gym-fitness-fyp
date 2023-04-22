@@ -4,8 +4,9 @@ import Cookies from "universal-cookie";
 
 const URL = "http://localhost:5000/api/v1";
 
-export const getTrainerInfo = createAsyncThunk("trainerInfo", async (id) => {
+export const getTrainerInfo = createAsyncThunk("trainerInfo", async (id,{getState}) => {
   const cookies = new Cookies();
+  const token = getState().auth.jwt
   try {
     const response = await axios.get(`${URL}/trainer-profile/${id}`, {
       headers: {
@@ -24,3 +25,5 @@ export const getTrainerInfo = createAsyncThunk("trainerInfo", async (id) => {
     console.log(err);
   }
 });
+
+

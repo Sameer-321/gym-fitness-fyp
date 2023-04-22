@@ -13,13 +13,15 @@ import { Welcome } from "./components/Welcome.js";
 import { Users } from "./components/Users";
 import { TrainersReq } from "./components/Trainers/Trainer-Req/TrainersReq.js";
 import { Trainers } from "./components/Trainers/Trainers/Trainers";
-import TrainersProfile from "./components/Trainers/TrainersProfile";
+
 import { TrainersCV } from "./components/Trainers/TrainersCV";
+import { Subscriber } from "./Subscriber/Subscriber.js";
+import SubscriberProfile from "./Subscriber/SubscriberProfile";
 
 function App() {
   const dispatch = useDispatch();
   const admin_information = useSelector(info);
-  const nav = useNavigate();
+
   const [adminInfo, setAdminInfo] = useState({});
 
   const cookies = new Cookies();
@@ -35,7 +37,7 @@ function App() {
   return (
     <div className="App">
       <Routes>
-        {!admin_information.isLoggedIn ? (
+        {!adminInfo.isLoggedIn ? (
           <Route path="/" element={<Login />} />
         ) : (
           <Route
@@ -52,6 +54,11 @@ function App() {
             <Route path="/trainers" element={<Trainers />} />
             <Route path="/trainers-req" element={<TrainersReq />} />
             <Route path="/trainers-req/CV/:id" element={<TrainersCV />} />
+            <Route path="/subscriber" element={<Subscriber />} />
+            <Route
+              path="/subscriber/profile/"
+              element={<SubscriberProfile />}
+            />
           </Route>
         )}
       </Routes>

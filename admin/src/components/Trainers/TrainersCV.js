@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 
 import { useLocation } from "react-router-dom";
 import { Worker } from "@react-pdf-viewer/core";
-import { AdminDecisionTrainersReq } from "./Fetch/TrainerFetch";
+import { AdminDecisionTrainersReq } from "../Fetch/TrainerFetch";
 
 // Import the main component
 import { Viewer } from "@react-pdf-viewer/core";

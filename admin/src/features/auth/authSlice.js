@@ -82,7 +82,7 @@ const authSlice = createSlice({
         state.error = action.error.message;
       })
       .addCase(getMe.fulfilled, (state, action) => {
-        console.log(action.payload);
+        // console.log(action.payload);
         const { email, name, _id, role, profilePicture } = action.payload.data;
         state.isLoggedIn = true;
         state.id = _id;
