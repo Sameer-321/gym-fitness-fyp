@@ -4,9 +4,6 @@ import { useLocation } from "react-router-dom";
 import { TrainerCertificate } from "./TrainerCertificate";
 import { TrainerPhoto } from "./TrainerPhoto";
 import { getTrainerInfo } from "../../app/fetch/trainerFetch";
-import { info } from "../../features/auth/authSlice";
-
-import { useSelector, useDispatch } from "react-redux";
 
 export function TrainerProfile() {
   const location = useLocation();
@@ -24,7 +21,7 @@ export function TrainerProfile() {
   return (
     <>
       <TrainerProfileCard data={myData} />
-      <TrainerCertificate />
+      <TrainerCertificate photos={subDetail?.certificates} />
       <TrainerPhoto />
     </>
   );
