@@ -5,23 +5,6 @@ import { getUser } from "../components/Fetch/UserFetch";
 export const SubscriberListCard = ({ data }) => {
   const nav = useNavigate();
   const [userProfile, setUserProfile] = useState();
-  console.log(data);
-  console.log(userProfile);
-  const statusCss = (status) => {
-    if (status === "active") {
-      return "px-2 py-1 font-semibold leading-tight text-green-700 bg-green-100 rounded-sm";
-    } else if (status === "pending") {
-      return "px-2 py-1 font-semibold leading-tight text-orange-700 bg-gray-100 rounded-sm";
-    } else if (status === "expire") {
-      return "px-2 py-1 font-semibold leading-tight text-red-700 bg-red-100 rounded-sm";
-    }
-  };
-
-  const subscriberProfile = () => {
-    nav(`profile`, {
-      state: { subscriptionDetail: data, userProfile: userProfile },
-    });
-  };
 
   useEffect(() => {
     getUser(data.userInfo._id)
@@ -32,6 +15,12 @@ export const SubscriberListCard = ({ data }) => {
         console.log(error);
       });
   }, []);
+
+  const subscriberProfile = () => {
+    nav(`profile`, {
+      state: { subscriptionDetail: data, userProfile: userProfile },
+    });
+  };
 
   return (
     <tr className="text-gray-700">
@@ -76,4 +65,15 @@ export const SubscriberListCard = ({ data }) => {
       </td>
     </tr>
   );
+};
+
+//button styles:
+const statusCss = (status) => {
+  if (status === "active") {
+    return "px-2 py-1 font-semibold leading-tight text-green-700 bg-green-100 rounded-sm";
+  } else if (status === "pending") {
+    return "px-2 py-1 font-semibold leading-tight text-orange-700 bg-gray-100 rounded-sm";
+  } else if (status === "expire") {
+    return "px-2 py-1 font-semibold leading-tight text-red-700 bg-red-100 rounded-sm";
+  }
 };
