@@ -68,15 +68,16 @@ exports.getallRequests = async (req, res, next) => {
     if (req.query.status === "all") {
       query = { status: req.query.status };
       const trainerRequests = await TrainerRequest.find();
-      res.status(200).json(trainerRequests);
-    } else if (req.query.status === "trainer") {
+      return res.status(200).json(trainerRequests);
+    }
+    if (req.query.status === "trainer") {
       query = { role: "trainer" };
       const userTrainers = await User.find(query);
-      res.status(200).json(userTrainers);
+      return res.status(200).json(userTrainers);
     }
     query = { status: req.query.status };
     const trainerRequests = await TrainerRequest.find(query);
-    res.status(200).json(trainerRequests);
+    return res.status(200).json(trainerRequests);
   } catch (err) {
     next(err);
   }

@@ -1,5 +1,5 @@
 export function TrainerCertificate({ photos }) {
-  console.log(photos);
+  // console.log(photos);
   return (
     <div className="bg-white">
       <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 sm:py-24 lg:px-8">

@@ -1,10 +1,9 @@
-import React from "react";
 import axios from "axios";
 import Cookies from "universal-cookie";
 // "/api/v1/admin/trainers/getall"
 const URL = "http://localhost:5000/api/v1/admin/trainers/";
 
-//***************All for the TRainer Request:*************
+//***************All for the TRainer Request & Trainers:*************
 export const getAllTrainers = async (showCondition) => {
   const cookies = new Cookies();
 
@@ -22,7 +21,7 @@ export const getAllTrainers = async (showCondition) => {
           credentials: "include",
         }
       );
-      console.log(response.data, 24);
+      // console.log(response.data, 24);
       return response;
     } catch (err) {
       console.log(err);

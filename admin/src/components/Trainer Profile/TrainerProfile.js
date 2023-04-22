@@ -8,12 +8,12 @@ import { getTrainerInfo } from "../../app/fetch/trainerFetch";
 export function TrainerProfile() {
   const location = useLocation();
   const myData = location.state.info;
-  const [subDetail, setSubDetail] = useState();
-  console.log(subDetail);
+  const [detail, setDetail] = useState();
+  console.log(detail);
   useEffect(() => {
     getTrainerInfo(myData._id)
       .then((data) => {
-        setSubDetail(data);
+        setDetail(data);
       })
       .catch((err) => console.log(err));
   }, []);
@@ -21,8 +21,8 @@ export function TrainerProfile() {
   return (
     <>
       <TrainerProfileCard data={myData} />
-      <TrainerCertificate photos={subDetail?.certificates} />
-      <TrainerPhoto />
+      <TrainerCertificate photos={detail?.certificates} />
+      <TrainerPhoto pictures={detail?.photos} />
     </>
   );
 }

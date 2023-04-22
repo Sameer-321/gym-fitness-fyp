@@ -2,7 +2,7 @@ import { useNavigate } from "react-router-dom";
 
 export const TrainerListCard = ({ data }) => {
   const nav = useNavigate();
-  console.log(data);
+  // console.log(data);
 
   const TrainerProfile = () => {
     nav(`profile/`, { state: { info: data } });

@@ -52,6 +52,10 @@ export const SubscriberListCard = ({ data }) => {
       <td className="px-4 py-3 text-xs border">
         <span className={statusCss(data.status)}> {data.status} </span>
       </td>
+      <td className="px-4 py-3 text-xs border">
+        {/* <span className={statusCss(data.status)}> {data.status} </span> */}
+        <input type="date" />
+      </td>
       <td className="px-4 py-3 text-sm border">
         <button
           type="button"
@@ -73,7 +77,7 @@ const statusCss = (status) => {
     return "px-2 py-1 font-semibold leading-tight text-green-700 bg-green-100 rounded-sm";
   } else if (status === "pending") {
     return "px-2 py-1 font-semibold leading-tight text-orange-700 bg-gray-100 rounded-sm";
-  } else if (status === "expire") {
+  } else if (status === "expired") {
     return "px-2 py-1 font-semibold leading-tight text-red-700 bg-red-100 rounded-sm";
   }
 };

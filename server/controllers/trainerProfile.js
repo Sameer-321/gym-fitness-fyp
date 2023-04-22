@@ -34,7 +34,7 @@ exports.createTrainerProfile = async (req, res, next) => {
 
     const trainerProfile = await trainerProfileData.save();
 
-    console.log(trainerProfile, "trainerProfiletrainerProfiletrainerProfile");
+    // console.log(trainerProfile, "trainerProfiletrainerProfiletrainerProfile");
 
     if (trainerProfile) {
       const userId = trainerProfile.userInfo._id;
@@ -68,7 +68,7 @@ exports.uploadCertificates = async (req, res, next) => {
       { $push: { certificates: { $each: certificates } } },
       { new: true }
     );
-   return  res.status(200).json(trainerProfile);
+    return res.status(200).json(trainerProfile);
   } catch (err) {
     next(err);
   }
