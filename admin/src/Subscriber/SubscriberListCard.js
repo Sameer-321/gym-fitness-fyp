@@ -1,22 +1,25 @@
 import { useNavigate } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { getUser } from "../components/Fetch/UserFetch";
 
-export const SubscriberCard = ({ data }) => {
+export const SubscriberListCard = ({ data }) => {
   const nav = useNavigate();
+  const [userProfile, setUserProfile] = useState();
 
-  console.log(data);
-
-  const statusCss = (status) => {
-    if (status === "active") {
-      return "px-2 py-1 font-semibold leading-tight text-green-700 bg-green-100 rounded-sm";
-    } else if (status === "pending") {
-      return "px-2 py-1 font-semibold leading-tight text-orange-700 bg-gray-100 rounded-sm";
-    } else if (status === "expire") {
-      return "px-2 py-1 font-semibold leading-tight text-red-700 bg-red-100 rounded-sm";
-    }
-  };
+  useEffect(() => {
+    getUser(data.userInfo._id)
+      .then((data) => {
+        setUserProfile(data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, []);
 
   const subscriberProfile = () => {
-    nav(`profile`, { state: { profileDetail: data } });
+    nav(`profile`, {
+      state: { subscriptionDetail: data, userProfile: userProfile },
+    });
   };
 
   return (
@@ -27,8 +30,8 @@ export const SubscriberCard = ({ data }) => {
             <img
               className="object-cover w-full h-full rounded-full"
               src={
-                data.userInfo?.profilePicture?.link
-                  ? `http://localhost:5000/${data.userInfo?.profilePicture?.link}`
+                userProfile?.profilePicture?.link
+                  ? `http://localhost:5000/${userProfile?.profilePicture?.link}`
                   : `https://www.kindpng.com/picc/m/22-223863_no-avatar-png-circle-transparent-png.png`
               }
               alt=""
@@ -40,14 +43,18 @@ export const SubscriberCard = ({ data }) => {
             ></div>
           </div>
           <div>
-            <p className="font-semibold text-black">{data?.userInfo.name}</p>
-            <p className="text-xs text-gray-600"> {data?.userInfo.email}</p>
+            <p className="font-semibold text-black">{userProfile?.name}</p>
+            <p className="text-xs text-gray-600"> {userProfile?.email}</p>
           </div>
         </div>
       </td>
 
       <td className="px-4 py-3 text-xs border">
         <span className={statusCss(data.status)}> {data.status} </span>
+      </td>
+      <td className="px-4 py-3 text-xs border">
+        {/* <span className={statusCss(data.status)}> {data.status} </span> */}
+        <input type="date" />
       </td>
       <td className="px-4 py-3 text-sm border">
         <button
@@ -62,4 +69,15 @@ export const SubscriberCard = ({ data }) => {
       </td>
     </tr>
   );
+};
+
+//button styles:
+const statusCss = (status) => {
+  if (status === "active") {
+    return "px-2 py-1 font-semibold leading-tight text-green-700 bg-green-100 rounded-sm";
+  } else if (status === "pending") {
+    return "px-2 py-1 font-semibold leading-tight text-orange-700 bg-gray-100 rounded-sm";
+  } else if (status === "expired") {
+    return "px-2 py-1 font-semibold leading-tight text-red-700 bg-red-100 rounded-sm";
+  }
 };

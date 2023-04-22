@@ -10,7 +10,7 @@ export function Trainers() {
   const [showCondition, setShowCondition] = useState("trainer");
   useEffect(() => {
     async function fetchUsers() {
-      const res = await getAllTrainers(showCondition);
+      const res = await getAllTrainers("trainer");
       if (res.status === 200) {
         const data = await res?.data;
         setUsers(data);
@@ -19,15 +19,13 @@ export function Trainers() {
         } else if (data.length > 0) {
           setNoUsers(false);
         }
-        console.log(data.length);
-        console.log(res.data);
+        // console.log(data.length);
+        // console.log(res.data);
       }
       return res;
     }
     fetchUsers();
   }, [showCondition]);
-
- 
 
   return (
     <>
@@ -37,7 +35,6 @@ export function Trainers() {
       <section className="container mx-auto p-6 font-mono">
         <div className="flex">
           <SearchDrop />
-         
         </div>
 
         <div className="w-full mb-8 overflow-hidden rounded-lg shadow-lg">

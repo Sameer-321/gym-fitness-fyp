@@ -13,12 +13,12 @@ const router = express.Router();
 // Protect Middleware
 const { protect, authorize } = require("../middleware/auth");
 
-router.get("/", protect, authorize("trainer", "admin"), getallTrainerProfile);
+router.get("/", protect, authorize(["admin"]), getallTrainerProfile);
 
 router.get(
   "/:id",
   protect,
-  authorize("trainer"),
+  authorize("trainer", "admin"),
   getSingleTrainerProfile
 );
 

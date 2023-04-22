@@ -10,13 +10,15 @@ export function SubscriptionDetail() {
   const sub = useSelector(SubInfo);
 
   const [subscriptionDetail, setSubcriptionDetail] = useState({});
-
-  function RemainingDays(startDate, endDate) {
+  console.log(subscriptionDetail);
+  //css for red:"px-2 py-1 font-semibold leading-tight text-red-700 bg-red-100 rounded-sm"
+  function isExpire(startDate, endDate) {
     const start = Moment(startDate).startOf("day");
     const end = Moment(endDate).startOf("day");
 
     if (start.isAfter(end)) {
-      return <div>Your subscriptioin has been expired</div>;
+      // return <div>Your subscriptioin has been expired</div>;
+      return true;
     }
 
     const remainingDays = end.diff(start, "days");
@@ -61,7 +63,7 @@ export function SubscriptionDetail() {
               Amount Paid
             </dt>
             <dd className="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">
-              {sub.amount}
+              Rs. {sub.amount / 100}
             </dd>
           </div>
           <div className="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
@@ -83,8 +85,16 @@ export function SubscriptionDetail() {
             <dt className="text-sm font-medium leading-6 text-gray-900">
               Remaining Days
             </dt>
-            <dd className="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">
-              {RemainingDays(sub.startDate, sub.endDate)}
+            <dd
+              className={
+                isExpire(sub.startDate, sub.endDate) === true
+                  ? "px-2 py-1 font-semibold leading-tight text-red-700 bg-red-100 rounded-sm"
+                  : `mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0`
+              }
+            >
+              {isExpire(sub.startDate, sub.endDate) === true
+                ? "Your subscriptioin has been expired"
+                : isExpire(sub.startDate, sub.endDate)}
             </dd>
           </div>
           <div className="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">

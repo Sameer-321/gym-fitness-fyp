@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-import { getTrainerInfo } from "./trainerFetch";
+import { getTrainerInfo } from "../../app/fetch/trainerFetch";
 
 const initialState = {
   isTrainer: false,
@@ -70,7 +70,6 @@ export const firstName = (state) => state.trainer?.firstName;
 export const lastName = (state) => state.trainer?.lastName;
 export const certificates = (state) => state.trainer?.certificates;
 export const photos = (state) => state.trainer?.photos;
-
 
 export const { register, getToken, resetState } = trainerSlice.actions;
 export default trainerSlice.reducer;

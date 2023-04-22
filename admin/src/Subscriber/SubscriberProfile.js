@@ -4,7 +4,7 @@ import { useSelector } from "react-redux";
 
 import { info } from "../features/auth/authSlice";
 
-import { SubscriptionDetail } from "./SubscriptionDetail";
+import { SubscriptionDetailCard } from "./SubscriptionDetailCard";
 import ProfileCard from "../components/ProfileCard/ProfileCard";
 
 //api imports
@@ -12,12 +12,13 @@ import { getUser } from "../components/Fetch/UserFetch";
 
 function Profile() {
   const location = useLocation();
-  const myData = location.state.profileDetail;
+  const myData = location.state.subscriptionDetail;
+  const profile = location.state.userProfile;
 
   return (
     <>
-      <ProfileCard userId={myData.userInfo._id} />
-      <SubscriptionDetail subInfo={myData} />
+      <ProfileCard userProfile={profile} />
+      <SubscriptionDetailCard subInfo={myData} name={profile.name} />
     </>
   );
 }

@@ -1,24 +1,21 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useSelector } from "react-redux";
-import { info } from "../../../features/auth/authSlice";
+import { info } from "../../features/auth/authSlice";
+
 import { PencilSquareIcon } from "@heroicons/react/20/solid";
 import axios from "axios";
-import { UpdateProfile } from "../../Modal/UpdateProfile";
 
-export function TrainerProfileCard() {
+// import { UpdateProfile } from "../../Modal/UpdateProfile";
+
+export function TrainerProfileCard({ data }) {
   const [userInfo, setUserInfo] = useState();
   const [pic, setPic] = useState("");
   const [popUp, setPopUp] = useState(false);
   const userInformation = useSelector(info);
 
-  useEffect(() => {
-    setUserInfo(userInformation);
-    console.log(userInformation);
-  }, [userInformation]);
-
   const imageRender = () => {
-    if (userInfo?.profilePictureLink) {
-      return `http://localhost:5000/${userInfo?.profilePictureLink}`;
+    if (data?.profilePictureLink) {
+      return `http://localhost:5000/${data?.profilePictureLink}`;
     } else {
       return "https://www.kindpng.com/picc/m/22-223863_no-avatar-png-circle-transparent-png.png";
     }
@@ -64,8 +61,8 @@ export function TrainerProfileCard() {
               <img
                 className="w-28 h-28 rounded-full mx-auto border"
                 src={
-                  userInfo?.profilePictureLink
-                    ? `http://localhost:5000/${userInfo?.profilePictureLink}`
+                  data?.profilePictureLink
+                    ? `http://localhost:5000/${data?.profilePictureLink}`
                     : "https://www.kindpng.com/picc/m/22-223863_no-avatar-png-circle-transparent-png.png"
                 }
                 //src={}
@@ -74,7 +71,7 @@ export function TrainerProfileCard() {
             </div>
             <div className="p-2">
               <h3 className="text-center text-lg text-gray-900 mb-2 font-medium leading-8">
-                {userInformation.name}
+                {data.name}
               </h3>
               <div className="text-center text-gray-400 text-xs font-semibold">
                 <span className="px-3 py-1 rounded-full bg-green-400 text-white font-semibold">
@@ -101,7 +98,7 @@ export function TrainerProfileCard() {
                     <td className="px-2 py-2 text-gray-500 font-normal">
                       Email
                     </td>
-                    <td className="px-2 py-2">{userInformation.email}</td>
+                    <td className="px-2 py-2">{data.email}</td>
                   </tr>
                 </tbody>
               </table>
@@ -122,7 +119,7 @@ export function TrainerProfileCard() {
       <br />
       <br />
       <br />
-      <UpdateProfile state={popUp} info={userInfo} />
+      {/* <UpdateProfile state={popUp} info={userInfo} /> */}
     </>
   );
 }

@@ -8,7 +8,7 @@ export function khaltiConfig(productName, productIdentity, createSub) {
     publicKey: myKey.publicTestKey,
     productIdentity: `${productIdentity}`,
     productName: `${productName}`,
-    productUrl: `http://fitnessGym.com/subscription/}`,
+    productUrl: `http://fitnessGym.com/subscription/`,
     eventHandler: {
       async onSuccess(payload) {
         // hit merchant api for initiating verfication

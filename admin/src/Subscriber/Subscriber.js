@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { getAllSubscriber } from "../components/Fetch/SubscriberFetch.js";
-import { SubscriberCard } from "./SubscriberCard.js";
+import { SubscriberListCard } from "./SubscriberListCard.js";
 import { SearchDrop } from "../components/Trainers/Search/SearchDrop.js";
 
 export function Subscriber() {
@@ -44,6 +44,7 @@ export function Subscriber() {
 
                   <th className="px-4 py-3">Status</th>
 
+                  <th className="px-4 py-3">Rough</th>
                   <th className="px-4 py-3">Profile</th>
                 </tr>
               </thead>
@@ -52,7 +53,7 @@ export function Subscriber() {
                   <div>No subscriber</div>
                 ) : (
                   //For listing
-                  users.map((i) => <SubscriberCard data={i} />)
+                  users.map((i) => <SubscriberListCard data={i} />)
                 )}
               </tbody>
             </table>

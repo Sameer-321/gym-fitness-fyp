@@ -26,12 +26,11 @@ import { TrainerPendingForm } from "./components/trainerSection/Trainer-Form/Tra
 import { TrainerProfile } from "./components/trainerSection/TrainerProfile.js/TrainerProfile";
 import { TrainerFrame } from "./components/trainerSection/pages/TrainerFrame";
 import { getSubscriptionDetail } from "./features/subscription/subFetch";
-import ShowTrainers from "./pages/ShowTrainers";
+import { ShowTrainersProfile } from "./pages/ShowTrainersProfile";
 
 function App() {
   const dispatch = useDispatch();
   const informationUser = useSelector(info);
-  const userRole = useSelector(role);
   const isLoading = useSelector(status);
 
   const [userInfo, setUserInfo] = useState(informationUser);
@@ -55,7 +54,9 @@ function App() {
     <>
       {isLoading === "loading" || userInfo.role === "loading" ? (
         <Loading />
-      ) : userInfo.role === "user" || userInfo.role === "all" ? (
+      ) : userInfo.role === "user" ||
+        userInfo.role === "all" ||
+        userInfo.role === "admin" ? ( //admin can only check
         <Routes>
           <Route path="/" element={<Layout userInfo={userInfo} />}>
             //public route
@@ -64,7 +65,8 @@ function App() {
             <Route path="/subs" element={<Pricing />} />
             <Route path="/contact" element={<ContactUs />} />
             <Route path="/profile" element={<Profile />} />
-            <Route path="/trainers" element={<ShowTrainers />} />
+            <Route path="/trainers" element={<ShowTrainersProfile />} />
+            <Route path="/trainers/profile" element={<ShowTrainersProfile />} />
             <Route path="*" element={<Notfound />} />
             //protected route
             <Route
@@ -110,7 +112,6 @@ function App() {
           )}
           //public route
           <Route path="*" element={<Notfound />} />
-          {/* </Route> */}
         </Routes>
       )}
     </>
