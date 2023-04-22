@@ -1,5 +1,3 @@
-import React, { useEffect, useState } from "react";
-import { getUser } from "../Fetch/UserFetch";
 export default function ProfileCard({ userProfile }) {
   return (
     <>

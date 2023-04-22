@@ -1,15 +1,15 @@
-import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 import Cookies from "universal-cookie";
 
 const URL = "http://localhost:5000/api/v1";
 
-export const getTrainerInfo = createAsyncThunk("trainerInfo", async (id,{getState}) => {
+export const getTrainerInfo = async (id) => {
   const cookies = new Cookies();
-  const token = getState().auth.jwt
+
   try {
     const response = await axios.get(`${URL}/trainer-profile/${id}`, {
       headers: {
+        "Content-Type": "application/json",
         Authorization: `Bearer ${cookies.get("token")}`,
       },
     });
@@ -24,6 +24,4 @@ export const getTrainerInfo = createAsyncThunk("trainerInfo", async (id,{getStat
     }
     console.log(err);
   }
-});
-
-
+};

@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import { info } from "../../../features/auth/authSlice";
+import { info } from "../../features/auth/authSlice";
+
 import { PencilSquareIcon } from "@heroicons/react/20/solid";
 import axios from "axios";
-import { UpdateProfile } from "../../Modal/UpdateProfile";
+
+// import { UpdateProfile } from "../../Modal/UpdateProfile";
 
 export function TrainerProfileCard() {
   const [userInfo, setUserInfo] = useState();
@@ -122,7 +124,7 @@ export function TrainerProfileCard() {
       <br />
       <br />
       <br />
-      <UpdateProfile state={popUp} info={userInfo} />
+      {/* <UpdateProfile state={popUp} info={userInfo} /> */}
     </>
   );
 }
