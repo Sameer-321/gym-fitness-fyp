@@ -18,7 +18,7 @@ router.post("/create/:id", protect, authorize("user"), createSubscription);
 router.get(
   "/getSubscriptionDetail/:id",
   protect,
-  authorize("user","admin"),
+  authorize(["user", "admin"]),
   getSingleSubscriptionDetail
 );
 router.get(

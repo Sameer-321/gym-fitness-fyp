@@ -1,18 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { getUser } from "../Fetch/UserFetch";
-export default function ProfileCard({ userId }) {
-  const [userInfo, setUserInfo] = useState();
-
-  useEffect(() => {
-    getUser(userId)
-      .then((data) => {
-        setUserInfo(data);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  }, [userId]);
-
+export default function ProfileCard({ userProfile }) {
   return (
     <>
       <div className="flex items-center h-screen w-full justify-center">
@@ -22,8 +10,8 @@ export default function ProfileCard({ userId }) {
               <img
                 className="w-32 h-32 rounded-full mx-auto"
                 src={
-                  userInfo?.profilePicture
-                    ? `http://localhost:5000/${userInfo?.profilePicture?.link}`
+                  userProfile?.profilePicture
+                    ? `http://localhost:5000/${userProfile?.profilePicture?.link}`
                     : "https://www.kindpng.com/picc/m/22-223863_no-avatar-png-circle-transparent-png.png"
                 }
                 //src={}
@@ -32,7 +20,7 @@ export default function ProfileCard({ userId }) {
             </div>
             <div className="p-2">
               <h3 className="text-center text-xl text-gray-900 font-medium leading-8">
-                {userInfo?.name}
+                {userProfile?.name}
               </h3>
               <div className="text-center text-gray-400 text-xs font-semibold">
                 <p>not verified</p>

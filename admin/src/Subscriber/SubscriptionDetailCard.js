@@ -1,8 +1,6 @@
 import moment from "moment";
 import Moment from "moment";
-export function SubscriptionDetail(props) {
-  const { subInfo } = props;
-
+export function SubscriptionDetailCard({ subInfo, name }) {
   function RemainingDays(startDate, endDate) {
     const start = Moment(startDate).startOf("day");
     const end = Moment(endDate).startOf("day");
@@ -33,8 +31,7 @@ export function SubscriptionDetail(props) {
               User Name
             </dt>
             <dd className="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">
-              {/* {UserName} */}
-              -------
+              {name}
             </dd>
           </div>
           <div className="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
