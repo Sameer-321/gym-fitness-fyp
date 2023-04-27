@@ -27,6 +27,7 @@ import { TrainerProfile } from "./components/trainerSection/TrainerProfile.js/Tr
 import { TrainerFrame } from "./components/trainerSection/pages/TrainerFrame";
 import { getSubscriptionDetail } from "./features/subscription/subFetch";
 import { ShowTrainersProfile } from "./pages/ShowTrainersProfile";
+import Trainers from "./pages/Trainers";
 
 function App() {
   const dispatch = useDispatch();
@@ -65,7 +66,7 @@ function App() {
             <Route path="/subs" element={<Pricing />} />
             <Route path="/contact" element={<ContactUs />} />
             <Route path="/profile" element={<Profile />} />
-            <Route path="/trainers" element={<ShowTrainersProfile />} />
+            <Route path="/trainers" element={<Trainers />} />
             <Route path="/trainers/profile" element={<ShowTrainersProfile />} />
             <Route path="*" element={<Notfound />} />
             //protected route
