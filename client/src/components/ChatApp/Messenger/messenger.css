@@ -15,7 +15,7 @@
 }
 
 .chatBox {
-  flex: 5.5;
+  flex: 12;
 }
 
 .chatBoxWrapper {
@@ -45,7 +45,7 @@
 }
 
 .chatSubmitButton {
-  width: 70px;
+  width: 20%;
   height: 40px;
   border: none;
   border-radius: 5px;
@@ -54,14 +54,13 @@
   color: white;
 }
 
-.chatOnline {
+/* .chatOnline {
   flex: 3;
-}
+} */
 
 .chatMenuWrapper,
-.chatBoxWrapper,
-.chatOnlineWrapper {
-  padding: 10px;
+.chatBoxWrapper {
+  padding: 0px;
   height: 100%;
 }
 
@@ -82,11 +81,11 @@
     display: none;
   }
 
-  .chatBox{
+  .chatBox {
     flex: 10;
   }
 
-  .chatOnline{
+  .chatOnline {
     flex: 1px;
   }
 }

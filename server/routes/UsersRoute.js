@@ -18,7 +18,7 @@ router.post("/create", protect, authorize("admin"), createUser);
 
 router.get("/allUsers", protect, authorize("admin"), getAllUser);
 
-router.get("/:id", getUser);
+router.get("/:id", getUser); //it is used by chat app tto, so remove the authorize for admin
 
 router.put("/updatedetails", protect, authorize("admin"), updateUser);
 //delete
