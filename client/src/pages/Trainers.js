@@ -71,7 +71,7 @@ const TrainerPageCard = ({ detail }) => {
             {detail.description}
           </p>
           <button className="rounded-lg  my-1 mb-0 px-4 py-2 font-bold text-gray-50 bg-purple-600 hover:bg-purple-900">
-            hire
+            Hire(Rs 5000)
           </button>
         </td>
       </tr>
