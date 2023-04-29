@@ -1,38 +1,30 @@
-import { useState } from "react";
-
+import { useState, useEffect } from "react";
+import axios from "axios";
 export default function TrainerRender() {
-  const [trainers, setTrainers] = useState([
-    {
-      image:
-        "https://www.kindpng.com/picc/m/22-223863_no-avatar-png-circle-transparent-png.png",
-      name: "sameer sunar",
-      description:
-        "asdfkjhg adf hasdf asdfkjh asdflaosdfl  asdfk asdf lasdf asdfkjhg asdfkjhg adf hasdf asdfkjh asdflaosdfl  asdfk asdf lasdf asdfkjhgasdfkjhg adf hasdf asdfkjh asdflaosdfl  asdfk asdf lasdf asdfkjhgasdfkjhg adf hasdf asdfkjh asdflaosdfl  asdfk asdf lasdf asdfkjhgasdfkjhg adf hasdf asdfkjh asdflaosdfl  asdfk asdf lasdf asdfkjhg",
-    },
-    {
-      image:
-        "https://www.kindpng.com/picc/m/22-223863_no-avatar-png-circle-transparent-png.png",
-      name: "asdf dola",
-      description:
-        "asdfkjhg adf hasdf asdfkjh asdflaosdfl  asdfk asdf lasdf asdfasdf asdf asf ",
-    },
-    {
-      image:
-        "https://www.kindpng.com/picc/m/22-223863_no-avatar-png-circle-transparent-png.png",
-      name: "umanga gay",
-      description:
-        "asdfkjhg adf hasdf asdfkjh asdflaosdfl  asdfk asdf lasdf asdfasdf asdf asf ",
-    },
-  ]);
+  const URL = "http://localhost:5000/api/v1";
+  const [trainers, setTrainers] = useState([]);
+  console.log(trainers);
+  useEffect(() => {
+    const trainerFetch = async () => {
+      try {
+        const response = await axios.get(URL + "/trainer-profile");
+        setTrainers(response.data);
+        // return response;
+      } catch (err) {
+        console.log(err);
+      }
+    };
+    trainerFetch();
+  }, []);
 
   return (
-    <div className="container px-25 mt-[90px] my-5  mx-auto">
+    <div className="container px-25 mt-[93px] my-5  mx-auto">
       <div className=" font-semibold">Trainers</div>
 
       <table className="w-full text-gray-700">
         <tbody>
           {trainers.map((i) => {
-            return <TrainerPageCard detail={i} />;
+            return <TrainerPageCard detail={i} />; //import from this page
           })}
         </tbody>
       </table>
@@ -41,6 +33,29 @@ export default function TrainerRender() {
 }
 
 const TrainerPageCard = ({ detail }) => {
+  const URL = "http://localhost:5000/api/v1/auth";
+  const [pp, setPp] = useState(
+    "https://www.kindpng.com/picc/m/22-223863_no-avatar-png-circle-transparent-png.png"
+  );
+  // console.log(pp);
+  useEffect(() => {
+    const trainerFetch = async () => {
+      try {
+        const response = await axios.get(
+          URL + `/profilePicture/${detail.userInfo._id}`
+        );
+        // console.log(response.data, 43333333333333333);
+        setPp(`http://localhost:5000/${response.data.data}`);
+        // return response;
+      } catch (err) {
+        setPp(
+          `https://www.kindpng.com/picc/m/22-223863_no-avatar-png-circle-transparent-png.png`
+        );
+        console.log(err);
+      }
+    };
+    trainerFetch();
+  }, [detail]);
   return (
     <>
       <tr className=" w-full text-gray-700 mb-2 ">
@@ -49,19 +64,14 @@ const TrainerPageCard = ({ detail }) => {
             <div className="relative w-15 h-16  rounded-full md:block">
               <img
                 className="object-cover w-full h-full rounded-full"
-                src={
-                  detail?.img
-                    ? `http://localhost:5000/${detail?.image}`
-                    : `https://www.kindpng.com/picc/m/22-223863_no-avatar-png-circle-transparent-png.png`
-                }
-                // src={`https://www.kindpng.com/picc/m/22-223863_no-avatar-png-circle-transparent-png.png`}
+                src={pp}
                 alt=""
                 loading="lazy"
               />
             </div>
 
             <span className="mt-2  font-semibold text-black">
-              {detail.name}
+              {detail.firstName + " " + detail.lastName}
             </span>
           </div>
         </td>

@@ -75,6 +75,15 @@ exports.getMe = async (req, res, next) => {
     next(error);
   }
 };
+exports.profilePicture = async (req, res, next) => {
+  try {
+    const user = await User.findById(req.params.id).select("profilePicture");
+    const userProfile = user.profilePicture.link;
+    res.status(200).json({ data: userProfile });
+  } catch (error) {
+    next(error);
+  }
+};
 
 //@desc     Log user out / clear cookie
 //@route    GET /api/v1/auth/logout
