@@ -2,12 +2,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { certificates } from "../../../features/trainer/trainerSlice";
 import { useEffect, useState } from "react";
 
-export function TrainerCertificate() {
-  const cer = useSelector(certificates);
-  const [photos, setPhotos] = useState(null);
-  useEffect(() => {
-    setPhotos(cer);
-  }, [cer]);
+export function TrainerCertificate({ photos }) {
   return (
     <div className="bg-white">
       <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 sm:py-24 lg:px-8">

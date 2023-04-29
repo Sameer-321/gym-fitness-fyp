@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { ArrowRightIcon } from "@heroicons/react/20/solid";
 export default function TrainerRender() {
@@ -34,6 +35,7 @@ export default function TrainerRender() {
 }
 
 const TrainerPageCard = ({ detail }) => {
+  const nav = useNavigate();
   const URL = "http://localhost:5000/api/v1/auth";
   const [pp, setPp] = useState(
     "https://www.kindpng.com/picc/m/22-223863_no-avatar-png-circle-transparent-png.png"
@@ -57,6 +59,15 @@ const TrainerPageCard = ({ detail }) => {
     };
     trainerFetch();
   }, [detail]);
+
+  const handleClick = () => {
+    nav("profile", {
+      state: { detail, pp },
+    });
+
+    // const location = useLocation();
+    // const myData = location.state.subscriptionDetail;
+  };
   return (
     <>
       <tr className=" w-full text-gray-700 mb-2 ">
@@ -106,7 +117,12 @@ const TrainerPageCard = ({ detail }) => {
           <button className="rounded-lg mx-auto my-1 mb-2 px-4 py-2 font-bold text-gray-50 bg-purple-600 hover:bg-purple-900">
             Hire(Rs 5000)
           </button>
-          <div className="absolute bottom-2 right-5 text-purple-400 hover:text-purple-700">
+          <div
+            className="absolute bottom-2 right-5 text-purple-400 hover:text-purple-700 hover:cursor-pointer"
+            onClick={() => {
+              handleClick();
+            }}
+          >
             <div className="inline-block">View More </div>
             <div className="w-5 h-5 inline-block pt-2">
               <ArrowRightIcon />
