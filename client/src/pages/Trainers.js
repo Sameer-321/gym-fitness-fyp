@@ -2,9 +2,11 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { ArrowRightIcon } from "@heroicons/react/20/solid";
+import { PayWithKhalti } from "../components/Modal/PayWithKhalti";
 export default function TrainerRender() {
   const URL = "http://localhost:5000/api/v1";
   const [trainers, setTrainers] = useState([]);
+
   console.log(trainers);
   useEffect(() => {
     const trainerFetch = async () => {
@@ -35,12 +37,14 @@ export default function TrainerRender() {
 }
 
 const TrainerPageCard = ({ detail }) => {
+  // console.log(detail, "sssssssssssssssssssssssssssssssssssss");
   const nav = useNavigate();
   const URL = "http://localhost:5000/api/v1/auth";
   const [pp, setPp] = useState(
     "https://www.kindpng.com/picc/m/22-223863_no-avatar-png-circle-transparent-png.png"
   );
   // console.log(pp);
+  const [popUp, setPopUp] = useState(false);
   useEffect(() => {
     const trainerFetch = async () => {
       try {
@@ -64,9 +68,9 @@ const TrainerPageCard = ({ detail }) => {
     nav("profile", {
       state: { detail, pp },
     });
-
-    // const location = useLocation();
-    // const myData = location.state.subscriptionDetail;
+  };
+  const handlePay = () => {
+    setPopUp(!popUp);
   };
   return (
     <>
@@ -101,7 +105,7 @@ const TrainerPageCard = ({ detail }) => {
             <div className="w-1/5 font-bold text-[16px] text-purple-600">
               Fields :
             </div>
-            <div className="w-4/5">
+            <div className="w-4/5" key={detail._id}>
               {detail.trainerType.map((i) => {
                 return (
                   <p className=" bg-blue-200 text-center font-semibold tracking-wide text-white-600 rounded-full inline-block w-2/5 p-1 m-1 ">
@@ -114,7 +118,12 @@ const TrainerPageCard = ({ detail }) => {
           <p className="px-2   text-blue-950 hover:bg-gray-300 text-justify">
             {detail.description}
           </p>
-          <button className="rounded-lg mx-auto my-1 mb-2 px-4 py-2 font-bold text-gray-50 bg-purple-600 hover:bg-purple-900">
+          <button
+            onClick={() => {
+              handlePay();
+            }}
+            className="rounded-lg mx-auto my-1 mb-2 px-4 py-2 font-bold text-gray-50 bg-purple-600 hover:bg-purple-900"
+          >
             Hire(Rs 5000)
           </button>
           <div
@@ -130,6 +139,10 @@ const TrainerPageCard = ({ detail }) => {
           </div>
         </td>
       </tr>
+      <PayWithKhalti
+        state={popUp}
+        info={{ amount: 1000, trainer_id: detail._id }}
+      />
     </>
   );
 };
