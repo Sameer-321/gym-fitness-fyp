@@ -4,9 +4,8 @@ const {
   createSubscription,
   getSingleSubscriptionDetail,
   getAllSubscriptionDetail,
-  extendSubscription,
   deleteSubscriber,
-} = require("../controllers/subscription.js");
+} = require("../controllers/trainerSubscription.js");
 
 const router = express.Router();
 
@@ -21,7 +20,6 @@ router.get(
   authorize("user", "admin"),
   getSingleSubscriptionDetail
 );
-
 router.get(
   "/getAllSubscriptionDetail",
   protect,
@@ -29,12 +27,6 @@ router.get(
   getAllSubscriptionDetail
 );
 
-router.put(
-  "/extendSubscription/:id", //id of the subscription schema
-  protect,
-  authorize("admin"),
-  extendSubscription
-);
 router.delete(
   "/deleteSubscriber/:id", //id of the subscription schema
   protect,
