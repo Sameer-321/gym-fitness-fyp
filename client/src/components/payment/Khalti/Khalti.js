@@ -4,7 +4,7 @@ import { khaltiConfig } from "./khaltiConfig";
 import moment from "moment";
 import { useDispatch } from "react-redux";
 import { createSubscription } from "../../../features/subscription/subFetch";
-
+import { createTrainerSubscription } from "../../../features/TrainerSubscription/trainerSubFetch";
 export default function Khalti(props) {
   const { price, productName, productIdentity } = props.detailSubs;
   console.log(props.detailSubs);
@@ -15,16 +15,7 @@ export default function Khalti(props) {
     productIdentity === "1" ? "1 " : productIdentity === "6" ? " 6 " : "12";
 
   const subDetail = {
-    trainerId: props.detailSubs?.trainerId, //schema difference for sub snd trainer sub
-    subscribtionTier: productName,
-    productIdentity: subMonth,
-    amount: price,
-    startDate: now.format("YYYY-MM-DD"),
-    endDate: now.clone().add(subMonth, "months").format("YYYY-MM-DD"),
-    status: "active",
-    paymentMethod: "khalti",
-  };
-  const subTrainerDetail = {
+    trainerId: props.detailSubs?.trainerID, //schema difference for sub snd trainer sub
     subscribtionTier: productName,
     productIdentity: subMonth,
     amount: price,
@@ -38,6 +29,7 @@ export default function Khalti(props) {
     if (productName === "trainer") {
       // subTrainerDetail
       console.log("this this");
+      dispatch(createTrainerSubscription(subDetail));
     } else if (productName !== "trainer") {
       dispatch(createSubscription(subDetail)); //api hit for subscription
     }

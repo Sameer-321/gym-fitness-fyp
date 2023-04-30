@@ -1,9 +1,9 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
-import Cookies from "universal-cookie";
-const URL = "http://localhost:5000/api/v1/subscribe/";
 
-export const createSubscription = createAsyncThunk(
+const URL = "http://localhost:5000/api/v1/trainer-sub/";
+
+export const createTrainerSubscription = createAsyncThunk(
   "subscribe/create",
   async (datas, { getState }) => {
     const id = getState().auth.id;
@@ -15,10 +15,22 @@ export const createSubscription = createAsyncThunk(
     };
     if (token) {
       try {
+        console.log(datas, "aaaaaaaaaaaaaaa");
         const response = await axios.post(URL.concat(`create/${id}`), datas, {
           headers,
         });
-        //console.log(response.data);
+        console.log(response.data);
+        if (response.status === 200) {
+          //create conversation models
+
+          const res = await axios.post(
+            `http://localhost:5000/api/v1/conversations`,
+            { senderId: datas.trainerId, receiverId: id },
+            {
+              headers,
+            }
+          );
+        }
         return response.data;
       } catch (err) {
         if (!err?.response) {
@@ -34,8 +46,8 @@ export const createSubscription = createAsyncThunk(
   }
 );
 
-export const getSubscriptionDetail = createAsyncThunk(
-  "subscribe/getSubscriptionDetail",
+export const getTrainerSubscriptionDetail = createAsyncThunk(
+  "getTrainerSubscriptionDetail",
   async (_, { getState }) => {
     const token = getState().auth.jwt;
     const id = getState().auth.id;
@@ -61,7 +73,7 @@ export const getSubscriptionDetail = createAsyncThunk(
         console.log(response.data, "getDetailOfSingleSubscription");
         return response.data;
       } catch (err) {
-        // console.log(err);
+        console.log(err);
       }
     }
   }

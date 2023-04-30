@@ -7,15 +7,12 @@ import Khalti from "../payment/Khalti/Khalti";
 export function PayWithKhalti(props) {
   const { state, info } = props;
   // info={{ amount: 1000, trainer_id: detail._id }}
-  const [userInfo, setUserInfo] = useState();
+
   const [open, setOpen] = useState(false);
 
   useEffect(() => {
     setOpen(state);
   }, [state]);
-  useEffect(() => {
-    setUserInfo(info);
-  }, [info]);
 
   return (
     <Transition.Root show={open} as={Fragment}>
@@ -71,7 +68,7 @@ export function PayWithKhalti(props) {
                   {/* const { price, productName, productIdentity } = props.detailSubs; */}
                   <Khalti
                     detailSubs={{
-                      price: 1000,
+                      price: info.amount,
                       productName: "trainer",
                       productIdentity: "1",
                       trainerID: info.trainer_id,

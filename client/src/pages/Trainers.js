@@ -7,7 +7,7 @@ export default function TrainerRender() {
   const URL = "http://localhost:5000/api/v1";
   const [trainers, setTrainers] = useState([]);
 
-  console.log(trainers);
+  // console.log(trainers);
   useEffect(() => {
     const trainerFetch = async () => {
       try {
@@ -138,11 +138,11 @@ const TrainerPageCard = ({ detail }) => {
             </div>
           </div>
         </td>
+        <PayWithKhalti
+          state={popUp}
+          info={{ amount: 1000, trainer_id: detail._id }}
+        />
       </tr>
-      <PayWithKhalti
-        state={popUp}
-        info={{ amount: 1000, trainer_id: detail._id }}
-      />
     </>
   );
 };

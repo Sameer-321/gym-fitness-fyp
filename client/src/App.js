@@ -4,7 +4,7 @@ import "./App.css";
 import Layout from "./pages/Layout";
 import Home from "./pages/Home";
 import Notfound from "./pages/Notfound";
-import { Routes, Route, redirect } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 import LoginRegister from "./pages/LoginRegister";
 import { useDispatch, useSelector } from "react-redux";
 import Pricing from "./components/UI/Pricing";
@@ -13,20 +13,20 @@ import { getMe } from "./features/auth/authFetch";
 import Profile from "./pages/Profile";
 import Payment from "./pages/Payment";
 import RequireAuthUser from "./components/RequireAuthUser";
-import { info, role, status } from "./features/auth/authSlice";
+import { info, status } from "./features/auth/authSlice";
 import Cookies from "universal-cookie";
 import { ApplyTrainers } from "./pages/ApplyTrainers";
 import { UpdateProfile } from "./components/Modal/UpdateProfile";
 import { Rough } from "./pages/Rough";
 import { Messenger } from "./components/ChatApp/Messenger/Messenger";
 import { Loading } from "./components/assests/Loading";
-
+import { getTrainerSubscriptionDetail } from "./features/TrainerSubscription/trainerSubFetch";
 ////imports for Traienrs******
 import { TrainerPendingForm } from "./components/trainerSection/Trainer-Form/TrainerPendingForm";
 import { TrainerProfile } from "./components/trainerSection/TrainerProfile.js/TrainerProfile";
 import { TrainerFrame } from "./components/trainerSection/pages/TrainerFrame";
 import { getSubscriptionDetail } from "./features/subscription/subFetch";
-import { ShowTrainersProfile } from "./pages/ShowTrainersProfile";
+
 import Trainers from "./pages/Trainers";
 
 function App() {
@@ -51,6 +51,10 @@ function App() {
     dispatch(getSubscriptionDetail());
   }, [userInfo.id]);
 
+  useEffect(() => {
+    dispatch(getTrainerSubscriptionDetail());
+  }, [userInfo.id]);
+
   return (
     <>
       {isLoading === "loading" || userInfo.role === "loading" ? (
@@ -68,7 +72,7 @@ function App() {
             <Route path="/profile" element={<Profile />} />
             <Route path="/trainers" element={<Trainers />} />
             <Route path="/trainers/profile" element={<TrainerProfile />} />
-            <Route path="/trainers-profile" element={<ShowTrainersProfile />} />
+            {/* <Route path="/trainers-profile" element={<ShowTrainersProfile />} /> */}
             <Route path="*" element={<Notfound />} />
             //protected route
             <Route
