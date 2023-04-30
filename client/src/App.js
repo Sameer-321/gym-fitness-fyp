@@ -91,14 +91,7 @@ function App() {
                 </RequireAuthUser>
               }
             />
-            <Route
-              path="/messenger"
-              element={
-                <RequireAuthUser roleProps={"user"} info={userInfo}>
-                  <Messenger info={userInfo} />
-                </RequireAuthUser>
-              }
-            />
+            <Route path="/messenger" element={<Messenger info={userInfo} />} />
           </Route>
           <Route path="/check" element={<UpdateProfile />} />
           <Route path="/rough" element={<Rough />} />

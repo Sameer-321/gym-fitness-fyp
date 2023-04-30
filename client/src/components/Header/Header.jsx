@@ -10,7 +10,7 @@ import Dropdown from "../DropDown/DropDown";
 
 import { Dialog } from "@headlessui/react";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
-
+import { ChatBubbleBottomCenterIcon } from "@heroicons/react/20/solid";
 const nav__links = [
   {
     id: 1,
@@ -30,8 +30,8 @@ const nav__links = [
 
   {
     id: 4,
-    path: "/about",
-    display: "About Us",
+    path: "/messenger",
+    display: "Chat",
   },
 ];
 
