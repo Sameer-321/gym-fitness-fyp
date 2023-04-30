@@ -26,7 +26,7 @@ export default function Khalti(props) {
   };
 
   const createSub = () => {
-    dispatch(createSubscription(subDetail));
+    dispatch(createSubscription(subDetail)); //api hit for subscription
   };
   let config = khaltiConfig(productName, productIdentity, createSub);
   let checkout = new KhaltiCheckout(config);

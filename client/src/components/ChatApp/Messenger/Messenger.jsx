@@ -19,7 +19,7 @@ export function Messenger(props) {
 
   const { info } = props;
   const { isLoggedIn } = props.info;
-  console.log(info, 21);
+  // console.log(info, 21);
   const scrollRef = useRef();
 
   useEffect(() => {
@@ -42,7 +42,7 @@ export function Messenger(props) {
 
   useEffect(() => {
     socket.current.emit("addUser", info.id);
-    // socket.current.on("getUsers", ( users) => {
+    // socket.current.on("getUsers", (users) => {
     //   setOnlineUsers(
     //     info.followings.filter((f) => users.some((u) => u.userId === f))
     //   );
@@ -56,6 +56,7 @@ export function Messenger(props) {
           "http://localhost:5000/api/v1/conversations/" + info.id
         );
         setConversations(res.data);
+        // console.log(res.data);
       } catch (err) {
         console.log(err);
       }
@@ -68,7 +69,7 @@ export function Messenger(props) {
     const getMessages = async () => {
       try {
         const res = await axios.get(
-          "http://localhost:5000/api/v1/messages/" + currentChat?.id
+          "http://localhost:5000/api/v1/messages/" + currentChat?._id
         );
         setMessages(res.data);
       } catch (err) {
@@ -109,10 +110,10 @@ export function Messenger(props) {
   return (
     <>
       {/* <Topbar /> */}
-      <div className="messenger">
-        <div className="chatMenu">
+      <div className="messenger container mt-[66px] mx-auto">
+        <div className="chatMenu bg-gray-200 ">
           {" "}
-          <div className="chatMenuWrapper">
+          <div className="chatMenuWrapper mx-auto w-full">
             {/* <input placeholder="Search for friends" className="chatMenuInput" /> */}
             {conversations.map((c) => (
               <div
@@ -141,14 +142,17 @@ export function Messenger(props) {
                     </div>
                   ))}
                 </div>
-                <div className="chatBoxBottom">
+                <div className="chatBoxBottom w-full mx-auto">
                   <textarea
-                    className="chatMesageInput"
+                    className="chatMesageInput w-4/5 "
                     placeholder="write message"
                     onChange={(e) => setNewMessages(e.target.value)}
                     value={newMessages}
                   ></textarea>
-                  <button className="chatSubmitButton" onClick={handleSubmit}>
+                  <button
+                    className="chatSubmitButton w-1/5"
+                    onClick={handleSubmit}
+                  >
                     Send
                   </button>
                 </div>{" "}
@@ -160,7 +164,7 @@ export function Messenger(props) {
             )}
           </div>
         </div>
-        <div className="chatOnline">
+        {/* <div className="chatOnline">
           <div className="onlineWrapper">
             <ChatOnline
               onlineUsers={onlineUsers}
@@ -168,7 +172,7 @@ export function Messenger(props) {
               setCurrentChat={setCurrentChat}
             />
           </div>
-        </div>
+        </div> */}
       </div>
     </>
   );

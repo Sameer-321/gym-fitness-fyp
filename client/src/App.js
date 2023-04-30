@@ -67,7 +67,8 @@ function App() {
             <Route path="/contact" element={<ContactUs />} />
             <Route path="/profile" element={<Profile />} />
             <Route path="/trainers" element={<Trainers />} />
-            <Route path="/trainers/profile" element={<ShowTrainersProfile />} />
+            <Route path="/trainers/profile" element={<TrainerProfile />} />
+            <Route path="/trainers-profile" element={<ShowTrainersProfile />} />
             <Route path="*" element={<Notfound />} />
             //protected route
             <Route

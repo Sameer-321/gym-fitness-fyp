@@ -5,18 +5,20 @@ import axios from "axios";
 export function Conversation(props) {
   const { conversation, currentUser, userInfo } = props;
   const [user, setUser] = useState(null);
-  console.log(userInfo);
+  // console.log(userInfo);
 
   useEffect(() => {
-    console.log(currentUser);
+    // console.log(conversation);
+    // console.log(currentUser);
     const friendId = conversation.members.find((m) => m !== currentUser.id);
-    console.log(friendId,13)
+    // console.log(friendId, 13);
     const getUser = async () => {
       try {
         const res = await axios(
           "http://localhost:5000/api/v1/admin/users/" + friendId
         );
         setUser(res.data);
+        console.log(user);
       } catch (err) {
         console.log(err);
       }
@@ -29,8 +31,8 @@ export function Conversation(props) {
       <img
         className="conversationImg"
         src={
-          user?.profilePictureLink
-            ? `http://localhost:5000/${user?.profilePictureLink}`
+          user?.profilePicture?.link
+            ? `http://localhost:5000/${user?.profilePicture?.link}`
             : "https://www.kindpng.com/picc/m/22-223863_no-avatar-png-circle-transparent-png.png"
         }
         alt="dubmbell"

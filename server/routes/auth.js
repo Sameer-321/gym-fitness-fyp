@@ -3,6 +3,7 @@ const {
   register,
   login,
   getMe,
+  profilePicture,
   updatedetails,
   updatePassword,
   logout,
@@ -20,6 +21,7 @@ router.post("/login", login);
 router.get("/logout", logout);
 
 router.get("/me", protect, getMe);
+router.get("/profilePicture/:id", profilePicture);
 
 router.put("/updatedetails", protect, updatedetails);
 
