@@ -23,10 +23,11 @@ import { Loading } from "./components/assests/Loading";
 import { getTrainerSubscriptionDetail } from "./features/TrainerSubscription/trainerSubFetch";
 ////imports for Traienrs******
 import { TrainerPendingForm } from "./components/trainerSection/Trainer-Form/TrainerPendingForm";
+
 import { TrainerProfile } from "./components/trainerSection/TrainerProfile.js/TrainerProfile";
 import { TrainerFrame } from "./components/trainerSection/pages/TrainerFrame";
 import { getSubscriptionDetail } from "./features/subscription/subFetch";
-
+import { getTrainerInfo } from "./features/trainer/trainerFetch";
 import Trainers from "./pages/Trainers";
 
 function App() {
@@ -36,15 +37,17 @@ function App() {
 
   const [userInfo, setUserInfo] = useState(informationUser);
   // console.log(userInfo);
-
+  const cookies = new Cookies();
+  const token = cookies.get("token");
+  useEffect(() => {
+    dispatch(getTrainerInfo(userInfo.id));
+  }, [userInfo.id]);
   useEffect(() => {
     setUserInfo(informationUser);
   }, [informationUser]);
 
   useEffect(() => {
-    const cookies = new Cookies();
-    const token = cookies.get("token");
-    dispatch(getMe(token));
+    dispatch(getMe(userInfo.id));
   }, []);
 
   useEffect(() => {
@@ -102,7 +105,7 @@ function App() {
             <Route index element={<TrainerPendingForm />} />
           ) : (
             <Route path="/" element={<TrainerFrame userInfo={userInfo} />}>
-              <Route index element={<TrainerProfile />} />
+              {/* <Route index element={<TrainerProfile />} /> */}
               <Route
                 path="/messenger"
                 element={<Messenger info={userInfo} />}

@@ -140,7 +140,7 @@ const TrainerPageCard = ({ detail }) => {
         </td>
         <PayWithKhalti
           state={popUp}
-          info={{ amount: 1000, trainer_id: detail._id }}
+          info={{ amount: 1000, trainer_id: detail.userInfo._id }}
         />
       </tr>
     </>

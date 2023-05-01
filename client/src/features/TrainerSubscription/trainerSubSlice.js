@@ -44,33 +44,34 @@ const trainerSubSlice = createSlice({
         state.query = "loading";
       })
       .addCase(getTrainerSubscriptionDetail.fulfilled, (state, action) => {
-        console.log(action.payload);
-        const {
-          _id,
-          trainerId,
-          subscribtionTier,
-          productIdentity,
-          amount,
-          startDate,
-          endDate,
-          status,
-          paymentMethod,
-          userInfo,
-        } = action.payload;
+        //console.log(action.payload);
+        if (action.payload) {
+          const {
+            trainerId,
+            subscribtionTier,
+            productIdentity,
+            amount,
+            startDate,
+            endDate,
+            status,
+            paymentMethod,
+            userInfo,
+          } = action?.payload;
 
-        //state management
-        state.isTrainerSubscriber = true;
-        state.id = _id;
-        state.trainerId = trainerId;
-        state.subscribtionTier = subscribtionTier;
-        state.productIdentity = productIdentity;
-        state.amount = amount;
-        state.startDate = startDate;
-        state.endDate = endDate;
-        state.status = status;
-        state.paymentMethod = paymentMethod;
-        state.userInfo = userInfo;
-        state.query = "success";
+          //state management
+          state.isTrainerSubscriber = true;
+          state.id = action.payload?._id;
+          state.trainerId = trainerId;
+          state.subscribtionTier = subscribtionTier;
+          state.productIdentity = productIdentity;
+          state.amount = amount;
+          state.startDate = startDate;
+          state.endDate = endDate;
+          state.status = status;
+          state.paymentMethod = paymentMethod;
+          state.userInfo = userInfo;
+          state.query = "success";
+        }
       })
       .addCase(getTrainerSubscriptionDetail.rejected, (state, action) => {
         state.query = "failed";

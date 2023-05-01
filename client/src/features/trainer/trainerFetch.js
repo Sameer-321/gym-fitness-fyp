@@ -12,15 +12,15 @@ export const getTrainerInfo = createAsyncThunk("trainerInfo", async (id) => {
         Authorization: `Bearer ${cookies.get("token")}`,
       },
     });
-    return response.data;
+    return response;
   } catch (err) {
-    if (!err?.response) {
-      console.log("NO Server Response");
-    } else if (err?.response?.status === 400) {
-      console.log("Missing Password or UserName");
-    } else if (err?.response?.status === 401) {
-      console.log("UnAuthorized");
-    }
-    console.log(err);
+    // if (!err?.response) {
+    //   console.log("NO Server Response");
+    // } else if (err?.response?.status === 400) {
+    //   console.log("Missing Password or UserName");
+    // } else if (err?.response?.status === 401) {
+    //   console.log("UnAuthorized");
+    // }
+    // console.log(err);
   }
 });
