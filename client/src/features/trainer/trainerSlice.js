@@ -22,7 +22,7 @@ const trainerSlice = createSlice({
   name: "trainer",
   initialState,
   reducers: {
-    hello(state, action) {
+    hello() {
       console.log("hello called");
     },
   },
@@ -32,7 +32,7 @@ const trainerSlice = createSlice({
         state.status = "loading";
       })
       .addCase(getTrainerInfo.fulfilled, (state, action) => {
-        //console.log(action.payload);
+        // console.log(action.payload, "rtttttttttttttttttttttttttt");
         if (action.payload) {
           const {
             _id,
@@ -48,9 +48,10 @@ const trainerSlice = createSlice({
           } = action.payload.data;
 
           //state management
-          if (action.payload.data.status === 200) {
-            state.isTrainer = true;
-          }
+
+          state.isTrainer = true;
+
+          // state.isTrainer = true;
           state.id = _id;
           state.firstName = firstName;
           state.lastName = lastName;

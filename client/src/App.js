@@ -39,16 +39,16 @@ function App() {
   // console.log(userInfo);
   const cookies = new Cookies();
   const token = cookies.get("token");
+
   useEffect(() => {
-    dispatch(getTrainerInfo(userInfo.id));
-  }, [userInfo.id]);
+    dispatch(getMe());
+  }, []);
   useEffect(() => {
     setUserInfo(informationUser);
   }, [informationUser]);
-
   useEffect(() => {
-    dispatch(getMe(userInfo.id));
-  }, []);
+    dispatch(getTrainerInfo(userInfo.id));
+  }, [userInfo.id]);
 
   useEffect(() => {
     dispatch(getSubscriptionDetail());
@@ -99,7 +99,7 @@ function App() {
           <Route path="/check" element={<UpdateProfile />} />
           <Route path="/rough" element={<Rough />} />
         </Routes>
-      ) : (
+      ) : userInfo.role === "trainer-pening" || userInfo.role === "trainer" ? (
         <Routes>
           {userInfo.role === "trainer-pending" ? (
             <Route index element={<TrainerPendingForm />} />
@@ -115,6 +115,8 @@ function App() {
           //public route
           <Route path="*" element={<Notfound />} />
         </Routes>
+      ) : (
+        window.location.reload()
       )}
     </>
   );

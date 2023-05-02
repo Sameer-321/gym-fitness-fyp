@@ -19,14 +19,24 @@ export function Messenger(props) {
   const [newMessages, setNewMessages] = useState("");
   const [arrivalMessages, setArrivalMessages] = useState(null);
   const [onlineUsers, setOnlineUsers] = useState(null);
-  const sub_status = useSelector(isTrainerSubscriber);
-  const trainer_status = useSelector(isTrainer);
+
   const nav = useNavigate();
   const { info } = props;
   const { isLoggedIn } = props.info;
   // console.log(info, 21);
   const scrollRef = useRef();
 
+  //State for Role-Based-Auth
+  const sub_status = useSelector(isTrainerSubscriber);
+  const trainer_status = useSelector(isTrainer);
+  console.log(sub_status, 12111111111111);
+  console.log(trainer_status, 222222222222222);
+  const [subStatus, setSubStatus] = useState(false);
+  const [trainerStatus, setTrainerStatus] = useState(false);
+  useEffect(() => {
+    setSubStatus(sub_status);
+    setTrainerStatus(trainer_status);
+  }, [sub_status, trainer_status]);
   useEffect(() => {
     socket.current = io("ws://localhost:8900");
     socket.current.on("getMessage", (data) => {
@@ -115,7 +125,7 @@ export function Messenger(props) {
 
   return (
     <>
-      {sub_status || trainer_status ? (
+      {subStatus || trainerStatus ? (
         <div className="messenger container mt-[66px] mx-auto">
           <div className="chatMenu bg-gray-200 ">
             {" "}
@@ -180,7 +190,7 @@ export function Messenger(props) {
       </div>
     </div> */}
         </div>
-      ) : (
+      ) : !subStatus || !trainerStatus ? (
         <div className="container my-[120px] mx-auto w-3/5  p-6 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
           <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
             Get Online Personal Trainer
@@ -212,7 +222,7 @@ export function Messenger(props) {
             </svg>
           </div>
         </div>
-      )}
+      ) : null}
     </>
   );
 }

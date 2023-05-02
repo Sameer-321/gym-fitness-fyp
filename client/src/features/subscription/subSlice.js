@@ -58,24 +58,26 @@ const subscriptionSlice = createSlice({
       })
       .addCase(getSubscriptionDetail.fulfilled, (state, action) => {
         // console.log(action.payload);
-        const {
-          subscribtionTier,
-          productIdentity,
-          amount,
-          startDate,
-          endDate,
-          status,
-          paymentMethod,
-        } = action?.payload || {};
-        state.isSubscriber = true;
-        state.subscribtionTier = subscribtionTier;
-        state.productIdentity = productIdentity;
-        state.amount = amount;
-        state.startDate = startDate;
-        state.endDate = endDate;
-        state.status = status;
-        state.paymentMethod = paymentMethod;
-        state.loading = "success";
+        if (action.payload) {
+          const {
+            subscribtionTier,
+            productIdentity,
+            amount,
+            startDate,
+            endDate,
+            status,
+            paymentMethod,
+          } = action.payload;
+          state.isSubscriber = true;
+          state.subscribtionTier = subscribtionTier;
+          state.productIdentity = productIdentity;
+          state.amount = amount;
+          state.startDate = startDate;
+          state.endDate = endDate;
+          state.status = status;
+          state.paymentMethod = paymentMethod;
+          state.loading = "success";
+        }
       })
       .addCase(getSubscriptionDetail.rejected, (state, action) => {
         state.isSubscriber = false;
