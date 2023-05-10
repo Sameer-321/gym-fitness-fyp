@@ -9,10 +9,11 @@ export function TrainerProfile() {
   const location = useLocation();
   const myData = location.state.info;
   const [detail, setDetail] = useState();
-  console.log(detail);
+  console.log(detail, "bbbbbbbbbbbbbbbbbb");
   useEffect(() => {
     getTrainerInfo(myData._id)
       .then((data) => {
+        console.log(data, "mmmmmmmmmmmmmmmmmmmmmmmmmm");
         setDetail(data);
       })
       .catch((err) => console.log(err));
@@ -20,9 +21,25 @@ export function TrainerProfile() {
 
   return (
     <>
-      <TrainerProfileCard data={myData} />
-      <TrainerCertificate photos={detail?.certificates} />
-      <TrainerPhoto pictures={detail?.photos} />
+      <section className="container px-6 my-40 mx-auto">
+        <div className="flex items-start gap-16 mb-16">
+          <TrainerProfileCard
+            detail={myData}
+            qua={detail?.trainerType}
+            exp={detail?.yearsOfExperience}
+            name={detail?.firstName + " " + detail?.lastName}
+          />
+        </div>
+        <TrainerCertificate photos={detail?.certificates} />
+        <div className="mb-16">
+          <div className="flex justify-between mb-6">
+            <h1 className="text-3xl">Description</h1>
+            {/* / */}
+          </div>
+          <div>{detail?.description}</div>
+        </div>
+        <TrainerPhoto pictures={detail?.photos} />
+      </section>
     </>
   );
 }

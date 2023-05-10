@@ -1,125 +1,52 @@
-import React, { useState } from "react";
-import { useSelector } from "react-redux";
-import { info } from "../../features/auth/authSlice";
+import React from "react";
 
-import { PencilSquareIcon } from "@heroicons/react/20/solid";
-import axios from "axios";
+export function TrainerProfileCard(props) {
+  const { profilePicture } = props.detail;
 
-// import { UpdateProfile } from "../../Modal/UpdateProfile";
+  console.log(props.detail, "aaaaaaaaaaaaaaaaaaaa");
 
-export function TrainerProfileCard({ data }) {
-  const [userInfo, setUserInfo] = useState();
-  const [pic, setPic] = useState("");
-  const [popUp, setPopUp] = useState(false);
-  const userInformation = useSelector(info);
-
-  const imageRender = () => {
-    if (data?.profilePictureLink) {
-      return `http://localhost:5000/${data?.profilePictureLink}`;
-    } else {
-      return "https://www.kindpng.com/picc/m/22-223863_no-avatar-png-circle-transparent-png.png";
-    }
-  };
-
-  const imageUpload = (e) => {
-    setPic(e.target.files[0]);
-    console.log(e.target.files[0]);
-  };
-
-  const submitButton = async () => {
-    const formData = new FormData();
-    formData.append("file", pic);
-    var user_id = "asdf";
-    await axios
-      .post(`http://localhost:5000/api/v1/upload/img/${user_id}`, formData, {
-        headers: { Authorization: "send local token from cookies" },
-      })
-      .then((res) => {
-        console.log(res.data);
-      });
-  };
-  const handleClick = () => {
-    setPopUp(!popUp);
-  };
   return (
     <>
-      <div className="flex items-center h-screen w-full justify-center">
-        <div className="max-w-xs -mt-12">
-          <div className="bg-white shadow rounded-2xl py-3">
-            <div className="px-4 flex">
-              <button
-                className="ml-auto text-gray-500 p-2 hover:bg-gray-100 rounded-full"
-                title="Edit profile"
-                onClick={() => {
-                  handleClick();
-                }}
-              >
-                <PencilSquareIcon className="h-4 w-4" />
-              </button>
-            </div>
-            <div className="photo-wrapper p-2">
-              <img
-                className="w-28 h-28 rounded-full mx-auto border"
-                src={
-                  data?.profilePictureLink
-                    ? `http://localhost:5000/${data?.profilePictureLink}`
-                    : "https://www.kindpng.com/picc/m/22-223863_no-avatar-png-circle-transparent-png.png"
-                }
-                //src={}
-                alt="NO Avatar"
-              />
-            </div>
-            <div className="p-2">
-              <h3 className="text-center text-lg text-gray-900 mb-2 font-medium leading-8">
-                {data.name}
-              </h3>
-              <div className="text-center text-gray-400 text-xs font-semibold">
-                <span className="px-3 py-1 rounded-full bg-green-400 text-white font-semibold">
-                  Verified
-                </span>
-              </div>
-              <table className="text-xs my-3">
-                <tbody>
-                  <tr>
-                    <td className="px-2 py-2 text-gray-500 font-normal">
-                      Address
-                    </td>
-                    <td className="px-2 py-2">
-                      Chatakpur-3, Dhangadhi Kailali
-                    </td>
-                  </tr>
-                  <tr>
-                    <td className="px-2 py-2 text-gray-500 font-normal">
-                      Phone
-                    </td>
-                    <td className="px-2 py-2">+977 9955221114</td>
-                  </tr>
-                  <tr>
-                    <td className="px-2 py-2 text-gray-500 font-normal">
-                      Email
-                    </td>
-                    <td className="px-2 py-2">{data.email}</td>
-                  </tr>
-                </tbody>
-              </table>
+      <div className="lg:w-4/12 ml-[60px]">
+        <img
+          className="w-56 h-56 p-6 mx-auto mb-4 border rounded-full"
+          src={
+            props.detail?.profilePicture.link
+              ? `http://localhost:5000/${profilePicture.link}`
+              : "https://www.kindpng.com/picc/m/22-223863_no-avatar-png-circle-transparent-png.png"
+          }
+          alt=""
+          loading="lazy"
+        />
+        <p className="text-base text-center font-semibold text-[26px] mt-[25px]">
+          {props?.name}
+        </p>
+      </div>
 
-              <div className="text-center mt-3">
-                <a
-                  className="text-xs text-indigo-500  hover:underline hover:text-indigo-600 font-medium"
-                  href="#"
-                >
-                  View Profile
-                </a>
-              </div>
-            </div>
-          </div>
+      <div className="lg:w-8/12">
+        <div className=" bg-purple-600 rounded-full text-center w-2/5  mr-auto mb-7 p-1">
+          <span className="font-semibold text-stone-200  ">
+            Years of Experience:
+          </span>
+          <span className="font-bold text-slate-900 text-[20px] ">
+            {props.exp}
+          </span>
+        </div>
+        <div className="flex justify-between mb-6">
+          <h1 className="text-4xl">Qualification:</h1>
+        </div>
+
+        <div className="flex flex-wrap gap-4">
+          {Array.isArray(props?.qua) &&
+            props?.qua.map((i) => {
+              return (
+                <span className="bg-violet-200 px-3 text-sm rounded-full py-1.5">
+                  {i}
+                </span>
+              );
+            })}
         </div>
       </div>
-      <br />
-      <br />
-      <br />
-      <br />
-      {/* <UpdateProfile state={popUp} info={userInfo} /> */}
     </>
   );
 }
