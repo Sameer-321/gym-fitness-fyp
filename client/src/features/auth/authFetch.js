@@ -46,7 +46,7 @@ export const registerfetch = createAsyncThunk(
   }
 );
 
-export const getMe = createAsyncThunk("getMe", async (jwt_token) => {
+export const getMe = createAsyncThunk("getMe", async () => {
   const cookies = new Cookies();
   const token = cookies.get("token");
   const headers = {

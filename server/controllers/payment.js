@@ -30,21 +30,3 @@ exports.khalti = async (req, res, next) => {
       console.log(error);
     });
 };
-
-// //
-// const options = {
-//   url: 'https://khalti.com/api/v2/payment/verify/',
-//   headers: {
-//     'Content-Type': 'application/json',
-//     'Authorization': 'Bearer <your-auth-token>'
-//   },
-//   body: JSON.stringify(dataSend)
-// };
-
-// request.post(options, function(err, res, body) {
-//   if (err) {
-//     console.log('Error:', err);
-//   } else {
-//     console.log('Response:', body);
-//   }
-// });

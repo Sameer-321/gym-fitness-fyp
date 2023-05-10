@@ -22,7 +22,7 @@ const trainerSlice = createSlice({
   name: "trainer",
   initialState,
   reducers: {
-    hello(state, action) {
+    hello() {
       console.log("hello called");
     },
   },
@@ -32,32 +32,38 @@ const trainerSlice = createSlice({
         state.status = "loading";
       })
       .addCase(getTrainerInfo.fulfilled, (state, action) => {
-        console.log(action.payload);
-        const {
-          _id,
-          firstName,
-          lastName,
-          gender,
-          trainerType,
-          yearsOfExperience,
-          description,
-          photos,
-          certificates,
-          userInfo,
-        } = action.payload;
+        console.log(action.payload, "rtttttttttttttttttttttttttt");
+        if (action.payload) {
+          const {
+            _id,
+            firstName,
+            lastName,
+            gender,
+            trainerType,
+            yearsOfExperience,
+            description,
+            photos,
+            certificates,
+            userInfo,
+          } = action.payload;
 
-        //state management
-        state.id = _id;
-        state.firstName = firstName;
-        state.lastName = lastName;
-        state.gender = gender;
-        state.trainerType = trainerType;
-        state.yearsOfExperience = yearsOfExperience;
-        state.description = description;
-        state.photos = photos;
-        state.certificates = certificates;
-        state.userInfo = userInfo;
-        state.status = "success";
+          //state management
+
+          state.isTrainer = true;
+
+          // state.isTrainer = true;
+          state.id = _id;
+          state.firstName = firstName;
+          state.lastName = lastName;
+          state.gender = gender;
+          state.trainerType = trainerType;
+          state.yearsOfExperience = yearsOfExperience;
+          state.description = description;
+          state.photos = photos;
+          state.certificates = certificates;
+          state.userInfo = userInfo;
+          state.status = "success";
+        }
       })
       .addCase(getTrainerInfo.rejected, (state, action) => {
         state.status = "failed";
@@ -70,6 +76,7 @@ export const firstName = (state) => state.trainer?.firstName;
 export const lastName = (state) => state.trainer?.lastName;
 export const certificates = (state) => state.trainer?.certificates;
 export const photos = (state) => state.trainer?.photos;
+export const isTrainer = (state) => state.trainer?.isTrainer;
 // export const info = (state) => ({
 //   id: state.auth.id,
 //   isLoggedIn: state.auth.isLoggedIn,

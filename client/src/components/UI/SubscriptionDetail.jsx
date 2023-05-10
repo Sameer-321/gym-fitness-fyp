@@ -31,7 +31,7 @@ export function SubscriptionDetail() {
   }, [sub]);
 
   return (
-    <div>
+    <div className="mx-auto mt-12 ml-6 border-t-2">
       <div className="px-4 sm:px-0">
         <h3 className="text-base font-semibold leading-7 text-gray-900">
           Subscription Information

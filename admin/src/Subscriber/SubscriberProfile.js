@@ -14,7 +14,7 @@ function Profile() {
   const location = useLocation();
   const myData = location.state.subscriptionDetail;
   const profile = location.state.userProfile;
-
+  console.log(profile);
   return (
     <>
       <ProfileCard userProfile={profile} />

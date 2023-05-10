@@ -23,6 +23,7 @@ const uploadRoute = require("./routes/uploadRoute.js");
 const usersRoute = require("./routes/UsersRoute.js");
 const trainerRequest = require("./routes/trainer-request.js");
 const subscription = require("./routes/subscription.js");
+const trainerSubscription = require("./routes/trainerSubscription.js");
 const conversationRoute = require("./routes/conversations");
 const messageRoute = require("./routes/messages");
 const trainerProfile = require("./routes/trainerProfile");
@@ -52,7 +53,7 @@ app.use("/api/v1/admin", adminRoute);
 app.use("/api/v1/admin/users", usersRoute);
 
 app.use("/api/v1/subscribe", subscription);
-
+app.use("/api/v1/trainer-sub", trainerSubscription);
 app.use("/api/v1/conversations", conversationRoute);
 app.use("/api/v1/messages", messageRoute);
 

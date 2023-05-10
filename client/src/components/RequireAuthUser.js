@@ -10,7 +10,7 @@ export default function RequireAuthUser(props) {
   }, [props.info]);
 
   const { isLoggedIn, role, status } = userInfo;
-  console.log(isLoggedIn,"state check")
+  console.log(isLoggedIn, "state check");
 
   const roleCheck = () => {
     return roleProps === role;
@@ -43,15 +43,15 @@ export default function RequireAuthUser(props) {
   );
   const renderLoading = () => {
     if (status === "loading") {
-      return loading
+      return loading;
     }
-  }
-console.log(role,roleCheck(),"role")
+  };
+  console.log(role, roleCheck(), "role");
   return (
     <>
       {/* {renderLoading()} */}
-      {status==="loading" && renderLoading()}
-      {isLoggedIn && {roleCheck}? (children) : (<LoginPopup/>)}
+      {status === "loading" && renderLoading()}
+      {isLoggedIn && { roleCheck } ? children : <LoginPopup />}
     </>
   );
 }
