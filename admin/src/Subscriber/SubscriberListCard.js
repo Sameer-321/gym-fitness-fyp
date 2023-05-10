@@ -1,10 +1,12 @@
 import { useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { getUser } from "../components/Fetch/UserFetch";
-
+import { CalendarDaysIcon } from "@heroicons/react/24/outline";
+import { ExtendDate } from "../components/modals/ExtendDate";
 export const SubscriberListCard = ({ data }) => {
   const nav = useNavigate();
   const [userProfile, setUserProfile] = useState();
+  const [popUp, setPopUp] = useState(false);
 
   useEffect(() => {
     getUser(data.userInfo._id)
@@ -21,53 +23,65 @@ export const SubscriberListCard = ({ data }) => {
       state: { subscriptionDetail: data, userProfile: userProfile },
     });
   };
-
+  const handleClick = () => {
+    setPopUp(!popUp);
+  };
   return (
-    <tr className="text-gray-700">
-      <td className="px-4 py-3 border">
-        <div className="flex items-center text-sm">
-          <div className="relative w-8 h-8 mr-3 rounded-full md:block">
-            <img
-              className="object-cover w-full h-full rounded-full"
-              src={
-                userProfile?.profilePicture?.link
-                  ? `http://localhost:5000/${userProfile?.profilePicture?.link}`
-                  : `https://www.kindpng.com/picc/m/22-223863_no-avatar-png-circle-transparent-png.png`
-              }
-              alt=""
-              loading="lazy"
-            />
-            <div
-              className="absolute inset-0 rounded-full shadow-inner"
-              aria-hidden="true"
-            ></div>
+    <>
+      <tr className="text-gray-700">
+        <td className="px-4 py-3 border">
+          <div className="flex items-center text-sm">
+            <div className="relative w-8 h-8 mr-3 rounded-full md:block">
+              <img
+                className="object-cover w-full h-full rounded-full"
+                src={
+                  userProfile?.profilePicture?.link
+                    ? `http://localhost:5000/${userProfile?.profilePicture?.link}`
+                    : `https://www.kindpng.com/picc/m/22-223863_no-avatar-png-circle-transparent-png.png`
+                }
+                alt=""
+                loading="lazy"
+              />
+              <div
+                className="absolute inset-0 rounded-full shadow-inner"
+                aria-hidden="true"
+              ></div>
+            </div>
+            <div>
+              <p className="font-semibold text-black">{userProfile?.name}</p>
+              <p className="text-xs text-gray-600"> {userProfile?.email}</p>
+            </div>
           </div>
-          <div>
-            <p className="font-semibold text-black">{userProfile?.name}</p>
-            <p className="text-xs text-gray-600"> {userProfile?.email}</p>
-          </div>
-        </div>
-      </td>
+        </td>
 
-      <td className="px-4 py-3 text-xs border">
-        <span className={statusCss(data.status)}> {data.status} </span>
-      </td>
-      <td className="px-4 py-3 text-xs border">
-        {/* <span className={statusCss(data.status)}> {data.status} </span> */}
-        <input type="date" />
-      </td>
-      <td className="px-4 py-3 text-sm border">
-        <button
-          type="button"
-          class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-200 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
-          onClick={() => {
-            subscriberProfile();
-          }}
-        >
-          View
-        </button>
-      </td>
-    </tr>
+        <td className="px-4 py-3 text-xs border">
+          <span className={statusCss(data.status)}> {data.status} </span>
+        </td>
+        <td className="px-3 py-2 text-xs border">
+          {/* <span className={statusCss(data.status)}> {data.status} </span> */}
+          <CalendarDaysIcon
+            className="w-[30px] h-[30px]  mx-auto cursor-pointer bg-purple-200 rounded-lg "
+            onClick={() => {
+              handleClick();
+            }}
+          />
+          {/* <input type="date" /> */}
+        </td>
+        <td className="px-4 py-3 text-sm border">
+          <button
+            type="button"
+            class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-200 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
+            onClick={() => {
+              subscriberProfile();
+            }}
+          >
+            View
+          </button>
+        </td>
+      </tr>
+
+      <ExtendDate state={popUp} info={userProfile} />
+    </>
   );
 };
 

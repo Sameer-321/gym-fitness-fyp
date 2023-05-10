@@ -44,7 +44,7 @@ export function Subscriber() {
 
                   <th className="px-4 py-3">Status</th>
 
-                  <th className="px-4 py-3">Rough</th>
+                  <th className="px-4 py-3">Extend</th>
                   <th className="px-4 py-3">Profile</th>
                 </tr>
               </thead>

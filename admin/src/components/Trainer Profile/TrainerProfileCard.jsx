@@ -3,7 +3,7 @@ import React from "react";
 export function TrainerProfileCard(props) {
   const { profilePicture } = props.detail;
 
-  console.log(props.detail, "aaaaaaaaaaaaaaaaaaaa");
+  // console.log(props.detail, "aaaaaaaaaaaaaaaaaaaa");
 
   return (
     <>

@@ -9,11 +9,10 @@ export function TrainerProfile() {
   const location = useLocation();
   const myData = location.state.info;
   const [detail, setDetail] = useState();
-  console.log(detail, "bbbbbbbbbbbbbbbbbb");
+  // console.log(detail, "bbbbbbbbbbbbbbbbbb");
   useEffect(() => {
     getTrainerInfo(myData._id)
       .then((data) => {
-        console.log(data, "mmmmmmmmmmmmmmmmmmmmmmmmmm");
         setDetail(data);
       })
       .catch((err) => console.log(err));
