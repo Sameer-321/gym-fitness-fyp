@@ -54,6 +54,21 @@ exports.getAllSubscriptionDetail = async (req, res, next) => {
   }
 };
 
+exports.extendSubscription = async (req, res, next) => {
+  try {
+    const { endDate } = req.body;
+
+    const updateStatus = await Subscription.findByIdAndUpdate(
+      req.params.id,
+      { $set: { endDate: endDate } },
+      { new: true } // this option returns the updated document
+    );
+    res.status(200).json(updateStatus);
+  } catch (err) {
+    next(err);
+  }
+};
+
 exports.deleteSubscriber = async (req, res, next) => {
   try {
     await Subscription.findByIdAndDelete(req.params.id);

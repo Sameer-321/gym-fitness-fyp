@@ -32,7 +32,7 @@ const trainerSlice = createSlice({
         state.status = "loading";
       })
       .addCase(getTrainerInfo.fulfilled, (state, action) => {
-        // console.log(action.payload, "rtttttttttttttttttttttttttt");
+        console.log(action.payload, "rtttttttttttttttttttttttttt");
         if (action.payload) {
           const {
             _id,
@@ -45,7 +45,7 @@ const trainerSlice = createSlice({
             photos,
             certificates,
             userInfo,
-          } = action.payload.data;
+          } = action.payload;
 
           //state management
 

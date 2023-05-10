@@ -70,7 +70,7 @@ export const getTrainerSubscriptionDetail = createAsyncThunk(
           //Not a subscriber
           return console.log("Not a user");
         }
-        console.log(response.data, "getDetailOfSingleSubscription");
+        // console.log(response.data, "getDetailOfSingleSubscription");
         return response.data;
       } catch (err) {
         console.log(err);
