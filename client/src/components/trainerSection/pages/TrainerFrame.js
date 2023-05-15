@@ -9,21 +9,19 @@ import {
   XMarkIcon,
   ChatBubbleLeftIcon,
 } from "@heroicons/react/24/outline";
-import {
-  ChevronDownIcon,
-  MagnifyingGlassIcon,
-} from "@heroicons/react/20/solid";
+import { ChevronDownIcon } from "@heroicons/react/20/solid";
 
 import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../../../features/auth/authSlice";
 import { firstName, lastName } from "../../../features/trainer/trainerSlice";
+
 const navigation = [
-  { name: "Dashboard", link: "/", icon: HomeIcon, current: true },
+  { name: "Dashboard", link: "/", icon: HomeIcon, current: 1 },
   {
     name: "Chat",
     link: "/messenger",
     icon: ChatBubbleLeftIcon,
-    current: false,
+    current: 2,
   },
 ];
 const userNavigation = [{ name: "Your profile" }, { name: "Sign out" }];
@@ -37,6 +35,8 @@ export function TrainerFrame(userInfo) {
   const dispatch = useDispatch();
   const first_name = useSelector(firstName);
   const last_name = useSelector(lastName);
+
+  const [current, SetCurrent] = useState(1);
   const [name, setName] = useState({
     f_name: "",
     l_name: "",
@@ -45,7 +45,7 @@ export function TrainerFrame(userInfo) {
   useEffect(() => {
     setName((prevState) => ({ ...prevState, f_name: first_name }));
     setName((prevState) => ({ ...prevState, l_name: last_name }));
-  }, [firstName, lastName]);
+  }, [firstName]);
 
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
@@ -114,9 +114,10 @@ export function TrainerFrame(userInfo) {
                         {navigation.map((item) => (
                           <li key={item.name}>
                             <Link
+                              onClick={SetCurrent(item.current)}
                               to={`${item.link}`}
                               className={classNames(
-                                item.current
+                                item.current === current
                                   ? "bg-gray-800 text-white"
                                   : "text-gray-400 hover:text-white hover:bg-gray-800",
                                 "group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold"
@@ -151,25 +152,25 @@ export function TrainerFrame(userInfo) {
             />
           </div>
           <nav className="mt-8">
-            <ul role="list" className="flex flex-col items-center space-y-1">
+            <ul role="list" className="flex flex-col space-y-1">
               {navigation.map((item) => (
-                 <li key={item.name}>
-                 <Link
-                   to={`${item.link}`}
-                   className={classNames(
-                     item.current
-                       ? "bg-gray-800 text-white"
-                       : "text-gray-400 hover:text-white hover:bg-gray-800",
-                     "group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold"
-                   )}
-                 >
-                   <item.icon
-                     className="h-6 w-6 shrink-0"
-                     aria-hidden="true"
-                   />
-                   {item.name}
-                 </Link>
-               </li>
+                <li key={item.name}>
+                  <Link
+                    to={`${item.link}`}
+                    className={classNames(
+                      item.current
+                        ? "bg-gray-800 text-white"
+                        : "text-gray-400 hover:text-white hover:bg-gray-800",
+                      "group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold"
+                    )}
+                  >
+                    <item.icon
+                      className="h-6 w-6 shrink-0"
+                      aria-hidden="true"
+                    />
+                    {item.name}
+                  </Link>
+                </li>
               ))}
             </ul>
           </nav>
@@ -193,22 +194,11 @@ export function TrainerFrame(userInfo) {
             />
 
             <div className="flex flex-1 gap-x-4 self-stretch lg:gap-x-6">
-              <form className="relative flex flex-1" action="#" method="GET">
-                <label htmlFor="search-field" className="sr-only">
-                  Search
-                </label>
-                <MagnifyingGlassIcon
-                  className="pointer-events-none absolute inset-y-0 left-0 h-full w-5 text-gray-400"
-                  aria-hidden="true"
-                />
-                <input
-                  id="search-field"
-                  className="block h-full w-full border-0 py-0 pl-8 pr-0 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm"
-                  placeholder="Search..."
-                  type="search"
-                  name="search"
-                />
-              </form>
+              <div
+                className="relative flex flex-1"
+                action="#"
+                method="GET"
+              ></div>
               <div className="flex items-center gap-x-4 lg:gap-x-6">
                 {/* Separator */}
                 <div
@@ -234,7 +224,7 @@ export function TrainerFrame(userInfo) {
                         className="ml-4 text-sm font-semibold leading-6 text-gray-900"
                         aria-hidden="true"
                       >
-                        {`${name?.f_name} ${name?.l_name} `}
+                        {`${name.f_name} ${name.l_name} `}
                       </span>
                       <ChevronDownIcon
                         className="ml-2 h-5 w-5 text-gray-400"
