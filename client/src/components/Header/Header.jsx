@@ -61,8 +61,8 @@ const Header = () => {
           <div className="flex lg:flex-1">
             <a href="/" className="-m-1.5 p-1.5 flex items-center gap-4">
               <span className="sr-only">Your Company</span>
-              <img className="w-auto h-8" src={logo} alt="" />
-              <p className="font-bold text-white">Gym Fitness</p>
+              <img className="w-auto h-8 bg-violet-400" src={logo} alt="" />
+              <p className="font-bold text-black">Gym Fitness</p>
             </a>
           </div>
           <div className="flex lg:hidden">
@@ -83,7 +83,7 @@ const Header = () => {
             {nav__links.map((item) => (
               <button
                 key={item.id}
-                className="py-5 text-base font-semibold leading-6 cursor-pointer text-gray-50 hover:text-gray-300"
+                className="py-5 text-base font-semibold leading-7 cursor-pointer text-gray-900  hover:text-purple-600"
                 onClick={() => closeMenu(`${item.path}`)}
               >
                 {item.display}
@@ -139,7 +139,7 @@ const Header = () => {
                   {nav__links.map((item) => (
                     <button
                       key={item.id}
-                      className="block w-full px-3 py-2 -mx-3 text-base font-semibold leading-7 text-gray-900 rounded-lg hover:bg-gray-50"
+                      className="block w-full px-3 py-2 -mx-3 text-base font-semibold leading-7 text-gray-900 rounded-lg hover:text-gray-50 hover:bg-blue-900 "
                       onClick={() => closeMenu(`${item.path}`)}
                     >
                       {item.display}
@@ -148,7 +148,7 @@ const Header = () => {
                 </div>
                 <a href="/login">
                   {!isLogged && (
-                    <button className="register__btn w-full -mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 text-gray-900 bg-indigo-100 hover:bg-gray-50">
+                    <button className="register__btn w-full -mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 text-gray-50 bg-indigo-500 hover:bg-gray-50">
                       Register
                     </button>
                   )}

@@ -5,7 +5,6 @@ import Layout from "./pages/Layout";
 import Home from "./pages/Home";
 import Notfound from "./pages/Notfound";
 import { Routes, Route } from "react-router-dom";
-import LoginRegister from "./pages/LoginRegister";
 import { useDispatch, useSelector } from "react-redux";
 import Pricing from "./components/UI/Pricing";
 import ContactUs from "./components/UI/ContactUs";
@@ -30,6 +29,7 @@ import { getSubscriptionDetail } from "./features/subscription/subFetch";
 import { getTrainerInfo } from "./features/trainer/trainerFetch";
 import Trainers from "./pages/Trainers";
 import Login from "./components/UI/Login";
+import Register from "./components/UI/Register";
 function App() {
   const dispatch = useDispatch();
   const informationUser = useSelector(info);
@@ -71,6 +71,7 @@ function App() {
             <Route index element={<Home userInfo={userInfo} />} />
             {/* <Route path="/login" element={<LoginRegister />} /> */}
             <Route path="/login" element={<Login />} />
+            <Route path="/register" element={<Register />} />
             <Route path="/subs" element={<Pricing />} />
             <Route path="/contact" element={<ContactUs />} />
             <Route path="/profile" element={<Profile />} />
