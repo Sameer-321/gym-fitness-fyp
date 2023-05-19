@@ -16,7 +16,7 @@ export const getTrainerInfo = createAsyncThunk(
           Authorization: `Bearer ${token}`,
         },
       });
-      console.log(response, "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
+      // console.log(response, "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");o
       return response.data;
     } catch (err) {
       // if (!err?.response) {

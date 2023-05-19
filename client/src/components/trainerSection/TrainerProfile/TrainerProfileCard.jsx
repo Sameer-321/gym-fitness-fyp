@@ -1,5 +1,5 @@
 import React from "react";
-
+import { PencilSquareIcon } from "@heroicons/react/20/solid";
 export function TrainerProfileCard(props) {
   const { profile, name, qualification, exp } = props.detail;
   // console.log(exp);
@@ -20,6 +20,9 @@ export function TrainerProfileCard(props) {
 
       <div className="lg:w-8/12">
         <div className=" bg-purple-600 rounded-full text-center w-2/5  mr-auto mb-7 p-1">
+          <div className=" fixed right-[15px] top-[15%] mb-6 w-9 h-9 hover:cursor-pointer hover:bg-blue-100  ">
+            <PencilSquareIcon />
+          </div>
           <span className="font-semibold text-stone-200  ">
             Years of Experience:
           </span>
@@ -32,13 +35,14 @@ export function TrainerProfileCard(props) {
           </a> */}
         </div>
         <div className="flex flex-wrap gap-4">
-          {qualification.map((i) => {
-            return (
-              <span className="bg-violet-200 px-3 text-sm rounded-full py-1.5">
-                {i}
-              </span>
-            );
-          })}
+          {Array.isArray(qualification) &&
+            qualification.map((i) => {
+              return (
+                <span className="bg-violet-200 px-3 text-sm rounded-full py-1.5">
+                  {i}
+                </span>
+              );
+            })}
         </div>
       </div>
     </>

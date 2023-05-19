@@ -7,27 +7,6 @@ import { getTrainerInfo } from "../../../features/trainer/trainerFetch";
 import { info, name } from "../../../features/auth/authSlice";
 import { useSelector, useDispatch } from "react-redux";
 import { useLocation } from "react-router-dom";
-// export function TrainerProfile() {
-//   const credientialInfo = useSelector(info);
-//   const dispatch = useDispatch();
-//   const location = useLocation();
-
-//   const detail = location.state.detail;
-//   const pp = location.state.pp;
-
-//   console.log(credientialInfo.id);
-//   // const cookies = new Cookies();
-//   useEffect(() => {
-//     dispatch(getTrainerInfo(credientialInfo.id));
-//   }, []);
-//   return (
-//     <>
-//       <TrainerProfileCard />
-//       <TrainerCertificate />
-//       <TrainerPhoto />
-//     </>
-//   );
-// }
 
 export const TrainerProfile = () => {
   const location = useLocation();

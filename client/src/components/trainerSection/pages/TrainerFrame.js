@@ -15,7 +15,7 @@ import { logout } from "../../../features/auth/authSlice";
 import { firstName, lastName } from "../../../features/trainer/trainerSlice";
 
 const navigation = [
-  { name: "proflile", link: "/", icon: HomeIcon, current: 1 },
+  { name: "profile", link: "/profile", icon: HomeIcon, current: 1 },
   {
     name: "Chat",
     link: "/messenger",

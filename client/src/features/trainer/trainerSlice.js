@@ -32,7 +32,7 @@ const trainerSlice = createSlice({
         state.status = "loading";
       })
       .addCase(getTrainerInfo.fulfilled, (state, action) => {
-        console.log(action.payload, "rtttttttttttttttttttttttttt");
+        // console.log(action.payload, "rtttttttttttttttttttttttttt");
         if (action.payload) {
           const {
             _id,
@@ -48,8 +48,9 @@ const trainerSlice = createSlice({
           } = action.payload;
 
           //state management
-
-          state.isTrainer = true;
+          if (_id) {
+            state.isTrainer = true;
+          }
 
           // state.isTrainer = true;
           state.id = _id;
@@ -57,7 +58,7 @@ const trainerSlice = createSlice({
           state.lastName = lastName;
           state.gender = gender;
           state.trainerType = trainerType;
-          state.yearsOfExperience = yearsOfExperience;
+          state.yearsofExperience = yearsOfExperience;
           state.description = description;
           state.photos = photos;
           state.certificates = certificates;
@@ -77,17 +78,19 @@ export const lastName = (state) => state.trainer?.lastName;
 export const certificates = (state) => state.trainer?.certificates;
 export const photos = (state) => state.trainer?.photos;
 export const isTrainer = (state) => state.trainer?.isTrainer;
-// export const info = (state) => ({
-//   id: state.auth.id,
-//   isLoggedIn: state.auth.isLoggedIn,
-//   token: state.auth.jwt,
-//   name: state.auth.name,
-//   email: state.auth.email,
-//   role: state.auth.role,
-//   error: state.auth.error,
-//   status: state.auth.status,
-//   profilePictureLink: state.auth?.profilePictureLink,
-// });
+export const trainerProfile = (state) => ({
+  id: state.trainer.id,
+  gender: state.trainer.gender,
+  firstName: state.trainer.firstName,
+  lastName: state.trainer.lastName,
+  trainerType: state.trainer.trainerType,
+  yearsofExperience: state.trainer.yearsofExperience,
+  certificates: state.trainer.certificates,
+  photos: state.trainer.photos,
+  detail: state.trainer.description,
+  isTrainer: state.trainer.isTrainer,
+  role: state.trainer.role,
+});
 
 export const { register, getToken, resetState } = trainerSlice.actions;
 export default trainerSlice.reducer;

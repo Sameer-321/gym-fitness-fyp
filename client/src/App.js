@@ -23,13 +23,14 @@ import { getTrainerSubscriptionDetail } from "./features/TrainerSubscription/tra
 ////imports for Traienrs******
 import { TrainerPendingForm } from "./components/trainerSection/Trainer-Form/TrainerPendingForm";
 
-import { TrainerProfile } from "./components/trainerSection/TrainerProfile.js/TrainerProfile";
+import { TrainerProfile } from "./components/trainerSection/TrainerProfile/TrainerProfile";
 import { TrainerFrame } from "./components/trainerSection/pages/TrainerFrame";
 import { getSubscriptionDetail } from "./features/subscription/subFetch";
 import { getTrainerInfo } from "./features/trainer/trainerFetch";
 import Trainers from "./pages/Trainers";
 import Login from "./components/UI/Login";
 import Register from "./components/UI/Register";
+import { TheTrainerProfile } from "./components/trainerSection/TrainerProfile/TheTrainerProfile";
 function App() {
   const dispatch = useDispatch();
   const informationUser = useSelector(info);
@@ -101,13 +102,14 @@ function App() {
           <Route path="/check" element={<UpdateProfile />} />
           <Route path="/rough" element={<Rough />} />
         </Routes>
-      ) : userInfo.role === "trainer-pening" || userInfo.role === "trainer" ? (
+      ) : userInfo.role === "trainer-pending" || userInfo.role === "trainer" ? (
         <Routes>
           {userInfo.role === "trainer-pending" ? (
             <Route index element={<TrainerPendingForm />} />
           ) : (
             <Route path="/" element={<TrainerFrame userInfo={userInfo} />}>
               {/* <Route index element={<TrainerProfile />} /> */}
+              <Route path="/profile" element={<TheTrainerProfile />} />
               <Route
                 path="/messenger"
                 element={<Messenger info={userInfo} />}
