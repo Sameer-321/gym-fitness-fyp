@@ -1,8 +1,12 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { PencilSquareIcon } from "@heroicons/react/20/solid";
+import { isTrainer } from "../../../features/trainer/trainerSlice";
+import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 export function TrainerProfileCard(props) {
+  const nav = useNavigate();
   const { profile, name, qualification, exp } = props.detail;
-  // console.log(exp);
+  const trainerStatus = useSelector(isTrainer);
 
   return (
     <>
@@ -18,11 +22,14 @@ export function TrainerProfileCard(props) {
         </p>
       </div>
 
-      <div className="lg:w-8/12">
-        <div className=" bg-purple-600 rounded-full text-center w-2/5  mr-auto mb-7 p-1">
-          <div className=" fixed right-[15px] top-[15%] mb-6 w-9 h-9 hover:cursor-pointer hover:bg-blue-100  ">
+      <div onClick={() => nav("/profile/edit")} className="lg:w-8/12">
+        {trainerStatus && (
+          <div className=" absolute right-0  mb-6 w-9 h-9 hover:cursor-pointer hover:bg-blue-100  ">
             <PencilSquareIcon />
           </div>
+        )}
+
+        <div className="relative bg-purple-600 rounded-full text-center w-2/5  mr-auto mb-7 p-1">
           <span className="font-semibold text-stone-200  ">
             Years of Experience:
           </span>

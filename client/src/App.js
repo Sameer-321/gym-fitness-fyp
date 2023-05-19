@@ -31,6 +31,7 @@ import Trainers from "./pages/Trainers";
 import Login from "./components/UI/Login";
 import Register from "./components/UI/Register";
 import { TheTrainerProfile } from "./components/trainerSection/TrainerProfile/TheTrainerProfile";
+import { EditProfile } from "./components/trainerSection/EditProfile";
 function App() {
   const dispatch = useDispatch();
   const informationUser = useSelector(info);
@@ -110,6 +111,7 @@ function App() {
             <Route path="/" element={<TrainerFrame userInfo={userInfo} />}>
               {/* <Route index element={<TrainerProfile />} /> */}
               <Route path="/profile" element={<TheTrainerProfile />} />
+              <Route path="/profile/edit" element={<EditProfile />} />
               <Route
                 path="/messenger"
                 element={<Messenger info={userInfo} />}

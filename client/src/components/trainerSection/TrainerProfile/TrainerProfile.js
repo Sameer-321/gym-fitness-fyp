@@ -11,8 +11,8 @@ import { useLocation } from "react-router-dom";
 export const TrainerProfile = () => {
   const location = useLocation();
 
-  const detail = location.state.detail;
-  const pp = location.state.pp;
+  const detail = location.state?.detail;
+  const pp = location.state?.pp;
   console.log(detail);
 
   return (
