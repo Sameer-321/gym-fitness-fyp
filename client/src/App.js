@@ -29,7 +29,7 @@ import { TrainerFrame } from "./components/trainerSection/pages/TrainerFrame";
 import { getSubscriptionDetail } from "./features/subscription/subFetch";
 import { getTrainerInfo } from "./features/trainer/trainerFetch";
 import Trainers from "./pages/Trainers";
-
+import Login from "./components/UI/Login";
 function App() {
   const dispatch = useDispatch();
   const informationUser = useSelector(info);
@@ -69,7 +69,8 @@ function App() {
           <Route path="/" element={<Layout userInfo={userInfo} />}>
             //public route
             <Route index element={<Home userInfo={userInfo} />} />
-            <Route path="/login" element={<LoginRegister />} />
+            {/* <Route path="/login" element={<LoginRegister />} /> */}
+            <Route path="/login" element={<Login />} />
             <Route path="/subs" element={<Pricing />} />
             <Route path="/contact" element={<ContactUs />} />
             <Route path="/profile" element={<Profile />} />

@@ -1,8 +1,8 @@
-import React, { useState, useRef,useEffect } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { loginfetch, getMe } from "../features/auth/authFetch";
-import jwt_decode from "jwt-decode"
+import { loginfetch } from "../features/auth/authFetch";
+import jwt_decode from "jwt-decode";
 
 export default function Login(props) {
   const userRef = useRef();
@@ -17,25 +17,27 @@ export default function Login(props) {
     password: "",
   });
 
-  
-  function handleCallBackReponse(response){
-    console.log("encoded JWT ID token: " + response.credential)
-    var userObject=jwt_decode(response.credential)
-    console.log(userObject)  
-    }
-    
-      useEffect(()=>{
-    //global google //google function is import in the index.html script
-    /* global google */
-    google.accounts.id.initialize({
-      client_id: "543376537633-0s81anq2u58hmjlda2cf5mlfascscdpe.apps.googleusercontent.com",
-      callback:handleCallBackReponse
-    })
-    google.accounts.id.renderButton(
-      document.getElementById("signInDiv"),
-      {theme:"outline",size:"large",backgroundColor:"purple"}
-    )
-      },[])
+  function handleCallBackReponse(response) {
+    console.log("encoded JWT ID token: " + response.credential);
+    var userObject = jwt_decode(response.credential);
+    console.log(userObject);
+  }
+
+  useEffect(() => {
+    window.onload = () => {
+      /* global google */
+      google.accounts.id.initialize({
+        client_id:
+          "543376537633-0s81anq2u58hmjlda2cf5mlfascscdpe.apps.googleusercontent.com",
+        callback: handleCallBackReponse,
+      });
+      google.accounts.id.renderButton(document.getElementById("signInDiv"), {
+        theme: "outline",
+        size: "large",
+        backgroundColor: "purple",
+      });
+    };
+  }, []);
   function handleClick() {
     props.status(false);
   }
@@ -123,8 +125,6 @@ export default function Login(props) {
 
             <div className="flex items-center justify-between mt-4">
               <span className="w-1/5 border-b dark:border-gray-600 lg:w-1/5"></span>
-
-              
 
               <span className="w-1/5 border-b dark:border-gray-400 lg:w-1/5"></span>
             </div>
