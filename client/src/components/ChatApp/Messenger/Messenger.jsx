@@ -23,7 +23,7 @@ export function Messenger(props) {
   const nav = useNavigate();
   const { info } = props;
   const { isLoggedIn } = props.info;
-  console.log(info.role, 21111111111111111);
+  // console.log(info.role, 21111111111111111);
   const scrollRef = useRef();
 
   //State for Role-Based-Auth
@@ -123,10 +123,10 @@ export function Messenger(props) {
   return (
     <>
       {subStatus || info.role === "trainer" ? (
-        <div className="messenger container mt-[66px] mx-auto">
+        <div className="messenger  mt-[19px]  ml-[9%] mr-auto">
           <div className="chatMenu bg-gray-200 ">
             {" "}
-            <div className="chatMenuWrapper mx-auto w-full">
+            <div className="chatMenuWrapper  ml-[45px] max-w-full">
               {/* <input placeholder="Search for friends" className="chatMenuInput" /> */}
               {conversations.map((c) => (
                 <div

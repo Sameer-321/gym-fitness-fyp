@@ -29,8 +29,6 @@ import { useLocation } from "react-router-dom";
 //   );
 // }
 
-import { UserIcon } from "@heroicons/react/24/solid";
-
 export const TrainerProfile = () => {
   const location = useLocation();
 

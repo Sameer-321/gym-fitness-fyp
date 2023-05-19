@@ -4,7 +4,7 @@ import trainerImg from "../../assets/img/trainer.jpeg";
 const Start = () => {
   return (
     <section id="classes">
-      <div className="container">
+      <div className="container mx-auto">
         <div className="gap-10 sm:flex">
           <div className="w-full mb-4 sm:w-6/12">
             <img

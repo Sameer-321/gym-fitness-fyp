@@ -10,7 +10,7 @@ exports.register = async (req, res, next) => {
     const { name, email, password, role } = req.body;
 
     if (email === "admin@gymFitness.com") {
-      ErrorResponse("EMail is already taken, please try with new email.");
+      ErrorResponse("E-mail is already taken, please try with new email.");
       next();
     }
 

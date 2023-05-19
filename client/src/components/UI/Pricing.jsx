@@ -19,7 +19,7 @@ const Sub = () => {
   };
   return (
     <section>
-      <div className="container">
+      <div className="container mx-auto">
         <div className="text-center">
           <h2 className="mb-8 text-4xl font-bold sm:text-5xl">
             Gym <span className="text-indigo-500">Pricing</span> Plan

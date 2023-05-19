@@ -16,7 +16,7 @@ export default function Testimonial() {
   return (
     <>
       <section>
-        <div className="container">
+        <div className="container mx-auto">
           <h2 className="mb-6 text-4xl font-bold text-center sm:text-5xl">
             Testimonials
           </h2>

@@ -5,7 +5,6 @@ import { Link } from "react-router-dom";
 import {
   Bars3Icon,
   HomeIcon,
-  UsersIcon,
   XMarkIcon,
   ChatBubbleLeftIcon,
 } from "@heroicons/react/24/outline";
@@ -16,7 +15,7 @@ import { logout } from "../../../features/auth/authSlice";
 import { firstName, lastName } from "../../../features/trainer/trainerSlice";
 
 const navigation = [
-  { name: "Dashboard", link: "/", icon: HomeIcon, current: 1 },
+  { name: "proflile", link: "/", icon: HomeIcon, current: 1 },
   {
     name: "Chat",
     link: "/messenger",
@@ -45,7 +44,7 @@ export function TrainerFrame(userInfo) {
   useEffect(() => {
     setName((prevState) => ({ ...prevState, f_name: first_name }));
     setName((prevState) => ({ ...prevState, l_name: last_name }));
-  }, [firstName]);
+  }, [first_name]);
 
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
@@ -114,7 +113,7 @@ export function TrainerFrame(userInfo) {
                         {navigation.map((item) => (
                           <li key={item.name}>
                             <Link
-                              onClick={SetCurrent(item.current)}
+                              onClick={() => SetCurrent(item.current)}
                               to={`${item.link}`}
                               className={classNames(
                                 item.current === current
@@ -141,7 +140,7 @@ export function TrainerFrame(userInfo) {
         </Transition.Root>
 
         {/* Static sidebar for desktop */}
-        <div className="hidden lg:fixed lg:inset-y-0 lg:left-0 lg:z-50 lg:block lg:w-26 lg:overflow-y-auto lg:bg-gray-900 lg:pb-4">
+        <div className="hidden lg:fixed lg:inset-y-0 lg:left-0 lg:z-50 lg:block lg:w-[19%] lg:overflow-y-auto lg:bg-gray-900 lg:pb-4">
           <div className="flex h-16 shrink-0 items-center justify-center">
             <img
               className="h-8 w-auto"
@@ -217,7 +216,7 @@ export function TrainerFrame(userInfo) {
                           ? `http://localhost:5000/${userInfo.userInfo?.profilePictureLink}`
                           : "https://www.kindpng.com/picc/m/22-223863_no-avatar-png-circle-transparent-png.png"
                       }
-                      alt=""
+                      alt="pp"
                     />
                     <span className="hidden lg:flex lg:items-center">
                       <span

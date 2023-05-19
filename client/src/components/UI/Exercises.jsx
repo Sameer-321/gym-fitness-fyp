@@ -6,8 +6,8 @@ import leader from "../../assets/img/leader.png";
 
 const Exercises = () => {
   return (
-    <section id="schedule">
-      <div className="container">
+    <section id="schedule ">
+      <div className="container mx-auto">
         <div className="pt-12 text-center">
           <h2 className="mb-8 text-4xl font-bold sm:text-5xl">
             Benefits of <span className="text-indigo-500">Exercise</span>

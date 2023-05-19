@@ -12,7 +12,7 @@ export default function Payment() {
     //subscription is made after the khalti payment
     <>
       <br />
-      <div>
+      <div className="pt-[300px]">
         <Khalti detailSubs={myData} />
       </div>
     </>
