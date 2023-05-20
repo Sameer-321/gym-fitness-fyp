@@ -5,9 +5,12 @@ import { ExclamationCircleIcon } from "@heroicons/react/20/solid";
 
 import { updatePhotos, updateCertificates } from "./EditProfileAPI";
 import { trainerProfile } from "../../features/trainer/trainerSlice";
-
+import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
+import ApiSuccessful from "../Modal/ApiSuccessful";
+
 export function EditProfile() {
+  const nav = useNavigate();
   const cookies = new Cookies();
   const formInfo = useSelector(trainerProfile);
   //For Trainer Schema
@@ -24,6 +27,7 @@ export function EditProfile() {
     certificates: [],
     photos: [],
   });
+
   const handleFileChange = (name, files) => {
     setPhotos((prevPhotos) => ({
       ...prevPhotos,
@@ -75,7 +79,7 @@ export function EditProfile() {
       }));
     }
   };
-
+  const [apiSuccess, setApiSuccess] = useState(false);
   const handleSubmit = async (e) => {
     e.preventDefault();
     // console.log(photos.photos);
@@ -95,8 +99,15 @@ export function EditProfile() {
 
           await updateCertificates(photos.certificates, formInfo.id);
           const res = await updatePhotos(photos.photos, formInfo.id);
-
-          return res;
+          console.log(response);
+          if (response.status === 200) {
+            setApiSuccess(true);
+            //create time pause for 3 second
+            setTimeout(() => {
+              nav("/profile");
+              window.location.reload();
+            }, 3000);
+          }
         } catch (err) {
           console.log(err);
         }
@@ -108,6 +119,12 @@ export function EditProfile() {
 
   return (
     <form onSubmit={handleSubmit}>
+      {apiSuccess && (
+        <ApiSuccessful
+          header="Updated successfully!"
+          message="Profile has been updated successfully"
+        />
+      )}
       <div className="space-y-12 ml-[10%]">
         <div className="grid grid-cols-1 gap-x-8 gap-y-10 border-b border-gray-900/10 pb-12 md:grid-cols-3">
           <div>
