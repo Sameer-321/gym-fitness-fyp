@@ -2,18 +2,13 @@ import React, { useEffect, useState } from "react";
 import { TrainerProfileCard } from "./TrainerProfileCard";
 import { TrainerCertificate } from "./TrainerCertificate";
 import { TrainerPhoto } from "./TrainerPhoto";
-import { getTrainerInfo } from "../../../features/trainer/trainerFetch";
+
 // import Cookies from "universal-cookie";
 import { trainerProfile } from "../../../features/trainer/trainerSlice";
 import { Profile } from "../../../features/auth/authSlice";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 
 export const TheTrainerProfile = () => {
-  //   const location = useLocation();
-
-  //   const detail = location.state.detail;
-  //   const pp = location.state.pp;
-  //   console.log(detail);
   const PP = useSelector(Profile);
   const profile = useSelector(trainerProfile);
   console.log(PP);
