@@ -1,11 +1,9 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import Cookies from "universal-cookie";
+import { ExclamationCircleIcon } from "@heroicons/react/20/solid";
 
-import {
-  submitPhotos,
-  submitCertificates,
-} from "./Trainer-Form/trainerFormAPI";
+import { updatePhotos, updateCertificates } from "./EditProfileAPI";
 import { trainerProfile } from "../../features/trainer/trainerSlice";
 
 import { useSelector } from "react-redux";
@@ -48,9 +46,11 @@ export function EditProfile() {
       });
     }
   }, [formInfo]);
+
   useEffect(() => {
-    console.log(photos, "xxxxxxxxxxxxxx");
-  }, [photos]);
+    console.log(formInfo, "xxxxxxxxxxxxxxxxxxxxx");
+    console.log(photos, "yyyyyyyyyyyy");
+  }, [photos, trainerForm]);
   const handleChangeTrainer = (e) => {
     const { name, value, type, checked } = e.target;
     const newValue =
@@ -85,21 +85,21 @@ export function EditProfile() {
           "Content-Type": "application/json",
           authorization: `Bearer ${cookies.get("token")}`,
         };
+        try {
+          const response = await axios.put(
+            `http://localhost:5000/api/v1/trainer-profile/update/${formInfo.id}`,
+            trainerForm,
+            { headers }
+          );
+          // console.log(response, "ccccccccchhhhhhhhheeeeeeeeccccccccckkkkk");
 
-        // try {
-        //   const response = await axios.post(
-        //     `http://localhost:5000/api/v1/trainer-profile`,
-        //     { trainerForm },
-        //     { headers }
-        //   );
-        //   //   console.log(response);
-        //   await submitCertificates(photos.certificates, response.data._id);
-        //   const res = await submitPhotos(photos.photos, response.data._id);
+          await updateCertificates(photos.certificates, formInfo.id);
+          const res = await updatePhotos(photos.photos, formInfo.id);
 
-        //   return res;
-        // } catch (err) {
-        //   console.log(err);
-        // }
+          return res;
+        } catch (err) {
+          console.log(err);
+        }
       }
     };
 
@@ -108,7 +108,7 @@ export function EditProfile() {
 
   return (
     <form onSubmit={handleSubmit}>
-      <div className="space-y-12">
+      <div className="space-y-12 ml-[10%]">
         <div className="grid grid-cols-1 gap-x-8 gap-y-10 border-b border-gray-900/10 pb-12 md:grid-cols-3">
           <div>
             <h2 className="text-base font-semibold leading-7 text-gray-900">
@@ -188,6 +188,10 @@ export function EditProfile() {
               >
                 Certificates
               </label>
+              <span className="text-semibold text-red-500 flex">
+                <ExclamationCircleIcon className="h-5 w-5" /> choose the file if
+                you want to update the entire certificates
+              </span>
               <div className="mt-2 flex justify-center rounded-lg border border-dashed border-gray-900/25 px-6 py-10">
                 <div className="text-center">
                   <input
@@ -210,6 +214,10 @@ export function EditProfile() {
               >
                 Photos
               </label>
+              <span className="text-semibold text-red-500 flex">
+                <ExclamationCircleIcon className="h-5 w-5" /> choose the file if
+                you want to update the entire photos
+              </span>
               <div className="mt-2 flex justify-center rounded-lg border border-dashed border-gray-900/25 px-6 py-10">
                 <div className="text-center">
                   <input

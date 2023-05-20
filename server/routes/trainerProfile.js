@@ -5,6 +5,7 @@ const {
   createTrainerProfile,
   uploadCertificates,
   uploadPhotos,
+  updateTrainerProfile,
 } = require("../controllers/trainerProfile.js");
 const upload = require("../middleware/upload.js");
 
@@ -23,6 +24,7 @@ router.get(
 );
 
 router.post("/", protect, createTrainerProfile);
+
 router.put(
   "/uploadCertificates/:id",
   protect,
@@ -30,6 +32,8 @@ router.put(
   uploadCertificates
 );
 router.put("/uploadPhotos/:id", upload.array("file"), uploadPhotos);
+
+router.put("/update/:id", protect, authorize("trainer"), updateTrainerProfile);
 
 // router.delete("/img/:user_id", deleteProfilePicture);
 

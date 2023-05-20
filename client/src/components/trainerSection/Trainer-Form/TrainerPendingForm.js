@@ -59,7 +59,7 @@ export function TrainerPendingForm() {
             { trainerForm },
             { headers }
           );
-          console.log(response);
+          // console.log(response);
           await submitCertificates(photos.certificates, response.data._id);
           const res = await submitPhotos(photos.photos, response.data._id);
 
