@@ -3,6 +3,7 @@ import "../../styles/pricing.css";
 import { useNavigate } from "react-router-dom";
 import { isSubscriber } from "../../features/subscription/subSlice";
 import { useSelector } from "react-redux";
+import { ExclamationCircleIcon } from "@heroicons/react/20/solid";
 
 const Sub = () => {
   const subscriptionStatus = useSelector(isSubscriber);
@@ -19,11 +20,20 @@ const Sub = () => {
   };
   return (
     <section>
-      <div className="container mx-auto">
+      <div className="container mx-auto mt-[10%]">
         <div className="text-center">
           <h2 className="mb-8 text-4xl font-bold sm:text-5xl">
             Gym <span className="text-indigo-500">Pricing</span> Plan
           </h2>
+          {subscriptionStatus && (
+            <div className="flex  justify-center my-3">
+              <div className="w-6 h-6 text-red-600">
+                <ExclamationCircleIcon />
+              </div>
+              <p className="text-red-600">You already are a subscriber </p>
+            </div>
+          )}
+
           <p className="mb-10 text-xl sm:text-2xl">
             Our gym provides flexible pricing options beginning
             <br />
@@ -33,9 +43,9 @@ const Sub = () => {
         </div>
 
         {/* ========== pricing wrapper =========== */}
-        <div className="flex flex-col gap-10 lg:flex-row pricing__wrapper">
+        <div className="flex flex-col gap-10  lg:flex-row pricing__wrapper">
           <div
-            className="w-full p-10 bg-gray-100 shadow lg:px-6 lg:py-10 rounded-xl"
+            className="w-full p-10  bg-indigo-300  shadow lg:px-6 lg:py-10 rounded-xl"
             data-aos="fade-up"
             data-aos-duration="1500"
           >
@@ -78,9 +88,9 @@ const Sub = () => {
                 onClick={() => {
                   handleClick(1000, "1 month", "1");
                 }}
-                className="px-8 py-3 text-indigo-500 border border-indigo-500 rounded-lg hover:text-white hover:bg-indigo-600"
+                className="px-8 py-3  text-white bg-indigo-500 rounded-lg hover:bg-indigo-600"
               >
-                Join Now
+                Buy Now
               </button>
             </div>
           </div>
@@ -108,7 +118,7 @@ const Sub = () => {
                   <span>
                     <i className="ri-checkbox-blank-circle-fill"></i>
                   </span>
-                  Free Online Personal Trainer
+                  Free Online Picnics
                 </li>
                 <li>
                   <span>
@@ -120,7 +130,7 @@ const Sub = () => {
                   <span>
                     <i className="ri-checkbox-blank-circle-fill"></i>
                   </span>
-                  .....
+                  Free access to other branch
                 </li>
               </ul>
 
@@ -129,7 +139,7 @@ const Sub = () => {
                 onClick={() => {
                   handleClick(1100, "6 months", "6");
                 }}
-                className="px-8 py-3 text-white bg-indigo-500 rounded-lg hover:bg-indigo-600"
+                className="px-8 py-3  text-white bg-indigo-500 rounded-lg hover:bg-indigo-600"
               >
                 Buy Now
               </button>
@@ -137,11 +147,11 @@ const Sub = () => {
           </div>
 
           <div
-            className="w-full p-10 bg-gray-100 shadow lg:px-6 lg:py-10 rounded-xl"
+            className="w-full p-10 bg-indigo-300 shadow lg:px-6 lg:py-10 rounded-xl"
             data-aos="fade-up"
             data-aos-duration="1500"
           >
-            <div className="px-6 pb-10 text-center border-b border-gray-300 lg:pb-6 lg:px-0">
+            <div className="px-6 pb-10 text-center border-b  border-gray-300 lg:pb-6 lg:px-0">
               <h2 className="text-4xl lg:text-3xl">
                 Rs.20,000<sub className="text-lg text-gray-600">/Year</sub>
               </h2>
@@ -165,7 +175,7 @@ const Sub = () => {
                   <span>
                     <i className="ri-checkbox-blank-circle-fill"></i>
                   </span>
-                  Personal trainer
+                  Chances of Rewards
                 </li>
                 <li>
                   <span>
@@ -180,7 +190,7 @@ const Sub = () => {
                 onClick={() => {
                   handleClick(1200, "1 year", "12");
                 }}
-                className="px-8 py-3 text-indigo-500 border border-indigo-500 rounded-lg hover:text-white hover:bg-indigo-600"
+                className="px-8 py-3  text-white bg-indigo-500 rounded-lg hover:bg-indigo-600"
               >
                 Buy Now
               </button>

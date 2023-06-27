@@ -13,6 +13,8 @@ const List = [
 
 export function TrainersReq() {
   const [users, setUsers] = useState([]);
+
+  const [filteredUsers, setFilteredUsers] = useState([]);
   const [noUsers, setNoUsers] = useState(false);
   const [showCondition, setShowCondition] = useState("all");
   useEffect(() => {
@@ -21,6 +23,7 @@ export function TrainersReq() {
       if (res.status === 200) {
         const data = await res?.data;
         setUsers(data);
+        setFilteredUsers(data);
         if (data.length === 0) {
           setNoUsers(true);
         } else if (data.length > 0) {
@@ -31,6 +34,15 @@ export function TrainersReq() {
     }
     fetchUsers();
   }, [showCondition]);
+  // console.log(users, "ccccccc");
+  const handleSearch = (searchTerm) => {
+    const filtered = filteredUsers.filter((user) => {
+      return user.userInfo.name
+        .toLowerCase()
+        .includes(searchTerm.toLowerCase());
+    });
+    setFilteredUsers(filtered);
+  };
 
   const renderListCondition = (props) => {
     //accepted,rejected,pending,trainers and all-------->trainer req
@@ -44,7 +56,7 @@ export function TrainersReq() {
 
       <section className="container mx-auto p-6 font-mono">
         <div className="flex">
-          <SearchDrop />
+          <SearchDrop onSearch={handleSearch} />
           <DropDown changeStatus={renderListCondition} dataList={List} />
         </div>
 
@@ -65,7 +77,7 @@ export function TrainersReq() {
                   <div>No {showCondition} Request</div>
                 ) : (
                   //For rendering REquest trainers
-                  users.map((i) => <TrainerReqListCard data={i} />)
+                  filteredUsers.map((i) => <TrainerReqListCard data={i} />)
                 )}
               </tbody>
             </table>

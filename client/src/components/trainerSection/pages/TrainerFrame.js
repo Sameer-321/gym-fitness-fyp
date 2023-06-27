@@ -141,11 +141,11 @@ export function TrainerFrame(userInfo) {
 
         {/* Static sidebar for desktop */}
         <div className="hidden lg:fixed lg:inset-y-0 lg:left-0 lg:z-50 lg:block lg:w-[19%] lg:overflow-y-auto lg:bg-gray-900 lg:pb-4">
-          <div className="flex h-16 shrink-0 items-center justify-center">
+          <div className="flex h-16 shrink-0 items-center justify-center bg-purple-900">
             <img
               className="h-8 w-auto"
               src={
-                "https://www.kindpng.com/picc/m/22-223863_no-avatar-png-circle-transparent-png.png"
+                "https://www.svgrepo.com/show/420259/dumbell-gym-healthy-life.svg"
               }
               alt="Your Company"
             />

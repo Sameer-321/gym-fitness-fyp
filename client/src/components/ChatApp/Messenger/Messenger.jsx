@@ -123,7 +123,7 @@ export function Messenger(props) {
   return (
     <>
       {subStatus || info.role === "trainer" ? (
-        <div className="messenger  mt-[19px]  ml-[9%] mr-auto">
+        <div className="messenger  mt-[10%]  ml-[12%] mr-auto">
           <div className="chatMenu bg-gray-200 ">
             {" "}
             <div className="chatMenuWrapper  ml-[45px] max-w-full">
@@ -145,6 +145,9 @@ export function Messenger(props) {
           </div>
 
           <div className="chatBox">
+            <div className="flex justify-center text-lg font-semibold bg-gray-300 w-[100%]">
+              chat
+            </div>
             <div className="chatBoxWrapper">
               {currentChat ? (
                 <div>

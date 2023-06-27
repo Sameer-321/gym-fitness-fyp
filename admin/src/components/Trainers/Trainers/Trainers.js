@@ -6,6 +6,7 @@ import { SearchDrop } from "../Search/SearchDrop.js";
 
 export function Trainers() {
   const [users, setUsers] = useState([]);
+  const [filteredUsers, setFilteredUsers] = useState([]);
   const [noUsers, setNoUsers] = useState(false);
   const [showCondition, setShowCondition] = useState("trainer");
   useEffect(() => {
@@ -14,18 +15,23 @@ export function Trainers() {
       if (res.status === 200) {
         const data = await res?.data;
         setUsers(data);
+        setFilteredUsers(data);
         if (data.length === 0) {
           setNoUsers(true);
         } else if (data.length > 0) {
           setNoUsers(false);
         }
-        // console.log(data.length);
-        // console.log(res.data);
       }
       return res;
     }
     fetchUsers();
   }, [showCondition]);
+  const handleSearch = (searchTerm) => {
+    const filtered = users.filter((user) => {
+      return user.name.toLowerCase().includes(searchTerm.toLowerCase());
+    });
+    setFilteredUsers(filtered);
+  };
 
   return (
     <>
@@ -34,7 +40,7 @@ export function Trainers() {
 
       <section className="container mx-auto p-6 font-mono">
         <div className="flex">
-          <SearchDrop />
+          <SearchDrop onSearch={handleSearch} />
         </div>
 
         <div className="w-full mb-8 overflow-hidden rounded-lg shadow-lg">
@@ -54,7 +60,7 @@ export function Trainers() {
                   <div>No {showCondition} Request</div>
                 ) : (
                   //For rendering  trainers
-                  users.map((i) => <TrainerListCard data={i} />)
+                  filteredUsers.map((i) => <TrainerListCard data={i} />)
                 )}
               </tbody>
             </table>

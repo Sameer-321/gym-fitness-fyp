@@ -75,7 +75,7 @@ function App() {
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
             <Route path="/subs" element={<Pricing />} />
-            <Route path="/contact" element={<ContactUs />} />
+            {/* <Route path="/contact" element={<ContactUs />} /> */}
             <Route path="/profile" element={<Profile />} />
             <Route path="/trainers" element={<Trainers />} />
             <Route path="/trainers/profile" element={<TrainerProfile />} />

@@ -5,6 +5,7 @@ import { SearchDrop } from "../components/Trainers/Search/SearchDrop.js";
 
 export function Subscriber() {
   const [users, setUsers] = useState([]);
+  const [filteredUsers, setFilteredUsers] = useState([]);
   const [noUsers, setNoUsers] = useState(false);
 
   useEffect(() => {
@@ -14,6 +15,7 @@ export function Subscriber() {
       if (res.status === 200) {
         const data = await res.data;
         setUsers(data);
+        setFilteredUsers(data);
 
         if (data.length === 0) {
           setNoUsers(true);
@@ -24,6 +26,16 @@ export function Subscriber() {
     }
     fetchAllSubscriber();
   }, []);
+  console.log(users, "bbbbbbbbbb");
+  const handleSearch = (searchTerm) => {
+    const filtered = users.filter((user) => {
+      // Modify the condition based on your search criteria
+      return user.userInfo.name
+        .toLowerCase()
+        .includes(searchTerm.toLowerCase());
+    });
+    setFilteredUsers(filtered);
+  };
 
   return (
     <>
@@ -31,9 +43,9 @@ export function Subscriber() {
       <br />
 
       <section className="container mx-auto p-6 font-mono">
-        <div className="flex">
-          <SearchDrop />
-        </div>
+        {/* <div className="flex">
+          <SearchDrop onSearch={handleSearch} />
+        </div> */}
 
         <div className="w-full mb-8 overflow-hidden rounded-lg shadow-lg">
           <div className="w-full overflow-x-auto">

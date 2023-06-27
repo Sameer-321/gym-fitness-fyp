@@ -4,6 +4,7 @@ import { getUser } from "../components/Fetch/UserFetch";
 import { CalendarDaysIcon } from "@heroicons/react/24/outline";
 import { ExtendDate } from "../components/modals/ExtendDate";
 export const SubscriberListCard = ({ data }) => {
+  // console.log(data, "aaaaaaaaaaaaaa");
   const nav = useNavigate();
   const [userProfile, setUserProfile] = useState();
   const [popUp, setPopUp] = useState(false);
@@ -80,7 +81,7 @@ export const SubscriberListCard = ({ data }) => {
         </td>
       </tr>
 
-      <ExtendDate state={popUp} info={userProfile} />
+      <ExtendDate state={popUp} info={userProfile} detail={data} />
     </>
   );
 };

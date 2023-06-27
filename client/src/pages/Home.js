@@ -5,18 +5,15 @@ import Pricing from "../components/UI/Pricing";
 import Testimonials from "../components/UI/Testimonials";
 import VideoRender from "../components/Video/VideoRender";
 
-
 export default function Home(userInfo) {
-
   return (
     <>
-    <VideoRender/>
- 
+      <VideoRender />
+
       <Exercises />
       <Start />
       <Pricing />
       <Testimonials />
-      
     </>
   );
 }

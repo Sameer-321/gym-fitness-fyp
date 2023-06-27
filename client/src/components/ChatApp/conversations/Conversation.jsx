@@ -5,7 +5,7 @@ import axios from "axios";
 export function Conversation(props) {
   const { conversation, currentUser, userInfo } = props;
   const [user, setUser] = useState(null);
-  // console.log(userInfo);
+  //  console.log(currentUser);
 
   useEffect(() => {
     // console.log(conversation);

@@ -2,9 +2,11 @@ import React from "react";
 import { Fragment, useEffect, useState } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import { XMarkIcon } from "@heroicons/react/24/outline";
-
+import axios from "axios";
+import Cookies from "universal-cookie";
 export function ExtendDate(props) {
-  const { state, info } = props;
+  const { state, info, detail } = props;
+  console.log(detail, "aaaaaaaaaaaaaa");
   const [userInfo, setUserInfo] = useState();
   const [open, setOpen] = useState(false);
   const [date, setDate] = useState("");
@@ -15,9 +17,37 @@ export function ExtendDate(props) {
   useEffect(() => {
     setUserInfo(info);
   }, [info]);
+  useEffect(() => {
+    // `http://localhost:5000/'
+  }, []);
 
+  const URL = "http://localhost:5000/api/v1/subscribe";
+  const cookies = new Cookies();
+  const token = cookies.get("token");
   const submitButton = async () => {
-    console.log(date);
+    try {
+      const response = await axios.put(
+        `${URL}/extendSubscription/${detail._id}`,
+        { endDate: date },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      // console.log(response.data)
+      if (response.status === 200) {
+        alert("Subscription has been updated!");
+      }
+      return response;
+    } catch (err) {
+      if (!err?.response) {
+        console.log("NO Server Response");
+      } else if (err?.response?.status === 401) {
+        console.log("UnAuthorized");
+      }
+      console.log(err);
+    }
   };
 
   return (

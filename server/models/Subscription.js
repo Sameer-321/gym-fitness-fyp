@@ -48,8 +48,16 @@ const updateSubscriptionStatus = async () => {
     subscription.status = "expired";
     await subscription.save();
   });
+  const activeSubscriptions = await Subscription.find({
+    endDate: { $gt: currentDate }, // gt: greater than
+  });
+
+  activeSubscriptions.forEach(async (subscription) => {
+    subscription.status = "active";
+    await subscription.save();
+  });
 };
 
-setInterval(updateSubscriptionStatus, 3600000); // Run every hour (in milliseconds)
+setInterval(updateSubscriptionStatus, 60000); // Run every hour (in milliseconds)
 
 module.exports = mongoose.model("Subscription", SubscriptionSchema);

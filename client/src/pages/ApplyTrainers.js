@@ -31,8 +31,11 @@ export const ApplyTrainers = (props) => {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <label htmlFor="fileUpload">Select a file to upload:</label>
+    <form
+      onSubmit={handleSubmit}
+      className="mt-[15%] mb-[10%] mx-auto max-w-[80%]"
+    >
+      <label htmlFor="fileUpload">Select a file (PDF) to upload:</label>
       <input type="file" id="fileUpload" onChange={handleFileChange} />
       <button type="submit" disabled={!file}>
         Upload
